@@ -3,18 +3,24 @@ import numpy as np
 import math
 
 #parameters
-model_order = 8
-noise = 0.1
-sampleSize = 20
+model_order = 2
+noise = 0
+sampleSize = 500
+FixedData = False
 seedOrder = 2
 seedPoly = [1,-6,11]
+initial_weight = np.ones((model_order+1,1))
 nonPoly = False
-GradientD = False
+GradientD = True
+StepNormalization = False
 if GradientD == True:
-    step = 0.00000002
-    flatness = 0.01
-Regularization = False
-Lamda = 0.01
+    if StepNormalization == True:
+        step_unit = 0.00000001
+    constantStep = 0.000001
+    max_concavity = 0.01
+    max_flatness = 10
+Regularization, Lamda = False , 0.01
+Dynamic, frequency = True , 1000
 ##
 
 def plotPoly(kth_order,coefficient):
@@ -41,6 +47,13 @@ def computePolyValue(coefficient,x):
         i = i - 1
         q = q + 1
     return y
+
+def computeGradientNorm(x):
+    Norm = 0
+    for i in x:
+        Norm = Norm + np.power(i,2)
+    Norm = np.power(Norm,0.5)
+    return Norm
 
 def DifferenceOfList(a,b):
     assert len(a) == len(b)
@@ -86,21 +99,22 @@ a = 1
 while a<= model_order:
     xInput = np.append(np.power(xTrainning,a),xInput,axis=1)
     a = a + 1
-#
-# # Fixed Input Data Set (N = 10, noise = 0.08, seedOrder = 2, seedPoly = [1,-6,11]
-# xTrainning = [[  4.52708469e+00],
-#  [  3.54892977e+00],
-#  [  8.65598657e+00],
-#  [  7.42444417e+00],
-#  [  1.06205677e-03],
-#  [ -6.08414307e+00],
-#  [ -8.12355612e+00],
-#  [ -2.46180647e+00],
-#  [  3.16325686e+00],
-#  [  2.58310978e+00]]
-# yTrainning = [   4.15916456  ,  2.25377583 ,  34.01457118 ,  22.36456448 ,  11.55451357
-#  ,  80.29148183 , 131.36059395  , 33.78526768  ,  2.170814   ,   2.16461418]
-# ##
+
+if FixedData == True:
+    # Fixed Trainning Data (N = 10, noise = 0.08, seedOrder = 2, seedPoly = [1,-6,11]
+    xTrainning = [[  4.52708469e+00],
+     [  3.54892977e+00],
+     [  8.65598657e+00],
+     [  7.42444417e+00],
+     [  1.06205677e-03],
+     [ -6.08414307e+00],
+     [ -8.12355612e+00],
+     [ -2.46180647e+00],
+     [  3.16325686e+00],
+     [  2.58310978e+00]]
+    yTrainning = [   4.15916456  ,  2.25377583 ,  34.01457118 ,  22.36456448 ,  11.55451357
+     ,  80.29148183 , 131.36059395  , 33.78526768  ,  2.170814   ,   2.16461418]
+    ##
 
 if GradientD == False:
     # Linear Regression with Matrix
@@ -113,20 +127,39 @@ else:
     difference =9999999999999999999
     GDi = [0]*(model_order+1)
     GDf = [0]*(model_order+1)
-    w_lin = np.ones((model_order+1,1))
+    w_lin = initial_weight
+    GradVector = [max_flatness] * (model_order + 1)
     iteration = 0
-    while difference > flatness:
+    count = 0
+    MinimalStep = False
+    while difference > max_concavity or computeGradientNorm(GradVector)>max_flatness:
         for k in range(0,model_order+1,1):
             Gradient = 0
             GDi[k] = GDf[k]
             for i in range(0,len(xInput),1):
                 w_lin_tem = w_lin.reshape((1,model_order+1))
                 Gradient = Gradient + (computePolyValue(w_lin_tem[0],xTrainning[i])-yTrainning[i])*xInput[i][k]
-            w_lin[k][0] = w_lin[k][0] - step * Gradient
             GDf[k] = sum(Gradient)
+            GradVector[k] = sum(Gradient)
+
+            if StepNormalization == True:
+                step = step_unit * computeGradientNorm(GradVector)
+                MinimalStep = (step < constantStep)
+                w_lin[k][0] = w_lin[k][0] - max(constantStep * Gradient,step_unit*computeGradientNorm(GradVector)*Gradient)
+            else:
+                w_lin[k][0] = w_lin[k][0] - constantStep * Gradient
         difference = max(DifferenceOfList(GDi,GDf))
-        print difference
+        if StepNormalization == True: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep
+        else: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep
         iteration = iteration + 1
+        if Dynamic == True:
+            count = count + 1
+            if count == frequency:
+                pylab.axis([np.amin(xTrainning) - 1, np.amax(xTrainning) + 1, np.amin(yTrainning) - 1, np.amax(yTrainning) + 1])
+                plotPoly(model_order, w_lin)
+                plotPoly(seedOrder, seedPoly)
+                count = 0
+                pylab.show()
     print GDf
     ##
 
