@@ -12,7 +12,7 @@ seedPoly = [1,-6,11]
 initial_weight = np.ones((model_order+1,1))
 nonPoly = False
 GradientD = True
-StepNormalization = False
+StepNormalization = True
 if GradientD == True:
     if StepNormalization == True:
         step_unit = 0.00000001
@@ -132,6 +132,7 @@ else:
     iteration = 0
     count = 0
     MinimalStep = False
+    step = 0
     while difference > max_concavity or computeGradientNorm(GradVector)>max_flatness:
         for k in range(0,model_order+1,1):
             Gradient = 0
@@ -145,11 +146,11 @@ else:
             if StepNormalization == True:
                 step = step_unit * computeGradientNorm(GradVector)
                 MinimalStep = (step < constantStep)
-                w_lin[k][0] = w_lin[k][0] - max(constantStep * Gradient,step_unit*computeGradientNorm(GradVector)*Gradient)
+                w_lin[k][0] = w_lin[k][0] - max(constantStep * Gradient,step*Gradient)
             else:
                 w_lin[k][0] = w_lin[k][0] - constantStep * Gradient
         difference = max(DifferenceOfList(GDi,GDf))
-        if StepNormalization == True: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep
+        if StepNormalization == True: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep, step
         else: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep
         iteration = iteration + 1
         if Dynamic == True:
