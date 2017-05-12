@@ -3,24 +3,22 @@ import numpy as np
 import math
 
 #parameters
-model_order = 2
-noise = 0
-sampleSize = 500
+model_order = 3
+noise = 0.01
+sampleSize = 10
 FixedData = False
 seedOrder = 2
 seedPoly = [1,-6,11]
 initial_weight = np.ones((model_order+1,1))
 nonPoly = False
 GradientD = True
-StepNormalization = True
+StepNormalization = False
 if GradientD == True:
-    if StepNormalization == True:
-        step_unit = 0.00000001
-    constantStep = 0.000001
-    max_concavity = 0.01
+    Step = 0.000001
+    max_concavity = 0.015
     max_flatness = 10
 Regularization, Lamda = False , 0.01
-Dynamic, frequency = True , 1000
+Dynamic, frequency = False , 10
 ##
 
 def plotPoly(kth_order,coefficient):
@@ -63,10 +61,10 @@ def DifferenceOfList(a,b):
     return result
 
 # input space generator
-xSpace = np.random.rand(1000, 1)
+xSpace = np.random.rand(10000, 1)
 xSpace = 40 * xSpace - 20
 place = 0
-ySpace = np.zeros((1000, 1))
+ySpace = np.zeros((10000, 1))
 for i in xSpace:
     if nonPoly == True:
         y = computeSeedFunc(i)
@@ -94,27 +92,28 @@ sampleData = np.column_stack((xData,yData))
 
 xTrainning = np.reshape(sampleData[:,0],(sampleSize,1))
 yTrainning = sampleData[:,1]
+
+if FixedData == True:
+    # Fixed Trainning Data (N = 10, seedOrder = 2, seedPoly = [1,-6,11]
+    xTrainning = [[-3.26559354],
+ [5.52315428],
+ [-6.36243015],
+ [ 7.89541619],
+ [ 2.72069068],
+ [-1.49065684],
+ [ 8.08178297],
+ [-5.06001397],
+ [-3.04382835],
+ [-1.94562994]]
+    yTrainning = [  51.6656116 , 8.99294159  ,   112.03423618 ,  26.5418613   ,  1.47586894,
+   14.47830786  , 37.83090261 ,  75.63221857 ,  29.80638816 ,  18.56369913]
+    ##
+
 xInput = np.ones((sampleSize,1)) # xInput is the input data to the model, where the powers of xTrainning have been calculated
 a = 1
 while a<= model_order:
     xInput = np.append(np.power(xTrainning,a),xInput,axis=1)
     a = a + 1
-
-if FixedData == True:
-    # Fixed Trainning Data (N = 10, noise = 0.08, seedOrder = 2, seedPoly = [1,-6,11]
-    xTrainning = [[  4.52708469e+00],
-     [  3.54892977e+00],
-     [  8.65598657e+00],
-     [  7.42444417e+00],
-     [  1.06205677e-03],
-     [ -6.08414307e+00],
-     [ -8.12355612e+00],
-     [ -2.46180647e+00],
-     [  3.16325686e+00],
-     [  2.58310978e+00]]
-    yTrainning = [   4.15916456  ,  2.25377583 ,  34.01457118 ,  22.36456448 ,  11.55451357
-     ,  80.29148183 , 131.36059395  , 33.78526768  ,  2.170814   ,   2.16461418]
-    ##
 
 if GradientD == False:
     # Linear Regression with Matrix
@@ -126,32 +125,22 @@ else:
     # Linear Regression with Gradient Descent
     difference =9999999999999999999
     GDi = [0]*(model_order+1)
-    GDf = [0]*(model_order+1)
     w_lin = initial_weight
     GradVector = [max_flatness] * (model_order + 1)
     iteration = 0
     count = 0
-    MinimalStep = False
-    step = 0
     while difference > max_concavity or computeGradientNorm(GradVector)>max_flatness:
         for k in range(0,model_order+1,1):
             Gradient = 0
-            GDi[k] = GDf[k]
+            GDi[k] = GradVector[k]
             for i in range(0,len(xInput),1):
                 w_lin_tem = w_lin.reshape((1,model_order+1))
                 Gradient = Gradient + (computePolyValue(w_lin_tem[0],xTrainning[i])-yTrainning[i])*xInput[i][k]
-            GDf[k] = sum(Gradient)
             GradVector[k] = sum(Gradient)
 
-            if StepNormalization == True:
-                step = step_unit * computeGradientNorm(GradVector)
-                MinimalStep = (step < constantStep)
-                w_lin[k][0] = w_lin[k][0] - max(constantStep * Gradient,step*Gradient)
-            else:
-                w_lin[k][0] = w_lin[k][0] - constantStep * Gradient
-        difference = max(DifferenceOfList(GDi,GDf))
-        if StepNormalization == True: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep, step
-        else: print "concavity, gradient = ", difference, computeGradientNorm(GradVector) , MinimalStep
+            w_lin[k][0] = w_lin[k][0] - Step * Gradient
+        difference = max(DifferenceOfList(GDi,GradVector))
+        print "concavity, gradient = ", difference, computeGradientNorm(GradVector), GradVector
         iteration = iteration + 1
         if Dynamic == True:
             count = count + 1
@@ -160,14 +149,14 @@ else:
                 plotPoly(model_order, w_lin)
                 plotPoly(seedOrder, seedPoly)
                 count = 0
-                pylab.show()
-    print GDf
+                #pylab.show()
+    print GradVector
     ##
 
 #plot data
 pylab.plot(xTrainning,yTrainning,"ro")
 pylab.axis([np.amin(xTrainning)-1,np.amax(xTrainning)+1,np.amin(yTrainning)-1,np.amax(yTrainning)+1])
-#pylab.axis([-20,20,-10,100])
+pylab.axis([-20,20,-10,100])
 plotPoly(model_order,w_lin)
 
 if nonPoly == True:
@@ -191,14 +180,14 @@ print "In-sample Error:" , Ein
 
 #Compute out-of-sample error
 Eout = 0
-for i in range(0,1000-1,1):
+for i in range(0,10000-1,1):
     if nonPoly == True:
         Eout = Eout + abs(abs((computeSeedFunc(i) - ySpace[i])) / ySpace[i])
         #Eout = Eout + np.power((computeSeedFunc(i)-ySpace[i]),2)
     else:
         Eout = Eout + abs(abs(computePolyValue(w_lin, xSpace[i]) - ySpace[i]) / ySpace[i])
         #Eout = Eout + np.power((computePolyValue(w_lin,xSpace[i])-ySpace[i]),2)
-Eout = Eout / 1000
+Eout = Eout / 10000
 print "Out-of-sample Error:" , Eout
 if GradientD == True:
     print "Number of iteration: ", iteration
