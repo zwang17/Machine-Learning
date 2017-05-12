@@ -3,22 +3,21 @@ import numpy as np
 import math
 
 #parameters
-model_order = 3
-noise = 0.01
-sampleSize = 10
+model_order = 4
+noise = 0.2
+sampleSize = 100
 FixedData = False
 seedOrder = 2
 seedPoly = [1,-6,11]
 initial_weight = np.ones((model_order+1,1))
 nonPoly = False
-GradientD = True
-StepNormalization = False
+GradientD = False
+Regularization, Lamda = False , 0.01
+Dynamic, frequency = True , 400
 if GradientD == True:
-    Step = 0.000001
+    Step = 0.0000001
     max_concavity = 0.015
     max_flatness = 10
-Regularization, Lamda = False , 0.01
-Dynamic, frequency = False , 10
 ##
 
 def plotPoly(kth_order,coefficient):
@@ -129,7 +128,7 @@ else:
     GradVector = [max_flatness] * (model_order + 1)
     iteration = 0
     count = 0
-    while difference > max_concavity or computeGradientNorm(GradVector)>max_flatness:
+    while difference > max_concavity and computeGradientNorm(GradVector)>max_flatness:
         for k in range(0,model_order+1,1):
             Gradient = 0
             GDi[k] = GradVector[k]
@@ -137,8 +136,10 @@ else:
                 w_lin_tem = w_lin.reshape((1,model_order+1))
                 Gradient = Gradient + (computePolyValue(w_lin_tem[0],xTrainning[i])-yTrainning[i])*xInput[i][k]
             GradVector[k] = sum(Gradient)
-
-            w_lin[k][0] = w_lin[k][0] - Step * Gradient
+            if Regularization == True:
+                w_lin[k][0] = w_lin[k][0] - Step * (Gradient + Lamda*w_lin[k][0])/sampleSize
+            else:
+                w_lin[k][0] = w_lin[k][0] - Step * Gradient
         difference = max(DifferenceOfList(GDi,GradVector))
         print "concavity, gradient = ", difference, computeGradientNorm(GradVector), GradVector
         iteration = iteration + 1
@@ -149,13 +150,14 @@ else:
                 plotPoly(model_order, w_lin)
                 plotPoly(seedOrder, seedPoly)
                 count = 0
-                #pylab.show()
+                pylab.axis([-20, 20, -10, 100])
+                pylab.show()
     print GradVector
     ##
 
 #plot data
 pylab.plot(xTrainning,yTrainning,"ro")
-pylab.axis([np.amin(xTrainning)-1,np.amax(xTrainning)+1,np.amin(yTrainning)-1,np.amax(yTrainning)+1])
+#pylab.axis([np.amin(xTrainning)-1,np.amax(xTrainning)+1,np.amin(yTrainning)-1,np.amax(yTrainning)+1])
 pylab.axis([-20,20,-10,100])
 plotPoly(model_order,w_lin)
 
