@@ -4,18 +4,18 @@ import math
 
 #parameters
 model_order = 4
-noise = 0.2
-sampleSize = 100
-FixedData = False
+noise = 0
+sampleSize = 10
+FixedData = True
 seedOrder = 2
 seedPoly = [1,-6,11]
-initial_weight = np.ones((model_order+1,1))
+initial_weight = np.zeros((model_order+1,1))
 nonPoly = False
-GradientD = False
+GradientD = True
 Regularization, Lamda = False , 0.01
-Dynamic, frequency = True , 400
+Dynamic, frequency = True , 1
 if GradientD == True:
-    Step = 0.0000001
+    Step = 0.000000001
     max_concavity = 0.015
     max_flatness = 10
 ##
@@ -128,7 +128,11 @@ else:
     GradVector = [max_flatness] * (model_order + 1)
     iteration = 0
     count = 0
-    while difference > max_concavity and computeGradientNorm(GradVector)>max_flatness:
+    pylab.axis([-20, 20, -10, 100])
+    plotPoly(model_order, w_lin)
+    plotPoly(seedOrder, seedPoly)
+    pylab.show()
+    while difference > max_concavity or computeGradientNorm(GradVector)>max_flatness:
         for k in range(0,model_order+1,1):
             Gradient = 0
             GDi[k] = GradVector[k]
@@ -152,7 +156,7 @@ else:
                 count = 0
                 pylab.axis([-20, 20, -10, 100])
                 pylab.show()
-    print GradVector
+    print w_lin.transpose()
     ##
 
 #plot data
