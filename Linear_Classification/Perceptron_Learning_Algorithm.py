@@ -1,6 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+import sys
+sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
+import RandGen
+
 class PLA():
     """
     Trains a binary classifier, target function f(x) returns +1/-1, each input datapoint should be in the format [x1,x2,...,xn,f(x1,x2,...,xn)]
@@ -22,10 +26,10 @@ class PLA():
         self.pocket = pocket
         self.display = display
         if self.display == True:
-            self.show()
+            self.Show()
 
 
-    def sign(self,x):
+    def Sign(self,x):
         """
         :param x: a number
         :return: -x
@@ -35,56 +39,56 @@ class PLA():
         if x < 0:
             return -1
 
-    def moreMis(self):
+    def MoreMis(self):
         """
         Checks whether there are still misclassified points
         :return: index of the first misclassified point along input data list, -1 if all points classified correctly
         """
         x = 0
         while x <= self.sampleSize - 1:
-            if self.sign(np.dot(np.transpose(self.weight), self.xList[x])) != int(self.yList[x]):
+            if self.Sign(np.dot(np.transpose(self.weight), self.xList[x])) != int(self.yList[x]):
                 return x
             else:
                 x += 1
         return -1
 
-    def train(self):
+    def Train(self):
         """
         :return: the best hypothesis/weight in the form [w0,w1,w2,...,wn], w0 is the constant term
         """
         if self.pocket == False:
             i = 0
-            while i < self.maxIteration and self.moreMis() != -1:
-                place = self.moreMis()
+            while i < self.maxIteration and self.MoreMis() != -1:
+                place = self.MoreMis()
                 self.weight = self.weight + self.yList[place] * self.xList[place]
                 i += 1
         if self.pocket == True:
             i = 0
             bestWeight = self.weight
-            bestWeightError = self.computeEin()
-            while i < self.maxIteration and self.moreMis() != -1:
-                place = self.moreMis()
+            bestWeightError = self.ComputeEin()
+            while i < self.maxIteration and self.MoreMis() != -1:
+                place = self.MoreMis()
                 self.weight = self.weight + self.yList[place] * self.xList[place]
-                if self.computeEin() < bestWeightError:
+                if self.ComputeEin() < bestWeightError:
                     bestWeight = self.weight
-                    bestWeightError = self.computeEin()
+                    bestWeightError = self.ComputeEin()
                 i += 1
             self.weight = bestWeight
         return self.weight
 
-    def computeEin(self):
+    def ComputeEin(self):
         """
         :return: in-sample error of the current weight
         """
         w = self.weight
         n = 0
         for i in range(self.xList.shape[0]):
-            if self.sign(np.dot(np.transpose(w), self.xList[i])) != self.yList[i]:
+            if self.Sign(np.dot(np.transpose(w), self.xList[i])) != self.yList[i]:
                 n = n + 1
         Ein = float(n) / self.xList.shape[0] * 100
         return Ein
 
-    def twoDvisualization(self):
+    def TwoDvisualization(self):
         """
         Visualizes the input data list and the final hypothesis/weight if the input datapoints are 2-dimensional
         """
@@ -105,11 +109,11 @@ class PLA():
                 negative_y.append(X_y[i])
         plt.plot([positive_x], [positive_y], "go")
         plt.plot(negative_x, negative_y, "ro")
-        self.plotWeight()
+        self.PlotWeight()
         plt.axis([np.amin(X_x)-1,np.amax(X_x)+1,np.amin(X_y)-1,np.amax(X_y)+1])
         plt.show()
 
-    def plotWeight(self):
+    def PlotWeight(self):
         """
         Plots a line according to a weight in the form [w0,w1,w2], namely (w0)+(w1)x+(w2)y=0
         """
@@ -119,40 +123,16 @@ class PLA():
         x = np.linspace(xMax, xMin, 100)
         y = ((-1)*w[0] - w[1]*x) / w[2]
         plt.plot(x,y)
-    def show(self):
-        bestWeight = self.train()
-        error = self.computeEin()
+    def Show(self):
+        bestWeight = self.Train()
+        error = self.ComputeEin()
         print "weight: ",bestWeight
         print "in-sample error: ", error, "%"
-        self.twoDvisualization()
+        self.TwoDvisualization()
 
 
-    #probability distribution of +-1
-def output(k,percent):
-    if np.random.rand() < percent:
-        return (-1)*k
-    else:
-        return k
-#
-#random data generator
-    #parameters
-def GenerateRandomData(sampleSize,w,noise=0):
-    percentError = noise
-    Size = sampleSize
-    seedWeight = w
-    dimension = len(w)-1
-    sampleData = np.random.rand(sampleSize,dimension)
-    sampleData = 10*sampleData
-    Data = np.random.rand(sampleSize,dimension+1)
-    for i in range(sampleSize):
-        if np.dot(np.transpose(seedWeight)[1:],sampleData[i])+seedWeight[0] > 0:
-            Data[i] =np.append(sampleData[i],output(1,percentError))
-        if np.dot(np.transpose(seedWeight)[1:], sampleData[i])+seedWeight[0] < 0:
-            Data[i] =np.append(sampleData[i],output(-1,percentError))
-    return Data
-
-
-Data = GenerateRandomData(100,[-8,1,1],noise=0)
+Generator = RandGen.RandomDataGenerator(size=200,seedFunc=[-6,1,1],noise=0.01)
+Data = Generator.GenerateBinaryData()
 Perceptron = PLA(Data,maxIter=10000,pocket=True,display=True)
 
 
