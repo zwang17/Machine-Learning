@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-import sys
-sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
-import RandGen
 
 class PLA():
     """
@@ -31,7 +28,7 @@ class PLA():
 
     def Sign(self,x):
         """
-        :param x: a number
+        :param x: a number x
         :return: -x
         """
         if x > 0:
@@ -123,6 +120,7 @@ class PLA():
         x = np.linspace(xMax, xMin, 100)
         y = ((-1)*w[0] - w[1]*x) / w[2]
         plt.plot(x,y)
+
     def Show(self):
         bestWeight = self.Train()
         error = self.ComputeEin()
@@ -130,10 +128,9 @@ class PLA():
         print "in-sample error: ", error, "%"
         self.TwoDvisualization()
 
+    def getSampleSize(self):
+        return self.sampleSize
 
-Generator = RandGen.RandomDataGenerator(size=200,seedFunc=[-6,1,1],noise=0.01)
-Data = Generator.GenerateBinaryData()
-Perceptron = PLA(Data,maxIter=10000,pocket=True,display=True)
 
 
 
