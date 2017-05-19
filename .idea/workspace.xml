@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7d67359-20d0-4390-80b2-6a6064f3cbd3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Linear_Classification/Perceptron_test.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Linear_Regression/__init__.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Linear_Regression/Linear Regression Model Complexity Analysis.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Linear_Classification/Perceptron_Learning_Algorithm.py" afterPath="$PROJECT_DIR$/Linear_Classification/Perceptron_Learning_Algorithm.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Linear_Regression/Linear Regression with Gradient Descent.py" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Linear_Classification/Perceptron_test.py" afterPath="$PROJECT_DIR$/Linear_Classification/Perceptron_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py" afterPath="$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Random_Data_Generator/RandGen.py" afterPath="$PROJECT_DIR$/Random_Data_Generator/RandGen.py" />
     </list>
     <ignored path="Machine-Learning.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,47 +28,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Linear_Regression_with_Gradient_Descent.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Linear_Regression_test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Linear_Regression_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="259">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="e#0#53#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Perceptron_test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Linear_Classification/Perceptron_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Linear_Regression_Validation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,30 +43,18 @@
       <file leaf-file-name="Linear_Regression_Validation_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#53#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ps10_gui.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Desktop/Independent Study Project/Assignment/pset10/ps10_gui.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+            <state relative-caret-position="425">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ps11.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Desktop/Independent Study Project/Assignment/pset11/ps11.py">
+      <file leaf-file-name="Linear_Regression_Validation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="650">
+              <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -133,15 +84,15 @@
         <option value="$PROJECT_DIR$/Test/test.py" />
         <option value="$PROJECT_DIR$/Test/test1.py" />
         <option value="$PROJECT_DIR$/Neural_Network/test2.py" />
-        <option value="$PROJECT_DIR$/Random_Data_Generator/RandGen.py" />
         <option value="$PROJECT_DIR$/Linear_Regression/Linear Regression with Gradient Descent.py" />
         <option value="$PROJECT_DIR$/Linear_Regression/test.py" />
         <option value="$PROJECT_DIR$/Linear_Classification/Perceptron_Learning_Algorithm.py" />
-        <option value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py" />
-        <option value="$PROJECT_DIR$/Linear_Classification/Perceptron_test.py" />
         <option value="$PROJECT_DIR$/Linear_Regression/.idea/Linear_Regression_Validation_test.py" />
-        <option value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py" />
+        <option value="$PROJECT_DIR$/Linear_Classification/Perceptron_test.py" />
         <option value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py" />
+        <option value="$PROJECT_DIR$/Random_Data_Generator/RandGen.py" />
+        <option value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py" />
+        <option value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py" />
         <option value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py" />
       </list>
     </option>
@@ -237,41 +188,7 @@
       <recent name="D:\Machine Learning\Machine-Learning\Linear_Regression" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Linear_Regression_test">
-    <configuration default="false" name="Linear Regression with Gradient Descent" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Linear_Regression" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Machine-Learning" />
-      <option name="SCRIPT_NAME" value="D:\Machine Learning\Machine-Learning\Linear_Regression\Linear_Regression_with_Gradient_Descent.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Linear_Regression" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Machine-Learning" />
-      <option name="SCRIPT_NAME" value="D:\Machine Learning\Machine-Learning\Linear_Regression\Linear_Regression_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.Linear_Regression_Validation_test (1)">
     <configuration default="false" name="Perceptron_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -306,19 +223,53 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Linear_Regression_Validation_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="ps11" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Linear_Regression/.idea" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/Independent Study Project/Assignment/pset11" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Machine-Learning" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/Independent Study Project/Assignment/pset11/ps11.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Linear_Regression_Validation_test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Linear_Regression" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Machine-Learning" />
-      <option name="SCRIPT_NAME" value="D:\Machine Learning\Machine-Learning\Linear_Regression\Linear_Regression_Validation_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="RandGen" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Random_Data_Generator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Machine-Learning" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Random_Data_Generator/RandGen.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -458,19 +409,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.Linear Regression with Gradient Descent" />
-      <item index="1" class="java.lang.String" itemvalue="Python.test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Perceptron_test" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Linear_Regression_test" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Linear_Regression_Validation_test" />
+      <item index="0" class="java.lang.String" itemvalue="Python.Perceptron_test" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Linear_Regression_test" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ps11" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Linear_Regression_Validation_test (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Python.RandGen" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Linear_Regression_test" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Linear_Regression_Validation_test" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Perceptron_test" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Linear Regression with Gradient Descent" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Linear_Regression_Validation_test (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.RandGen" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Linear_Regression_test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Perceptron_test" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ps11" />
       </list>
     </recent_temporary>
   </component>
@@ -517,7 +468,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.297593" sideWeight="0.080729164" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.297593" sideWeight="0.080729164" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -614,6 +565,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Linear_Regression/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Desktop/Independent Study Project/Assignment/pset10/ps10_gui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -624,60 +583,52 @@
     </entry>
     <entry file="file://$USER_HOME$/Desktop/Independent Study Project/Assignment/pset11/ps11.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Linear_Classification/Perceptron_Learning_Algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3250">
-          <caret line="130" column="28" selection-start-line="130" selection-start-column="28" selection-end-line="130" selection-end-column="28" />
+        <state relative-caret-position="250">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Linear_Regression/__init__.py">
+    <entry file="file://$PROJECT_DIR$/Linear_Classification/Perceptron_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="150">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Random_Data_Generator/RandGen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        <state relative-caret-position="1975">
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py">
+    <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Linear_Classification/Perceptron_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+        <state relative-caret-position="41">
+          <caret line="136" column="13" selection-start-line="136" selection-start-column="13" selection-end-line="136" selection-end-column="13" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -686,20 +637,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#53#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="425">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_with_Gradient_Descent.py">
+    <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_Validation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        <state relative-caret-position="650">
+          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Linear_Regression/Linear_Regression_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#53#0" expanded="true" />
           </folding>
         </state>
       </provider>

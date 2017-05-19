@@ -1,13 +1,14 @@
 import numpy as np
 
 class RandomDataGenerator():
-    def __init__(self,size,seedFunc,noise=0,center=0,radius=10):
+    def __init__(self,size,seedFunc,noise=0,center=0,radius=10,normalNoise=False):
         self.noise = noise
         self.size = size
         self.seedFunc = seedFunc
         self.Data = None
         self.center = center
         self.radius = radius
+        self.normalNoise = normalNoise
     def GenerateBinaryData(self):
         """
         seedFunc should be an array in the form of [w1,w2,...,wn], so that the seed plane is (w1)x1+(w2)x2+...(wn)xn=0
@@ -67,7 +68,12 @@ class RandomDataGenerator():
         noise is the maximum percent of deviation of each data point from seed polynomial
         :return:
         """
-        for i in self.Data:
-            i[1] = i[1] * (1 - (2 * np.random.rand() - 1) * self.noise)
-
+        if self.normalNoise:
+            for i in self.Data:
+                mu = i[1]
+                sigma = i[1]*self.noise
+                i[1] = np.random.normal(mu, abs(sigma),1)
+        else:
+            for i in self.Data:
+                i[1] = i[1] * (1 - (2 * np.random.rand() - 1) * self.noise)
 

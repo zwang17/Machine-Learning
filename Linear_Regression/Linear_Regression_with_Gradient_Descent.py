@@ -136,9 +136,9 @@ class Linear_Regression():
         """
         E = 0
         size = len(xData)
-        for i in range(0, size - 1, 1):
-            E = E + abs(abs(self.ComputePolyValue(weight, xData[i]) - yData[i]) / yData[i])
-        E = E / size
+        for i in range(0, size, 1):
+            E = E + np.power((self.ComputePolyValue(weight, xData[i])- yData[i]),2)
+        E = np.sqrt(E) / size
         return E
 
     def Visualization(self):
@@ -147,7 +147,7 @@ class Linear_Regression():
         self.PlotPoly(self.weight)
         print "Final hypothesis: ", self.weight
         print "In-sample error: ", self.ComputeError(self.weight, self.xTrainning, self.yTrainning)[0]
-        print "Iteration: ", self.iteration
+        if self.GradientD == True: print "Iteration: ", self.iteration
         pylab.show()
 
     def getSampleSize(self):

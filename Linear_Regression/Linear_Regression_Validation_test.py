@@ -4,12 +4,18 @@ import sys
 sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
 import RandGen
 
-seedFunction = [1,-1,3,-6,2]
-noise = 0.01
-InputDataGenerator = RandGen.RandomDataGenerator(size=100,seedFunc=seedFunction,noise=noise,center=0,radius=10)
+seedFunction =  [1,-1,3,-6,2,3,4]
+noise = 0.1
+InputDataGenerator = RandGen.RandomDataGenerator(size=200,seedFunc=seedFunction,noise=noise,center=0,radius=5)
 sampleData = InputDataGenerator.GeneratePolyData()
 
-Validation = Validation(sampleData,1,8,0.2)
+Validation = Validation(sampleData,ValidationSetSizePercent=0.2,Order_LowerBound=1,Order_UpperBound=20,
+                        Lamda_LowerBound=-4,Lamda_UpperBound=2)
 
-print Validation.SelectModel()
+print "seed model order: " , len(seedFunction)-1
+#BestModelOrder = Validation.SelectModel(AutoRegularization=True) # Find the best model order with the option of auto-regularization along the way
+Validation.SelectLamda(Validation.SelectModel()) # Find the best model order and find the best regularization on the best model
+print "best model order: ", Validation.getBestModel()
+print "lamda:", Validation.getBestLamda()
+
 Validation.Visualization()
