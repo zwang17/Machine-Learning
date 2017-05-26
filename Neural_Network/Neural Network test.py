@@ -1,18 +1,17 @@
-import numpy
-np = numpy
-X = np.array(([36,119],[26,105],[27,100],[34,116],[33,114],[34,115],[25,99],[35,117]), dtype=float)
-y = np.array(([2],[24],[30],[8],[20],[19],[50],[2]),dtype=float)
-
-X = X/120.0
-y = y/100.0
+import sys
+sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
+import RandGen
+import numpy as np
 
 ## we have 1 hidden layer in this neural network
 
 class Neural_Network (object):
-    def __init__(self):
-        self.inputLayerSize = 2  # number of variables in the input
-        self.outputLayerSize = 1
+    def __init__(self,InputData,OutputData):
+        self.inputLayerSize = InputData.shape[1]  # number of variables in the input
+        self.outputLayerSize = OutputData.shape[1]
         self.hiddenLayerSize = 3
+        self.InputData = InputData
+        self.OutputData = OutputData
 
         self.W1 = np.random.randn(self.inputLayerSize,self.hiddenLayerSize) # initialize weights with random numbers
         self.W2 = np.random.randn(self.hiddenLayerSize, self.outputLayerSize)
@@ -25,10 +24,10 @@ class Neural_Network (object):
         return yHat
 
     def sigmoid(self,z):
-        return 1/(1+np.exp(-z))
+        return z
 
     def sigmoidPrime(self,z):
-        return np.exp(-z)/((1+np.exp(-z))**2)
+        return 1
 
     def costFunction(self,X,y):
         self.yHat = self.forward(X)
@@ -60,6 +59,13 @@ class Neural_Network (object):
         dJdW1, dJdW2 = self.costFunctionPrime(X,y)
         return np.concatenate((dJdW1.ravel(),dJdW2.ravel()))
 
+    def getInputData(self):
+        return self.InputData
+
+    def getOutputData(self):
+        return self.OutputData
+
+
 from scipy import optimize
 
 class trainer (object):
@@ -76,9 +82,9 @@ class trainer (object):
         self.N.setParams(params)
         self.J.append(self.N.costFunction(self.X,self.y))
 
-    def train(self,X,y):
-        self.X = X
-        self.y = y
+    def train(self):
+        self.X = self.N.getInputData()
+        self.y = self.N.getOutputData()
         self.J = []
         params0 = self.N.getParams()
         options = {'maxiter':200, 'disp':True}
@@ -86,10 +92,17 @@ class trainer (object):
         self.N.setParams(_res.x)
         self.optimizaitionResults = _res
 
-NN = Neural_Network()
-inputX = np.array(([36,120]), dtype=float)  # remember to match the input size with the training set
-inputX = inputX/120
+
+
+Generator = RandGen.RandomDataGenerator()
+
+InputData = Generator.GenerateLinearComboData(1000,[1,2,3],0.1,normalNoise=True)
+X = InputData[:,0:3]
+y = InputData[:,3:]
+
+NN = Neural_Network(X,y)
+inputX = np.array(([1,2,3]))  # remember to match the input size with the training set
 
 T = trainer(NN)
-T.train(X,y)
-print NN.forward(inputX)*120
+T.train()
+print NN.forward(inputX)
