@@ -58,8 +58,6 @@ class RandomDataGenerator():
         sampleSize = size
         xData = np.random.rand(sampleSize,len(seedWeight))
         yData = np.zeros((sampleSize,1))
-        print xData
-        print yData
         for i in range(0,len(yData),1):
             for k in range(0,len(xData[i]),1):
                 yData[i] = yData[i] + xData[i][k] * seedWeight[k]
@@ -69,7 +67,7 @@ class RandomDataGenerator():
 
     def AddPolyNoise(self,Data,noise,normalNoise):
         """
-        noise is the maximum percent of deviation of each data point from seed polynomial
+        noise is the maximum percent of deviation of each data point from seed polynomial or linear combination
         :return:
         """
         if normalNoise:

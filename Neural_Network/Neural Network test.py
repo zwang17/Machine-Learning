@@ -96,12 +96,12 @@ class trainer (object):
 
 Generator = RandGen.RandomDataGenerator()
 
-InputData = Generator.GenerateLinearComboData(1000,[1,2,3],0.1,normalNoise=True)
+InputData = Generator.GenerateLinearComboData(1000,[1,2,3],0.01,normalNoise=True)
 X = InputData[:,0:3]
 y = InputData[:,3:]
 
 NN = Neural_Network(X,y)
-inputX = np.array(([1,2,3]))  # remember to match the input size with the training set
+inputX = np.array(([1,2,2]))  # remember to match the input size with the training set
 
 T = trainer(NN)
 T.train()
