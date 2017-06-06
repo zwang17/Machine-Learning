@@ -3,6 +3,8 @@ import sys
 sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
 import RandGen
 
-Generator = RandGen.RandomDataGenerator(size=100,seedFunc=[-6,1,1],noise=0.02)
-Data = Generator.GenerateBinaryData()
-Perceptron = PLA(Data,maxIter=10000,pocket=True,display=True)
+Generator = RandGen.RandomDataGenerator()
+Data = Generator.GenerateBinaryData(300,[-6,1,1],noise=0.02)
+Perceptron = PLA()
+bestWeight = Perceptron.Train(Data,100000,pocket=False)
+Perceptron.TwoDvisualization(bestWeight,Data)
