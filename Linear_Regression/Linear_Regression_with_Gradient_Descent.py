@@ -4,7 +4,7 @@ import math
 
 class Linear_Regression():
 
-    def __init__(self,dataList,modelOrder,method=None,regularization=0,dynamic=False,frequency=None,step=None,max_concavity=None,max_flatness=None,display=False):
+    def __init__(self,dataList,modelOrder,method=None,regularization=0,dynamic=False,frequency=None,step=None,max_concavity=None,max_flatness=None,display=False,polynomial_regression=True):
         """
         :param dataList: 2x2 matrix, each row is a datapoint (x,f(x)) with f(x) being the target function
         :param modelOrder: int, the order of the polynomial model used for regression
@@ -26,13 +26,19 @@ class Linear_Regression():
         self.step = step
         self.max_concavity = max_concavity
         self.max_flatness = max_flatness
-        self.xTrainning = np.reshape(dataList[:,0],(self.sampleSize,1))
-        self.yTrainning = dataList[:,1]
-        self.xInput = np.ones((self.sampleSize, 1))
-        self.weight = np.zeros((self.model_order+1,1))
-        self.ArrangeData()
+        self.weight = np.ones((self.model_order + 1, 1))
+        if polynomial_regression:
+            self.xTrainning = np.reshape(dataList[:,0],(self.sampleSize,1))
+            self.yTrainning = dataList[:,1]
+            self.xInput = np.ones((self.sampleSize, 1))
+        else:
+            self.xTrainning = np.reshape(dataList[:,0:self.model_order+1],(self.sampleSize,self.model_order+1))
+            self.yTrainning = dataList[:,self.model_order+1]
+            self.xInput = self.xTrainning
+        self.poly_regres = polynomial_regression
+        if self.poly_regres:
+            self.ArrangeData()
         self.iteration = 0
-        self.display = display
 
     def PlotPoly(self,coefficient):
         """
@@ -87,6 +93,17 @@ class Linear_Regression():
             q = q + 1
         return y
 
+    def ComputeComboValue(self,weight,x):
+        """
+        :param weight: array, weight of the linear combination
+        :param x: array, input data point with the same length as weight
+        :return: dot product of weight and x
+        """
+        product = 0
+        for i in range(0,len(weight),1):
+            product = product + weight[i]*x[i]
+        return product
+
     def ArrangeData(self):
         """
         Increments the input data by creating xInput, a matrix with each column being powers of the trainning data from 0 to model order, left to right
@@ -95,40 +112,48 @@ class Linear_Regression():
         while a<= self.model_order:
             self.xInput = np.append(np.power(self.xTrainning,a),self.xInput,axis=1)
             a = a + 1
+        return self.xInput
 
     def Train(self):
         if self.GradientD == False:
             self.weight = np.dot(np.dot(np.linalg.inv(np.dot(self.xInput.transpose(),self.xInput)+np.multiply(self.regularization,np.identity(self.model_order+1))),self.xInput.transpose()),self.yTrainning)
         else:
-            difference =9999999999999999999
+            concavity =9999999999999999999
             GDi = [0]*(self.model_order+1)
             GradVector = [self.max_flatness] * (self.model_order + 1)
             count = 0
-            pylab.axis([-20, 20, -10, 100])
-            while difference > self.max_concavity or self.ComputeGradientNorm(GradVector)>self.max_flatness:
+            while concavity > self.max_concavity or flatness>self.max_flatness:
                 for k in range(0,self.model_order+1,1):
                     Gradient = 0
                     GDi[k] = GradVector[k]
                     for i in range(0,len(self.xInput),1):
                         weight_tem = self.weight.reshape((1,self.model_order+1))
-                        Gradient = Gradient + (self.ComputePolyValue(weight_tem[0],self.xTrainning[i])-self.yTrainning[i])*self.xInput[i][k]
+                        if self.poly_regres:
+                            Gradient = Gradient + (self.ComputePolyValue(weight_tem[0],self.xTrainning[i])-self.yTrainning[i])*self.xInput[i][k]
+                        else:
+                            Gradient = Gradient + (self.ComputeComboValue(self.weight, self.xTrainning[i]) -
+                                                   self.yTrainning[i]) * self.xInput[i][k]
+                            ### Gradient needs update for linear-combination regression
                     GradVector[k] = sum(Gradient)
-                    self.weight[k][0] = self.weight[k][0] - self.step * (Gradient + self.regularization*self.weight[k][0])/self.sampleSize
-                difference = max(self.DifferenceOfList(GDi,GradVector))
+
+                    self.weight[k][0] = self.weight[k][0] - self.step * (GradVector[k] + self.regularization * self.weight[k][0])/self.sampleSize
+                concavity = max(self.DifferenceOfList(GDi,GradVector))
+                flatness = self.ComputeGradientNorm(GradVector)
                 self.iteration = self.iteration + 1
                 if self.dynamic == True:
                     count = count + 1
-                    print "concavity, flatness: ", difference, self.ComputeGradientNorm(GradVector)
+                    print "concavity, flatness, GradVector, weight: ", concavity,flatness, GradVector, self.weight.transpose()[0]
                     if count == self.frequency:
                         pylab.axis([np.amin(self.xTrainning) - 1, np.amax(self.xTrainning) + 1, np.amin(self.yTrainning) - 1, np.amax(self.yTrainning) + 1])
                         self.Visualization()
                         count = 0
                         pylab.show()
+        self.Visualization()
         return self.weight
 
     def ComputeError(self,weight,xData,yData):
         """
-        Error is calculated as the average percent of deviation each data point has from the hypothesis
+        Error is calculated as the sum of square differences
         :param weight: array, the hypothesis on which error is computed
         :param xData: array
         :param yData: array
@@ -137,17 +162,21 @@ class Linear_Regression():
         E = 0
         size = len(xData)
         for i in range(0, size, 1):
-            E = E + np.power((self.ComputePolyValue(weight, xData[i])- yData[i]),2)
+            if self.poly_regres:
+                E = E + np.power((self.ComputePolyValue(weight, xData[i])- yData[i]),2)
+            else:
+                E = E + np.power((self.ComputeComboValue(weight, xData[i]) - yData[i]), 2)
         E = np.sqrt(E) / size
         return E
 
     def Visualization(self):
-        pylab.plot(self.xTrainning,self.yTrainning,"ro")
-        pylab.axis([np.amin(self.xTrainning)-1,np.amax(self.xTrainning)+1,np.amin(self.yTrainning)-1,np.amax(self.yTrainning)+1])
-        self.PlotPoly(self.weight)
-        print "Final hypothesis: ", self.weight
+        if self.poly_regres:
+            pylab.plot(self.xTrainning,self.yTrainning,"ro")
+            pylab.axis([np.amin(self.xTrainning)-1,np.amax(self.xTrainning)+1,np.amin(self.yTrainning)-1,np.amax(self.yTrainning)+1])
+            self.PlotPoly(self.weight)
+        print "Current hypothesis: ", self.weight
         print "In-sample error: ", self.ComputeError(self.weight, self.xTrainning, self.yTrainning)[0]
-        if self.GradientD == True: print "Iteration: ", self.iteration
+        if self.GradientD: print "Iteration: ", self.iteration
         pylab.show()
 
     def getSampleSize(self):

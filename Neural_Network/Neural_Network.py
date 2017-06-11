@@ -1,9 +1,6 @@
-import sys
-sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
-import RandGen
 import numpy as np
 
-## we have 1 hidden layer in this neural network
+## This particular neural network has 1 hidden layer
 
 class Neural_Network (object):
     def __init__(self,InputData,OutputData):
@@ -88,21 +85,9 @@ class trainer (object):
         self.J = []
         params0 = self.N.getParams()
         options = {'maxiter':200, 'disp':True}
-        _res = optimize.minimize(self.costFunctionWrapper, params0, jac=True, method= "BFGS", args = (X,y), options=options, callback=self.callbackF)
+        _res = optimize.minimize(self.costFunctionWrapper, params0, jac=True, method= "BFGS", args = (self.X,self.y), options=options, callback=self.callbackF)
         self.N.setParams(_res.x)
         self.optimizaitionResults = _res
 
 
 
-Generator = RandGen.RandomDataGenerator()
-
-InputData = Generator.GenerateLinearComboData(1000,[1,2,3],0.01,normalNoise=True)
-X = InputData[:,0:3]
-y = InputData[:,3:]
-
-NN = Neural_Network(X,y)
-inputX = np.array(([1,2,2]))  # remember to match the input size with the training set
-
-T = trainer(NN)
-T.train()
-print NN.forward(inputX)

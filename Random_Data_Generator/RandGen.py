@@ -40,7 +40,7 @@ class RandomDataGenerator():
             q = q + 1
         return y
 
-    def GeneratePolyData(self,size,seedFunction,center=0,radius=10,noise=0,normalNoise=False):
+    def GeneratePolyData(self,size,seedFunc,center=0,radius=10,noise=0,normalNoise=True):
         sampleSize = size
         xData = np.random.rand(sampleSize,1)
         xData = center + 2 * radius * xData - radius
@@ -48,13 +48,13 @@ class RandomDataGenerator():
         yData = np.zeros((sampleSize, 1))
         Data = np.random.rand(sampleSize, 2)
         for i in xData:
-            yData[place] = self.computePolyValue(seedFunction,i)
+            yData[place] = self.computePolyValue(seedFunc,i)
             Data[place] = np.append(xData[place],yData[place])
             place = place + 1
         Data = self.AddPolyNoise(Data,noise,normalNoise)
         return Data
 
-    def GenerateLinearComboData(self,size,seedWeight,noise=0,normalNoise=False):
+    def GenerateLinearComboData(self,size,seedWeight,noise=0,normalNoise=True):
         sampleSize = size
         xData = np.random.rand(sampleSize,len(seedWeight))
         yData = np.zeros((sampleSize,1))
@@ -62,12 +62,14 @@ class RandomDataGenerator():
             for k in range(0,len(xData[i]),1):
                 yData[i] = yData[i] + xData[i][k] * seedWeight[k]
         Data = np.column_stack((xData,yData))
-        Data = self.AddPolyNoise(Data, noise, normalNoise)
+        if noise != 0:
+            Data = self.AddPolyNoise(Data, noise, normalNoise)
         return Data
 
     def AddPolyNoise(self,Data,noise,normalNoise):
         """
-        noise is the maximum percent of deviation of each data point from seed polynomial or linear combination
+        If normalNoise is false, noise is the maximum percent of deviation of each data point is from seed polynomial or linear combination, the distribution of which is uniform
+        If normalNoise is True, noise is the standard deviation of the difference all data points are away from their ideal value, the distribution of which is normal
         :return:
         """
         if normalNoise:
