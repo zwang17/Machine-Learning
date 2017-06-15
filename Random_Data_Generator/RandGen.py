@@ -2,21 +2,48 @@ import numpy as np
 
 class RandomDataGenerator():
 
-    def GenerateBinaryData(self,size,seedWeight,noise=0):
+    def ComputePolyValue(self, coefficient, x):
+        """
+        :param coefficient: array, in the form [k1,k2,...,kn] so that the polynomial is y = k1x^(n-1) + k2x^(n-2) + ... + kn
+        :param x: double
+        :return: the value of y at x
+        """
+        q = 0
+        i = len(coefficient) - 1
+        y = 0
+        while i >= 0:
+            y = y + coefficient[q] * np.power(x, i)
+            i = i - 1
+            q = q + 1
+        return y
+
+    def GenerateBinaryData(self,size,seedWeight,Poly=False,noise=0):
         """
         :param seedWeight: seedFunc should be an array in the form of [w1,w2,...,wn], so that the seed plane is (w1)x1+(w2)x2+...(wn)xn=0
         :return:
         """
-        sampleSize = size
-        dimension = len(seedWeight)-1
-        sampleData = np.random.rand(sampleSize,dimension)
-        sampleData = 10*sampleData
-        Data = np.random.rand(sampleSize,dimension+1)
-        for i in range(sampleSize):
-            if np.dot(np.transpose(seedWeight)[1:],sampleData[i])+seedWeight[0] > 0:
-                Data[i] =np.append(sampleData[i],1)
-            if np.dot(np.transpose(seedWeight)[1:], sampleData[i])+seedWeight[0] < 0:
-                Data[i] =np.append(sampleData[i],-1)
+        if Poly == False:
+            sampleSize = size
+            dimension = len(seedWeight)-1
+            sampleData = np.random.rand(sampleSize,dimension)
+            sampleData = 10*sampleData
+            Data = np.random.rand(sampleSize,dimension+1)
+            for i in range(sampleSize):
+                if np.dot(np.transpose(seedWeight)[1:],sampleData[i])+seedWeight[0] > 0:
+                    Data[i] = np.append(sampleData[i],1)
+                if np.dot(np.transpose(seedWeight)[1:], sampleData[i])+seedWeight[0] < 0:
+                    Data[i] = np.append(sampleData[i],-1)
+        if Poly == True:
+            sampleSize = size
+            dimension = 2
+            sampleData = np.random.rand(sampleSize,dimension)
+            sampleData = 10 * sampleData
+            Data = np.random.rand(sampleSize,3)
+            for i in range(0,sampleSize,1):
+                if self.ComputePolyValue(seedWeight,sampleData[i][0]) > sampleData[i][1]:
+                    Data[i] = np.append(sampleData[i],1)
+                if self.ComputePolyValue(seedWeight,sampleData[i][0]) < sampleData[i][1]:
+                    Data[i] = np.append(sampleData[i], -1)
         Data = self.AddBinaryNoise(noise,Data)
         return Data
 
