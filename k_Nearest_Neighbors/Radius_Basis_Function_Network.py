@@ -144,6 +144,7 @@ class RBF_Network():
         return feature_matrix
 
     def Train(self):
+        self.ConstructKClusters()
         feature_matrix = self.ComputeFeatureMatrix()
         Linear_Regression_Trainer = LR.Linear_Regression(feature_matrix,len(feature_matrix[0])-2,polynomial_regression=False)
         self.weight = Linear_Regression_Trainer.Train()

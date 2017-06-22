@@ -4,17 +4,17 @@ import matplotlib.pyplot as plt
 
 
 class kNearestNeighbors():
-    def __init__(self,dataList,display=False):
+    def __init__(self,dataList):
         self.dataList = dataList
         self.InputPoint = None
-        self.display = display
         self.a,self.b,self.c,self.d = self.SplitDataList()
         self.dataListCopy = dataList
+
 
     def GetDistance(self,a,b):
         """
         :param a: an array, point a with classification at the last index
-        :param b: an array, point b with classificaiton at the last index
+        :param b: an array, point b with classification at the last index
         :return: the distance between a and b
         """
         distance = 0
@@ -110,14 +110,12 @@ class kNearestNeighbors():
             print "Condensed Set Size: ", len(TrainingSet)
         self.dataList = self.dataListCopy = TrainingSet
 
-    def KNearestNeighbors(self,k,InputPoint,DataCondensing=False):
+    def KNearestNeighbors(self,k,InputPoint,Visual=False):
         """
         :param k: number of nearest neighbors
         :param InputPoint:
         :return: The classification of InputPoint based on its k nearest neighbors
         """
-        if DataCondensing:
-            self.DataCondensing(k)
         self.InputPoint = InputPoint
         self.dataList = self.dataListCopy
         Neighbors = []
@@ -132,13 +130,13 @@ class kNearestNeighbors():
         if NumberOfPositive > (len(Neighbors)-1)/2:
             self.Classification = 1
             self.dataList = self.dataListCopy
-            if self.display:
+            if Visual:
                 plt.plot(self.InputPoint[0], self.InputPoint[1], "go")
             return 1
         else:
             self.Classification = -1
             self.dataList = self.dataListCopy
-            if self.display:
+            if Visual:
                 plt.plot(self.InputPoint[0], self.InputPoint[1], "yo")
             return -1
 
