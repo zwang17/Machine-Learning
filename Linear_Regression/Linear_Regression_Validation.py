@@ -1,5 +1,5 @@
 import pylab
-from Linear_Regression_with_Gradient_Descent import *
+from Linear_Regression_Algorithm import *
 import numpy as np
 import math
 

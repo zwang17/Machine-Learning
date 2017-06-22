@@ -1,4 +1,4 @@
-from Linear_Regression_with_Gradient_Descent import *
+from Linear_Regression_Algorithm import *
 import sys
 sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
 import RandGen

@@ -13,8 +13,8 @@ class kNearestNeighbors():
 
     def GetDistance(self,a,b):
         """
-        :param a: an array, point a
-        :param b: an array, point b
+        :param a: an array, point a with classification at the last index
+        :param b: an array, point b with classificaiton at the last index
         :return: the distance between a and b
         """
         distance = 0

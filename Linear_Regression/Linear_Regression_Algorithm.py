@@ -4,7 +4,8 @@ import math
 
 class Linear_Regression():
 
-    def __init__(self,dataList,modelOrder,method=None,regularization=0,dynamic=False,frequency=None,step=None,max_concavity=None,max_flatness=None,display=False,polynomial_regression=True):
+    def __init__(self,dataList,modelOrder,method=None,regularization=0,dynamic=False,frequency=None,step=None,
+                 max_concavity=None,max_flatness=None,polynomial_regression=True):
         """
         :param dataList: 2x2 matrix, each row is a datapoint (x,f(x)) with f(x) being the target function
         :param modelOrder: int, the order of the polynomial model used for regression
@@ -15,7 +16,6 @@ class Linear_Regression():
         :param step: double, step of gradient descent
         :param max_concavity: double, maximum value of the concavity of in-sample error surface that the algorithm aims to achieve
         :param max_flatness: double, maximum value of the norm of gradient of in-sample error surface that the algorithm aims to achieve
-        :param display: boolean, whether to display the final polynomial coefficients with in-sample error
         """
         self.model_order = modelOrder
         self.sampleSize = len(dataList)
@@ -148,7 +148,8 @@ class Linear_Regression():
                         self.Visualization()
                         count = 0
                         pylab.show()
-        self.Visualization()
+        if self.dynamic == True:
+            self.Visualization()
         return self.weight
 
     def ComputeError(self,weight,xData,yData):

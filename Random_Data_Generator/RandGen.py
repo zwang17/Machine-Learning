@@ -78,7 +78,8 @@ class RandomDataGenerator():
             yData[place] = self.computePolyValue(seedFunc,i)
             Data[place] = np.append(xData[place],yData[place])
             place = place + 1
-        Data = self.AddPolyNoise(Data,noise,normalNoise)
+        if noise != 0:
+            Data = self.AddPolyNoise(Data,noise,normalNoise)
         return Data
 
     def GenerateLinearComboData(self,size,seedWeight,noise=0,normalNoise=True):
