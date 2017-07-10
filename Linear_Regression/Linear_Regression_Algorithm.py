@@ -142,7 +142,7 @@ class Linear_Regression():
                 self.iteration = self.iteration + 1
                 if self.dynamic == True:
                     count = count + 1
-                    print "concavity, flatness, GradVector, weight: ", concavity,flatness, GradVector, self.weight.transpose()[0]
+                    print("concavity, flatness, GradVector, weight: ", concavity,flatness, GradVector, self.weight.transpose()[0])
                     if count == self.frequency:
                         pylab.axis([np.amin(self.xTrainning) - 1, np.amax(self.xTrainning) + 1, np.amin(self.yTrainning) - 1, np.amax(self.yTrainning) + 1])
                         self.Visualization()
@@ -175,9 +175,9 @@ class Linear_Regression():
             pylab.plot(self.xTrainning,self.yTrainning,"ro")
             pylab.axis([np.amin(self.xTrainning)-1,np.amax(self.xTrainning)+1,np.amin(self.yTrainning)-1,np.amax(self.yTrainning)+1])
             self.PlotPoly(self.weight)
-        print "Current hypothesis: ", self.weight
-        print "In-sample error: ", self.ComputeError(self.weight, self.xTrainning, self.yTrainning)[0]
-        if self.GradientD: print "Iteration: ", self.iteration
+        print("Current hypothesis: ", self.weight)
+        print("In-sample error: ", self.ComputeError(self.weight, self.xTrainning, self.yTrainning)[0])
+        if self.GradientD: print("Iteration: ", self.iteration)
         pylab.show()
 
     def getSampleSize(self):

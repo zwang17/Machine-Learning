@@ -101,13 +101,13 @@ class kNearestNeighbors():
         while self.GetConsistency(k,TrainingSet)[0] == -1:
             self.dataList = self.dataListCopy
             X_star = self.GetMisClassified(k,self.dataList[self.GetConsistency(k,TrainingSet)[1]])
-            print X_star
+            print(X_star)
             while self.FindElement(self.dataList[self.FindNearestNeighbor(X_star)], TrainingSet) \
                     or kNearestNeighbors(self.dataList).KNearestNeighbors(k,self.dataList[self.FindNearestNeighbor(X_star)]) != \
                             kNearestNeighbors(self.dataList).KNearestNeighbors(k,X_star):
                 self.dataList = np.delete(self.dataList, self.FindNearestNeighbor(X_star), 0)
             TrainingSet = np.concatenate((TrainingSet, [self.dataList[self.FindNearestNeighbor(X_star)]]),axis=0)
-            print "Condensed Set Size: ", len(TrainingSet)
+            print("Condensed Set Size: ", len(TrainingSet))
         self.dataList = self.dataListCopy = TrainingSet
 
     def KNearestNeighbors(self,k,InputPoint,Visual=False):

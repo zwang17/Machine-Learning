@@ -108,8 +108,8 @@ class PLA():
         y = ((-1) * weight[0] - weight[1] * x) / weight[2]
         plt.plot(x, y)
         plt.axis([xMin,xMax,yMin,yMax])
-        print "best weight: ", self.bestWeight
-        print "in-sample error: ", self.Ein, "%"
+        print("best weight: ", self.bestWeight)
+        print("in-sample error: ", self.Ein, "%")
         plt.show()
 
 

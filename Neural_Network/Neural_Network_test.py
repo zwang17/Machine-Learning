@@ -15,4 +15,4 @@ inputX = np.array(([2,2,2,4]))  # remember to match the input size with the trai
 
 T = NN.trainer(Network)
 T.train()
-print Network.forward(inputX)
+print(Network.forward(inputX))

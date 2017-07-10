@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 Generator = RandGen.RandomDataGenerator()
-DataList = Generator.GeneratePolyData(100,[1,-4,3,5],noise=0.4,normalNoise=True,center=20,radius=5)
+DataList = Generator.GeneratePolyData(100,[1,-4,3,5],noise=0.1,normalNoise=True,center=20,radius=5)
 #DataList = Generator.GenerateBinaryData(100,[1,-2,-3,1],Poly=True,noise=0.1)
 
 test = Radius_Basis_Function_Network.RBF_Network(DataList,5,1,Kernel="Gaussian")

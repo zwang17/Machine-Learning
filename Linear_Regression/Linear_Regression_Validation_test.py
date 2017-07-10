@@ -12,10 +12,10 @@ sampleData = InputDataGenerator.GeneratePolyData(size=500,seedFunc=seedFunction,
 Validation = Validation(sampleData,ValidationSetSizePercent=0.2,Order_LowerBound=1,Order_UpperBound=100,
                         Lamda_LowerBound=-4,Lamda_UpperBound=2)
 
-print "seed model order: " , len(seedFunction)-1
+print("seed model order: " , len(seedFunction)-1)
 #BestModelOrder = Validation.SelectModel(AutoRegularization=True) # Find the best model order with the option of auto-regularization along the way
 Validation.SelectLamda(Validation.SelectModel(AutoRegularization=True)) # Find the best model order and find the best regularization on the best model
-print "best model order: ", Validation.getBestModel()
-print "lamda:", Validation.getBestLamda()
+print("best model order: ", Validation.getBestModel())
+print("lamda:", Validation.getBestLamda())
 
 Validation.Visualization()

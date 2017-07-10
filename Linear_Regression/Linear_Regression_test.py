@@ -4,17 +4,17 @@ sys.path.append('D:\Machine Learning\Machine-Learning\Random_Data_Generator')
 import RandGen
 
 seedFunction = [1,2,3,4]
-model_order = len(seedFunction) - 1
+model_order = len(seedFunction)
 Generator = RandGen.RandomDataGenerator()
-sampleData1 = Generator.GenerateLinearComboData(size=1000,seedWeight=seedFunction,noise=0.04,normalNoise=True)
-sampleData2 = Generator.GeneratePolyData(size=100,seedFunc=seedFunction,noise=0.01,center=0,radius=10)
+#sampleData1 = Generator.GenerateLinearComboData(size=1000,seedWeight=seedFunction,noise=0.04,normalNoise=True)
+sampleData2 = Generator.GeneratePolyData(size=100,seedFunc=seedFunction,noise=0.1,center=0,radius=10)
 
-Trainer1 = Linear_Regression(sampleData1,modelOrder=model_order,method='GD', step = 1,max_concavity=0.1,max_flatness=10,
-                            dynamic=True,frequency=100,regularization=0, polynomial_regression=False)
-Trainer2 = Linear_Regression(sampleData2, modelOrder=model_order,method='GD', step = 0.00001,max_concavity=0.1,max_flatness=10,
-                            dynamic=True, frequency=99999, regularization=0,polynomial_regression=True)
+#Trainer1 = Linear_Regression(sampleData1,modelOrder=model_order,method='GD', step = 1,max_concavity=0.1,max_flatness=10,
+#                            dynamic=True,frequency=100,regularization=0, polynomial_regression=False)
+Trainer2 = Linear_Regression(sampleData2, modelOrder=model_order,method='GD', step = 0.0000001,max_concavity=0.1,max_flatness=10,
+                            dynamic=True, frequency=10, regularization=0,polynomial_regression=True)
 
-Final_hypothesis1 = Trainer1.Train()
+#Final_hypothesis1 = Trainer1.Train()
 Final_hypothesis2 = Trainer2.Train()
 
 

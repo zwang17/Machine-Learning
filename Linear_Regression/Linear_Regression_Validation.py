@@ -30,7 +30,7 @@ class Validation():
         errorDic = {}
         TrainerDic = {}
         while i <= self.Order_UpperBound:
-            print i,"%"
+            print(i,"%")
             self.Partition()
             Trainer = Linear_Regression(self.TrainningSet,i)
             if self.AutoRegularization:
