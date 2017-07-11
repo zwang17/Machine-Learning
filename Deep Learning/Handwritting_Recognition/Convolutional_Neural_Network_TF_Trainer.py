@@ -43,20 +43,23 @@ def accuracy(predictions, labels):
           / predictions.shape[0])
 
 
-batch_size = 100
+batch_size = 150
 patch_size = 6
 depth = 30
-num_hidden = 100
+num_hidden = 150
+stride = [1, 2, 2, 1]
+num_stride = stride[1]
 
 graph = tf.Graph()
 
 with graph.as_default():
     # Input data.
     tf_train_dataset = tf.placeholder(
-        tf.float32, shape=(batch_size, image_size, image_size, num_channels))
+        tf.float32, shape=(batch_size, image_size, image_size, num_channels),name='tf_train_dataset')
     tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
     tf_valid_dataset = tf.constant(valid_dataset)
     tf_test_dataset = tf.constant(test_dataset)
+    keep_prob = tf.placeholder(tf.float32,name='keep_prob')
 
     # Variables.
     layer1_weights = tf.Variable(tf.truncated_normal(
@@ -75,9 +78,9 @@ with graph.as_default():
 
     # Model.
     def model(data):
-        conv = tf.nn.conv2d(data, layer1_weights, [1, 2, 2, 1], padding='SAME')
+        conv = tf.nn.conv2d(data, layer1_weights, stride, padding='SAME')
         hidden = tf.nn.relu(conv + layer1_biases)
-        conv = tf.nn.conv2d(hidden, layer2_weights, [1, 2, 2, 1], padding='SAME')
+        conv = tf.nn.conv2d(hidden, layer2_weights, stride, padding='SAME')
         hidden = tf.nn.relu(conv + layer2_biases)
         shape = hidden.get_shape().as_list()
         reshape = tf.reshape(hidden, [shape[0], shape[1] * shape[2] * shape[3]])
@@ -90,6 +93,9 @@ with graph.as_default():
     loss = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
 
+    # Regularizor
+    loss = tf.nn.l2_loss(loss)
+
     # Optimizer.
     optimizer = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
 
@@ -99,8 +105,10 @@ with graph.as_default():
     test_prediction = tf.nn.softmax(model(tf_test_dataset))
 
 itera = []
-acrc = []
-num_steps = 20001
+b_ac = []
+v_ac = []
+num_steps = 10001
+test_a = 0
 
 with tf.Session(graph=graph) as session:
   tf.global_variables_initializer().run()
@@ -120,15 +128,19 @@ with tf.Session(graph=graph) as session:
       print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
       print('Validation accuracy: %.1f%%' % a)
       itera.append(step)
-      acrc.append(a)
-    if (step == num_steps - 2):
+      v_ac.append(a)
+      b_ac.append(accuracy(train_prediction.eval(
+          {tf_train_dataset: batch_data, tf_train_labels: batch_labels}
+      ), batch_labels))
+    step += 1
+    if (step == num_steps):
         print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
-        plt.plot(itera, acrc)
+        plt.plot(itera, v_ac)
+        plt.plot(itera,b_ac)
         plt.show()
         if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
-    step += 1
-  print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
-  plt.plot(itera, acrc)
-  plt.show()
+  saver.save(session,
+             'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\DeepNeuralNetworksOnLettersA-J\\CNN({},{},{},{},{})\\Saved'.format(train_dataset.shape[0]
+                 ,batch_size, patch_size, depth, num_stride, num_hidden))

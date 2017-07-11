@@ -54,33 +54,33 @@ train_dataset = train_dataset[:train_size]
 
 graph = tf.Graph()
 with graph.as_default():
-    tf_train_dataset = tf.placeholder(tf.float32,shape=(None,image_size*image_size))
+    tf_train_dataset = tf.placeholder(tf.float32,shape=(None,image_size*image_size),name='tf_train_dataset')
     tf_train_labels = tf.placeholder(tf.float32,shape=(None,num_labels))
     tf_valid_dataset = tf.constant(valid_dataset)
     tf_test_dataset = tf.constant(test_dataset)
-    keep_prob = tf.placeholder(tf.float32)
+    keep_prob = tf.placeholder(tf.float32,name='keep_prob')
 
     #Variables
-    hidden_1_layer = {'weights': tf.Variable(tf.truncated_normal([image_size*image_size,n_nodes_hl1],stddev=0.1)),
-                          'biases': tf.Variable(tf.zeros([n_nodes_hl1]))}
-    hidden_2_layer = {'weights': tf.Variable(tf.truncated_normal([n_nodes_hl1, n_nodes_hl2],stddev=0.1)),
-                      'biases': tf.Variable(tf.zeros([n_nodes_hl2]))}
-    hidden_3_layer = {'weights': tf.Variable(tf.truncated_normal([n_nodes_hl2, n_nodes_hl3],stddev=0.1)),
-                       'biases': tf.Variable(tf.zeros([n_nodes_hl3]))}
-    output_layer = {'weights': tf.Variable(tf.truncated_normal([n_nodes_hl3, n_classes],stddev=0.1)),
-                  'biases': tf.Variable(tf.zeros([n_classes]))}
+    layer_1_weights = tf.Variable(tf.truncated_normal([78,n_nodes_hl1],stddev=0.1,name='layer_1_weights')),
+    layer_1_biases = tf.Variable(tf.zeros([n_nodes_hl1]),name='layer_1_biases')
+    layer_2_weights = tf.Variable(tf.truncated_normal([n_nodes_hl1, n_nodes_hl2],stddev=0.1,name='layer_2_weights')),
+    layer_2_biases = tf.Variable(tf.zeros([n_nodes_hl2]),name='layer_2_biases')
+    layer_3_weights = tf.Variable(tf.truncated_normal([n_nodes_hl2, n_nodes_hl3],stddev=0.1,name='layer_3_weights')),
+    layer_3_biases = tf.Variable(tf.zeros([n_nodes_hl3]),name='layer_3_biases')
+    output_layer_weights = tf.Variable(tf.truncated_normal([n_nodes_hl3, n_classes],stddev=0.1,name='output_layer_weights')),
+    output_layer_biases = tf.Variable(tf.zeros([n_classes]),name='output_layer_biases')
 
-    l1 = tf.add(tf.matmul(tf_train_dataset,hidden_1_layer['weights']), hidden_1_layer['biases'])
+    l1 = tf.add(tf.matmul(tf_train_dataset,layer_1_weights), layer_1_biases)
     l1 = tf.nn.dropout(tf.nn.relu(l1),keep_prob=keep_prob)
 
 
-    l2 = tf.add(tf.matmul(l1, hidden_2_layer['weights']), hidden_2_layer['biases'])
+    l2 = tf.add(tf.matmul(l1, layer_2_weights), layer_2_biases)
     l2 = tf.nn.dropout(tf.nn.relu(l2),keep_prob=keep_prob)
 
-    l3 = tf.add(tf.matmul(l2, hidden_3_layer['weights']), hidden_3_layer['biases'])
+    l3 = tf.add(tf.matmul(l2, layer_3_weights), layer_3_biases)
     l3 = tf.nn.dropout(tf.nn.relu(l3),keep_prob=keep_prob)
 
-    logits = tf.add(tf.matmul(l3,output_layer['weights']), output_layer['biases'])
+    logits = tf.add(tf.matmul(l3,output_layer_weights), outputoutput_layer_biases)
 
     loss = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(logits=logits,labels=tf_train_labels))
@@ -88,7 +88,7 @@ with graph.as_default():
     loss = tf.nn.l2_loss(loss)
     optimizer = tf.train.AdadeltaOptimizer(0.5).minimize(loss)
 
-    train_prediction = tf.nn.softmax(logits)
+    train_prediction = tf.nn.softmax(logits,name='test_prediction')
     valid_prediction = tf.nn.softmax(
         tf.add(tf.matmul(tf.nn.relu(tf.add(
             tf.matmul(tf.nn.relu(tf.add(tf.matmul(tf.nn.relu(tf.add(tf.matmul(valid_dataset, hidden_1_layer['weights']),
@@ -104,13 +104,19 @@ with graph.as_default():
             hidden_3_layer['biases'])), output_layer['weights']), output_layer['biases'])
             )
 
+
 itera = []
 b_ac = []
 v_ac = []
-num_steps = 101
+num_steps = 1001
+test_a = 0
+
 
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
+    saver = tf.train.Saver([tf_train_dataset,tf_train_labels,keep_prob,layer_1_weights,layer_1_biases,layer_2_weights,
+                            layer_2_biases,layer_3_weights,layer_3_biases,output_layer_weights,output_layer_biases,
+                            l1,l2,l3,logits,loss,optimizer,train_prediction,valid_prediction,test_prediction])
     print("Initialized")
     step = 0
     while step < num_steps:
@@ -134,10 +140,12 @@ with tf.Session(graph=graph) as session:
             itera.append(step)
             b_ac.append(b_a)
             v_ac.append(v_a)
-        if (step == num_steps-2):
-            print("Test accuracy: %.1f%%" % accuracy(test_prediction.eval(
+        step += 1
+        if (step == num_steps):
+            test_a = accuracy(test_prediction.eval(
                 {tf_train_dataset: test_dataset, tf_train_labels: test_labels, keep_prob: 1.0}
-            ), test_labels))
+            ), test_labels)
+            print("Test accuracy: %.1f%%" % test_a)
             plt.plot(itera, v_ac)
             plt.plot(itera, b_ac)
             plt.show()
@@ -145,46 +153,5 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-        step += 1
-    print("Test accuracy: %.1f%%" % accuracy(test_prediction.eval(
-        {tf_train_dataset: test_dataset, tf_train_labels: test_labels, keep_prob: 1.0}
-    ), test_labels))
-    plt.plot(itera,v_ac)
-    plt.plot(itera,b_ac)
-    plt.show()
+    saver.save(session,'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\DeepNeuralNetworksOnLettersA-J\\DNN({},{}x{}x{},{},{})\\Saved'.format(train_size,n_nodes_hl1,n_nodes_hl2,n_nodes_hl3,batch_size,num_steps))
 
-
-        #
-        # if step%100 == 0:
-        #     testInput = mpimg.imread(
-        #         "D:\Machine Learning\Machine-Learning\Deep Learning\Handwritting_Recognition\Hand Written Letter Samples\\testSample.png")
-        #     testInput = np.reshape(testInput[:, :, :1],(28,28))
-        #     testInput = -1 * (testInput - 0.5)
-        #     plt.imshow(testInput, cmap="gray")
-        #     plt.show()
-        #     testInput = reformat2(testInput)
-        #     testResult = tf.add(tf.matmul(tf.nn.relu(tf.add(tf.matmul(tf.nn.relu(tf.add(tf.matmul(tf.nn.relu(tf.add(tf.matmul(testInput,hidden_1_layer['weights']),
-        #                                     hidden_1_layer['biases'])), hidden_2_layer['weights']),hidden_2_layer['biases'])), hidden_3_layer['weights']),
-        #                                                     hidden_3_layer['biases'])),output_layer['weights']), output_layer['biases'])
-        #     result = tf.argmax(testResult,1)
-        #     print(Match[result.eval()[0]])
-    hidden_layer_1 = {}
-    hidden_layer_1['weights'] = hidden_1_layer['weights'].eval()
-    hidden_layer_1['biases'] = hidden_1_layer['biases'].eval()
-    hidden_layer_2 = {}
-    hidden_layer_2['weights'] = hidden_2_layer['weights'].eval()
-    hidden_layer_2['biases'] = hidden_2_layer['biases'].eval()
-    hidden_layer_3 = {}
-    hidden_layer_3['weights'] = hidden_3_layer['weights'].eval()
-    hidden_layer_3['biases'] = hidden_3_layer['biases'].eval()
-    layer_output = {}
-    layer_output['weights'] = output_layer['weights'].eval()
-    layer_output['biases'] = output_layer['biases'].eval()
-    performance = {}
-    performance['iteration'] = itera
-    performance['accuracy'] = v_ac
-
-
-    weights = {'hidden_layer_1':hidden_layer_1,'hidden_layer_2':hidden_layer_2,'hidden_layer_3':hidden_layer_3,'output_layer':layer_output,'performance':performance}
-    with open('TrainedNeuralNetworkOnLetters\TrainedNeuralNetwork({},{}x{}x{},{},{}).pickle'.format(train_size,n_nodes_hl1,n_nodes_hl2,n_nodes_hl3,batch_size,num_steps),'wb') as p:
-        pickle.dump(weights,p,protocol=pickle.HIGHEST_PROTOCOL)
