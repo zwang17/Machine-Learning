@@ -103,7 +103,7 @@ with graph.as_default():
 
 itera = []
 v_ac_list = []
-num_steps = 30001
+num_steps = 50001
 
 with tf.Session(graph=graph) as session:
   tf.global_variables_initializer().run()

@@ -29,7 +29,7 @@ def accuracy(predictions, labels):
 test_dataset, test_labels = reformat(test_dataset, test_labels)
 print('Test set', test_dataset.shape, test_labels.shape)
 
-model = 'CNN(100,6,40,150,30000)'
+model = 'CNN(100,6,40,150,50000)'
 
 def imagePreprocess(location):
     testPic = mpimg.imread(location)
