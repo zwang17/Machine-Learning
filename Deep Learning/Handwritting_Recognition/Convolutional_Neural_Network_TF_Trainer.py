@@ -43,9 +43,9 @@ def accuracy(predictions, labels):
           / predictions.shape[0])
 
 
-batch_size = 50
+batch_size = 100
 patch_size = 6
-depth = 20
+depth = 30
 num_hidden = 100
 
 graph = tf.Graph()
@@ -100,7 +100,7 @@ with graph.as_default():
 
 itera = []
 acrc = []
-num_steps = 101
+num_steps = 20001
 
 with tf.Session(graph=graph) as session:
   tf.global_variables_initializer().run()
