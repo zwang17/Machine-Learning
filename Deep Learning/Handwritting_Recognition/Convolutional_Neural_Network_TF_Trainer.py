@@ -43,10 +43,10 @@ def accuracy(predictions, labels):
           / predictions.shape[0])
 
 
-batch_size = 50
+batch_size = 100
 patch_size = 6
-depth = 30
-num_hidden = 100
+depth = 40
+num_hidden = 150
 
 graph = tf.Graph()
 
@@ -56,7 +56,7 @@ with graph.as_default():
         tf.float32, shape=(batch_size, image_size, image_size, num_channels))
     tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
     tf_valid_dataset = tf.placeholder(
-        tf.float32, shape=(valid_dataset.shape[0], image_size, image_size, num_channels))
+        tf.float32, shape=(valid_dataset.shape[0], image_size, image_size, num_channels),name='tf_valid_dataset')
     tf_test_dataset = tf.placeholder(
         tf.float32, shape = (1, image_size, image_size, num_channels),name='tf_test_dataset')
 
@@ -98,7 +98,7 @@ with graph.as_default():
 
     # Predictions for the training, validation, and test data.
     train_prediction = tf.nn.softmax(logits)
-    valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
+    valid_prediction = tf.nn.softmax(model(tf_valid_dataset),name='valid_prediction')
     test_prediction = tf.nn.softmax(model(tf_test_dataset),name='test_prediction')
 
 itera = []
