@@ -20,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Convolutional_Neural_Network_TF_Trainer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Convolutional_Neural_Network_TF_Trainer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Convolutional_Neural_Network_TF_Trainer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="128" column="53" lean-forward="true" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
+            <state relative-caret-position="216">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -32,11 +32,43 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="LgRTest.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgRTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Try.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Try.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Logistic_Regression_Sk_Trainer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Logistic_Regression_Sk_Trainer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Deep_Neural_Net_TF_Trainer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Deep_Neural_Net_TF_Trainer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="189" column="63" lean-forward="false" selection-start-line="189" selection-start-column="63" selection-end-line="189" selection-end-column="63" />
+            <state relative-caret-position="81">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -134,13 +166,13 @@
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Preparation.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Logistic_Regression_Classifier_Trainer.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/TensorFlow_Trainer.py" />
-        <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgRTest.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Regularization.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Try.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Neural_Net_TF_Trainer.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Logistic_Regression_TF_Trainer.py" />
-        <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Deep_Neural_Net_TF_Trainer.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Convolutional_Neural_Network_TF_Trainer.py" />
+        <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Deep_Neural_Net_TF_Trainer.py" />
+        <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgRTest.py" />
       </list>
     </option>
   </component>
@@ -269,7 +301,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Convolutional_Neural_Network_TF_Trainer">
+  <component name="RunManager" selected="Python.LgRTest">
     <configuration default="false" name="Neural_Net_TF_Trainer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -306,24 +338,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Try" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Machine-Learning" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Try.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="Convolutional_Neural_Network_TF_Trainer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -355,6 +369,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Machine-Learning" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Deep_Neural_Net_TF_Trainer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="LgRTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Machine-Learning" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgRTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -462,17 +494,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Neural_Net_TF_Trainer" />
       <item index="1" class="java.lang.String" itemvalue="Python.Logistic_Regression_TF_Trainer" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Try" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Convolutional_Neural_Network_TF_Trainer" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Deep_Neural_Net_TF_Trainer" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Convolutional_Neural_Network_TF_Trainer" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Deep_Neural_Net_TF_Trainer" />
+      <item index="4" class="java.lang.String" itemvalue="Python.LgRTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Convolutional_Neural_Network_TF_Trainer" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Deep_Neural_Net_TF_Trainer" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Logistic_Regression_TF_Trainer" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Neural_Net_TF_Trainer" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Try" />
+        <item index="0" class="java.lang.String" itemvalue="Python.LgRTest" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Convolutional_Neural_Network_TF_Trainer" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Deep_Neural_Net_TF_Trainer" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Logistic_Regression_TF_Trainer" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Neural_Net_TF_Trainer" />
       </list>
     </recent_temporary>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -521,7 +553,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1918" height="1022" extended-state="1" />
+    <frame x="1" y="1" width="1918" height="1022" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22362868" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -781,34 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Logistic_Regression_Sk_Trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Regularization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgRTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="12" column="43" lean-forward="false" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Try.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Neural_Network/Neural_Network_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -830,21 +834,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Logistic_Regression_Sk_Trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Deep_Neural_Net_TF_Trainer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="189" column="63" lean-forward="false" selection-start-line="189" selection-start-column="63" selection-end-line="189" selection-end-column="63" />
+        <state relative-caret-position="81">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Convolutional_Neural_Network_TF_Trainer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="128" column="53" lean-forward="true" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
+        <state relative-caret-position="216">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Regularization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgRTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Try.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
