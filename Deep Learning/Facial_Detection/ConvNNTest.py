@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\face\\faces.pickle'
+pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\\faces.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -14,7 +14,7 @@ with open(pickle_file, 'rb') as f:
   del save  # hint to help gc free up memory
 
 
-model = 'CNN(50,3,3,36,256,30000)'
+model = ''
 session = tf.Session()
 saver = tf.train.import_meta_graph('C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved.meta'.format(model))
 saver.restore(session,'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved'.format(model))

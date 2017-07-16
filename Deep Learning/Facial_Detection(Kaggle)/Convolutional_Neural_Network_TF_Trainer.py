@@ -5,7 +5,7 @@ from six.moves import cPickle as pickle
 from six.moves import range
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\face\\training data from Kaggle\\training.pickle'
+pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\\training data from Kaggle\\training.pickle'
 
 with open(pickle_file, 'rb') as f:
     save = pickle.load(f)
@@ -56,7 +56,9 @@ patch_size_2 = 3
 patch_size_3 = 3
 patch_size_4 = 3
 depth = 36
-num_hidden = 512
+num_hidden_1 = 512
+num_hidden_2 = 512
+learning_rate = 0.001
 
 
 validation_dataset = valid_dataset[:batch_size]
@@ -88,13 +90,13 @@ with graph.as_default():
         [patch_size_4, patch_size_4, 2 * depth, 3 * depth], stddev=0.1))
     layer4_biases = tf.Variable(tf.constant(1.0, shape=[3 * depth]))
     layer5_weights = tf.Variable(tf.truncated_normal(
-        [image_width // 8 * image_height // 8 * 3 * depth , num_hidden], stddev=0.1))
-    layer5_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden]))
+        [image_width // 8 * image_height // 8 * 3 * depth , num_hidden_1], stddev=0.1))
+    layer5_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden_1]))
     layer6_weights = tf.Variable(tf.truncated_normal(
-        [num_hidden, num_hidden], stddev=0.1))
-    layer6_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden]))
+        [num_hidden_1, num_hidden_2], stddev=0.1))
+    layer6_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden_2]))
     layer7_weights = tf.Variable(tf.truncated_normal(
-        [num_hidden, num_output], stddev=0.1))
+        [num_hidden_2, num_output], stddev=0.1))
     layer7_biases = tf.Variable(tf.constant(1.0, shape=[num_output]))
     keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
@@ -124,7 +126,7 @@ with graph.as_default():
     loss = tf.reduce_mean(tf.reduce_sum(tf.square(model(tf_train_dataset)-tf_train_labels),1))
 
     # Optimizer.
-    optimizer = tf.train.AdamOptimizer(0.001).minimize(loss)
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
 
     # Predictions for the training, validation, and test data.
     train_prediction = model(tf_train_dataset)
@@ -136,7 +138,7 @@ minibatch_error_list = []
 minibatch_accuracy_list = []
 validation_error_list = []
 validation_accuracy_list = []
-num_steps = 50001
+num_steps = 51
 
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
@@ -171,8 +173,9 @@ with tf.Session(graph=graph) as session:
             itera.append(step)
         if (step % 10000 == 0 and step > 0):
             saver.save(session,
-                   'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection(Kaggle)\\CNN({},{},{},{},{},{},{},{})\\Saved'.format(
-                       batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden, step))
+                   'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection(Kaggle)\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
+                       batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1,
+                       num_hidden_2, step - 1))
         step += 1
         if (step == num_steps):
             print('Validation error: %.2f' % error(
@@ -191,12 +194,13 @@ with tf.Session(graph=graph) as session:
             plt.show()
             if input("Optimization about to terminate. Do you want to save the current model? [Y/N] \n") == 'Y':
                 saver.save(session,
-                       'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection(Kaggle)\\CNN({},{},{},{},{},{},{},{})\\Saved'.format(
-                           batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden, step - 1))
+                       'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection(Kaggle)\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
+                           batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2, step - 1))
             if input("Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
     saver.save(session,
-             'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection(Kaggle)\\CNN({},{},{},{},{},{},{},{})\\Saved'.format(
-                 batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden, num_steps-1))
+             'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection(Kaggle)\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
+                 batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2,
+                 step - 1))
 
