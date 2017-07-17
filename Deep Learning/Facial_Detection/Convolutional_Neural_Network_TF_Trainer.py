@@ -138,7 +138,7 @@ minibatch_error_list = []
 minibatch_accuracy_list = []
 validation_error_list = []
 validation_accuracy_list = []
-num_steps = 40001
+num_steps = 40000
 
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
@@ -175,7 +175,7 @@ with tf.Session(graph=graph) as session:
             saver.save(session,
                    'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
                        batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1,
-                       num_hidden_2, step - 1))
+                       num_hidden_2, step))
         step += 1
         if (step == num_steps):
             print('Validation error: %.2f' % error(
@@ -195,12 +195,12 @@ with tf.Session(graph=graph) as session:
             if input("Optimization about to terminate. Do you want to save the current model? [Y/N] \n") == 'Y':
                 saver.save(session,
                        'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
-                           batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2, step - 1))
+                           batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2, step))
             if input("Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
     saver.save(session,
              'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnFacialDetection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
                  batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2,
-                 step - 1))
+                 step))
 
