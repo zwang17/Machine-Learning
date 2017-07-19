@@ -22,7 +22,7 @@ def accuracy(predictions, labels):
             count += 1
     return float(count)/len(predictions)*100
 
-model = 'CNN(50,5x3x3x3,36,512x512,50000)'
+model = 'CNN(50,5x3x3x3,36,512x512,60000)'
 session = tf.Session()
 saver = tf.train.import_meta_graph('C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved.meta'.format(model))
 saver.restore(session,'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved'.format(model))

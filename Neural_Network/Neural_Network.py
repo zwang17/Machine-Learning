@@ -15,15 +15,15 @@ class Neural_Network (object):
 
     def forward(self,X):
         self.z2 = np.dot(X,self.W1) # z2 is the signal into hidden layer
-        self.a2 = self.sigmoid(self.z2) # a2 is the output of hidden layer
+        self.a2 = self.Activation(self.z2) # a2 is the output of hidden layer
         self.z3 = np.dot(self.a2,self.W2) # z3 is the signal into output layer
-        yHat = self.sigmoid(self.z3) # yHat is the output of output layer,
+        yHat = self.Activation(self.z3) # yHat is the output of output layer,
         return yHat
 
-    def sigmoid(self,z):
+    def Activation(self,z):
         return z
 
-    def sigmoidPrime(self,z):
+    def ActivationPrime(self,z):
         return 1
 
     def costFunction(self,X,y):
@@ -34,10 +34,10 @@ class Neural_Network (object):
     def costFunctionPrime(self,X,y):
         self.yHat = self.forward(X)
 
-        delta3 = np.multiply(-(y-self.yHat),self.sigmoidPrime(self.z3))
+        delta3 = np.multiply(-(y-self.yHat),self.ActivationPrime(self.z3))
         dJdW2 = np.dot(self.a2.T,delta3)
 
-        delta2 = np.dot(delta3,self.W2.T)*self.sigmoidPrime(self.z2)
+        delta2 = np.dot(delta3,self.W2.T)*self.ActivationPrime(self.z2)
         dJdW1 = np.dot(X.T,delta2)
 
         return dJdW1, dJdW2

@@ -97,7 +97,7 @@ class RandomDataGenerator():
     def AddPolyNoise(self,Data,noise,normalNoise):
         """
         If normalNoise is false, noise is the maximum percent of deviation of each data point is from seed polynomial or linear combination, the distribution of which is uniform
-        If normalNoise is True, noise is the standard deviation of the difference all data points are away from their ideal value, the distribution of which is normal
+        If normalNoise is True, noise is the standard deviation of the difference all data points are away from their ideal value, the distribution of which is normal(Gaussian)
         :return:
         """
         if normalNoise:

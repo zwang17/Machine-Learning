@@ -118,7 +118,7 @@ class Linear_Regression():
         if self.GradientD == False:
             self.weight = np.dot(np.dot(np.linalg.inv(np.dot(self.xInput.transpose(),self.xInput)+np.multiply(self.regularization,np.identity(self.model_order+1))),self.xInput.transpose()),self.yTrainning)
         else:
-            concavity =9999999999999999999
+            concavity =999999999999999
             GDi = [0]*(self.model_order+1)
             GradVector = [self.max_flatness] * (self.model_order + 1)
             count = 0
