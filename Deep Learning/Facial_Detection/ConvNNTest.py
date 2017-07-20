@@ -24,8 +24,8 @@ def accuracy(predictions, labels):
 
 model = 'CNN(50,5x3x3x3,36,512x512,60000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved'.format(model))
+saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('test_prediction:0')
@@ -34,11 +34,6 @@ keep_prob = graph.get_tensor_by_name('keep_prob:0')
 
 dataset = test_dataset
 labels = test_labels
-
-# with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\\zheyew(143x192).pickle','rb') as f:
-#     save = pickle.load(f)
-#     dataset = save['picture']
-#     dataset = np.reshape(dataset,(1,143,192))
 
 print(dataset.shape)
 prediction_list = []
