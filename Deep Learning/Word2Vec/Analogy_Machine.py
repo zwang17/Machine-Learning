@@ -1,0 +1,34 @@
+from six.moves import cPickle as pickle
+import numpy as np
+import tensorflow as tf
+
+with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\\text8\\text8.pickle','rb') as f:
+    save = pickle.load(f)
+    dictionary = save['dictionary']
+    reverse_dictionary = save['reverse_dictionary']
+
+Input1 = input('Enter three words (lower case) one by one to create an analogy for the machine to find.  The Analogy Machine will print ten most likely candidates to complete the analogy.  Ex. (beijing) to (china) as (tokyo) to ? \n')
+Input2 = input('to: \n')
+Input3 = input('is as \n')
+Input1,Input2,Input3 = dictionary[Input1],dictionary[Input2],dictionary[Input3]
+Input = np.array([Input1,Input2,Input3])
+
+model = 'DNN(1000000,512)'
+session = tf.Session()
+saver = tf.train.import_meta_graph('C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\DeepNeuralNetworkOnWord2Vec\\{}\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\DeepNeuralNetworkOnWord2Vec\\{}\Saved'.format(model))
+
+
+graph = tf.get_default_graph()
+Analogy_Similarity = graph.get_tensor_by_name('Analogy_Similarity:0')
+Analogy_Input = graph.get_tensor_by_name('Analogy_Input:0')
+
+sim = session.run(Analogy_Similarity,feed_dict={Analogy_Input:Input})
+
+top_k = 10  # number of nearest neighbors
+nearest = (-sim[0, :]).argsort()[:top_k]
+log = 'to: '
+for k in range(top_k):
+    close_word = reverse_dictionary[nearest[k]]
+    log = '%s %s / ' % (log, close_word)
+print(log)

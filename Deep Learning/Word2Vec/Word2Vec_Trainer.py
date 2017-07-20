@@ -58,7 +58,7 @@ for num_skips, skip_window in [(2, 1), (4, 2)]:
     print('    batch:', [reverse_dictionary[bi] for bi in batch])
     print('    labels:', [reverse_dictionary[li] for li in labels.reshape(16)])
 batch_size = 100
-embedding_size = 128  # Dimension of the embedding vector.
+embedding_size = 512  # Dimension of the embedding vector.
 skip_window = 2  # How many words to consider left and right.
 num_skips = 4  # How many times to reuse an input to generate a label.
 # We pick a random validation set to sample nearest neighbors. here we limit the
@@ -109,12 +109,19 @@ with graph.as_default(), tf.device('/cpu:0'):
     valid_embeddings = tf.nn.embedding_lookup(
         normalized_embeddings, valid_dataset)
     similarity = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))
+    ### Analogy Machine
+    Analogy_Input = tf.placeholder(tf.int32, shape=[3],name='Analogy_Input')
+    Analogy_Vectors = tf.nn.embedding_lookup(normalized_embeddings,Analogy_Input)
+    Approx_Vector = tf.reshape(tf.add(tf.subtract(Analogy_Vectors[1],Analogy_Vectors[0]),Analogy_Vectors[2]),[1,embedding_size])
+    Analogy_Similarity = tf.matmul(Approx_Vector,tf.transpose(normalized_embeddings),name='Analogy_Similarity')
+    ###
 
-num_steps = 100001
+num_steps = 2000001
 
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
     print('Initialized')
+    saver = tf.train.Saver()
     average_loss = 0
 
     for step in range(num_steps):
@@ -142,24 +149,24 @@ with tf.Session(graph=graph) as session:
                     log = '%s %s,' % (log, close_word)
                 print(log)
     final_embeddings = normalized_embeddings.eval()
+    saver.save(session,
+               'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\\DeepNeuralNetworkOnWord2Vec\\DNN({},{})\\Saved'.format(step,embedding_size))
 
 
-
-
-num_points = 400
-
-tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000, method='exact')
-two_d_embeddings = tsne.fit_transform(final_embeddings[1:num_points+1, :])
-
-def plot(embeddings, labels):
-    assert embeddings.shape[0] >= len(labels), 'More labels than embeddings'
-    pylab.figure(figsize=(15,15))  # in inches
-    for i, label in enumerate(labels):
-        x, y = embeddings[i,:]
-        pylab.scatter(x, y)
-        pylab.annotate(label, xy=(x, y), xytext=(5, 2), textcoords='offset points',
-                       ha='right', va='bottom')
-    pylab.show()
-
-words = [reverse_dictionary[i] for i in range(1, num_points+1)]
-plot(two_d_embeddings, words)
+    # num_points = 400
+#
+# tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000, method='exact')
+# two_d_embeddings = tsne.fit_transform(final_embeddings[1:num_points+1, :])
+#
+# def plot(embeddings, labels):
+#     assert embeddings.shape[0] >= len(labels), 'More labels than embeddings'
+#     pylab.figure(figsize=(15,15))  # in inches
+#     for i, label in enumerate(labels):
+#         x, y = embeddings[i,:]
+#         pylab.scatter(x, y)
+#         pylab.annotate(label, xy=(x, y), xytext=(5, 2), textcoords='offset points',
+#                        ha='right', va='bottom')
+#     pylab.show()
+#
+# words = [reverse_dictionary[i] for i in range(1, num_points+1)]
+# plot(two_d_embeddings, words)
