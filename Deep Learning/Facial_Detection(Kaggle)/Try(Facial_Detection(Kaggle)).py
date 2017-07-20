@@ -15,6 +15,7 @@ from six.moves import cPickle as pickle
 #     valid_labels = save['valid_labels']
 #     test_dataset = save['test_dataset']
 #     test_labels = save['test_labels']
+#     del save
 #
 # dataset = test_dataset
 # labels = test_labels

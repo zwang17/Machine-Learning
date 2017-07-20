@@ -15,6 +15,8 @@ from six.moves import cPickle as pickle
 with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\\text8\\text8.pickle','rb') as f:
     save = pickle.load(f)
     data, count, dictionary, reverse_dictionary = save['data'], save['count'], save['dictionary'], save['reverse_dictionary']
+    del save
+    
 print('[count] Most common words (+UNK)', count[:10])
 print('[data] Sample data', data[:10])
 print('makes:',dictionary['makes'])
