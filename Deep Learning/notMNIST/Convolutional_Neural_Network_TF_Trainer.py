@@ -5,7 +5,7 @@ from six.moves import cPickle as pickle
 from six.moves import range
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\Data\\notMNIST.pickle'
+pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -43,10 +43,10 @@ def accuracy(predictions, labels):
           / predictions.shape[0])
 
 
-batch_size = 100
+batch_size = 60
 patch_size = 6
 depth = 40
-num_hidden = 150
+num_hidden = 200
 
 graph = tf.Graph()
 
@@ -135,6 +135,6 @@ with tf.Session(graph=graph) as session:
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
   saver.save(session,
-             'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnLettersA-J\\CNN({},{},{},{},{})\\Saved'.format(
+             'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\notMNIST\\CNN({},{},{},{},{})\\Saved'.format(
                  batch_size, patch_size, depth, num_hidden, num_steps-1))
 

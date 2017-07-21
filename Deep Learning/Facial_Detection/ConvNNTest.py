@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\\BioID-FaceDatabase-V1.2\\faces.pickle'
+pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -24,8 +24,8 @@ def accuracy(predictions, labels):
 
 model = 'CNN(50,5x3x3x3,36,512x512,60000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\ConvolutionalNeuralNetworksOnFacialDetection\\{}\\Saved'.format(model))
+saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\{}\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\{}\\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('test_prediction:0')

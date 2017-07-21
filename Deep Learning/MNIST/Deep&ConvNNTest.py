@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\notMNIST.pickle'
+pickle_file = 'C:/Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\MNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -41,8 +41,8 @@ def imagePreprocess(location):
     return testPic
 #test = imagePreprocess("Hand Written Letter Samples\\H1.png")
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnLettersA-J\{}\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\alien\Desktop\Deep_Learning_Data\model\ConvolutionalNeuralNetworksOnLettersA-J\{}\Saved'.format(model))
+saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\MNIST\\{}\\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\MNIST\\{}\\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('valid_prediction:0')

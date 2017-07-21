@@ -6,7 +6,7 @@ from six.moves import range
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\notMNIST.pickle'
+pickle_file = 'C:/Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -174,7 +174,7 @@ with tf.Session(graph=graph) as session:
 
 ###
   testdata = imagePreprocess(
-      "D:\Machine Learning\Machine-Learning\Deep Learning\Handwritting_Recognition\Hand Written Letter Samples\H1.png")
+      "")
   result = tf.nn.softmax(tf.matmul(testdata, weights) + biases)
   print(Match[np.argmax(session.run(result))])
 ###
