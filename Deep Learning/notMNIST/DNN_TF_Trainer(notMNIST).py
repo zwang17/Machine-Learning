@@ -41,13 +41,11 @@ print('Training set', train_dataset.shape, train_labels.shape)
 print('Validation set', valid_dataset.shape, valid_labels.shape)
 print('Test set', test_dataset.shape, test_labels.shape)
 
-train_size = 200000
 n_nodes_hl1 = 1024
 n_nodes_hl2 = 1024
 n_nodes_hl3 = 1024
 n_classes = 10
 batch_size = 500
-train_dataset = train_dataset[:train_size]
 
 graph = tf.Graph()
 with graph.as_default():
@@ -126,5 +124,5 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-    saver.save(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\notMNIST\\DNN({},{}x{}x{},{},{})\\Saved'.format(train_size,n_nodes_hl1,n_nodes_hl2,n_nodes_hl3,batch_size,num_steps-1))
+    saver.save(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\notMNIST\\DNN({}x{}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,n_nodes_hl3,batch_size,num_steps-1))
 

@@ -45,7 +45,7 @@ def accuracy(predictions, labels):
 
 batch_size = 60
 patch_size = 6
-depth = 40
+depth = 32
 num_hidden = 200
 
 graph = tf.Graph()
@@ -57,9 +57,10 @@ with graph.as_default():
     tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
     tf_valid_dataset = tf.placeholder(
         tf.float32, shape=(valid_dataset.shape[0], image_size, image_size, num_channels),name='tf_valid_dataset')
+    tf_test_one = tf.placeholder(
+        tf.float32, shape = (1, image_size, image_size, num_channels),name='tf_test_one')
     tf_test_dataset = tf.placeholder(
-        tf.float32, shape = (1, image_size, image_size, num_channels),name='tf_test_dataset')
-
+        tf.float32, shape = (test_dataset.shape[0], image_size, image_size, num_channels), name='tf_test_dataset')
 
     # Variables.
     layer1_weights = tf.Variable(tf.truncated_normal(
@@ -94,16 +95,16 @@ with graph.as_default():
         tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
 
     # Optimizer.
-    optimizer = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
+    optimizer = tf.train.GradientDescentOptimizer(0.005).minimize(loss)
 
     # Predictions for the training, validation, and test data.
     train_prediction = tf.nn.softmax(logits)
     valid_prediction = tf.nn.softmax(model(tf_valid_dataset),name='valid_prediction')
+    test_prediction_one = tf.nn.softmax(model(tf_test_one),name='test_prediction_one')
     test_prediction = tf.nn.softmax(model(tf_test_dataset),name='test_prediction')
-
 itera = []
 v_ac_list = []
-num_steps = 50001
+num_steps = 30001
 
 with tf.Session(graph=graph) as session:
   tf.global_variables_initializer().run()
