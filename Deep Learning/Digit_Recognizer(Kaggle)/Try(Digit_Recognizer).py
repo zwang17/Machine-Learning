@@ -19,6 +19,7 @@ for i in range(28000):
 submission = np.reshape(temp,(28000,2))
 submission = np.asarray(submission,dtype=str)
 submission = np.insert(submission,0,[['ImageId','Label']],axis=0)
+
 print(submission)
 
 if input('Proceed?') != 'Y':
