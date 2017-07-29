@@ -16,6 +16,7 @@ def getTestDataset(file):
       test_dataset = save['test_dataset']
       del save
       print('Test set', test_dataset.shape)
+    return test_dataset
 
 image_size = 28
 num_labels = 10
