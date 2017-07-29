@@ -10,11 +10,12 @@ flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
 flags.DEFINE_string('output_dir','output','Output Directory.')
 pickle_file = os.path.join(FLAGS.input_dir, 'test.pickle');
 
-with file_io.FileIO(pickle_file, 'r') as f:
-  save = pickle.load(f)
-  test_dataset = save['test_dataset']
-  del save
-  print('Test set', test_dataset.shape)
+def getTestDataset(file):
+    with file_io.FileIO(file, 'r') as f:
+      save = pickle.load(f)
+      test_dataset = save['test_dataset']
+      del save
+      print('Test set', test_dataset.shape)
 
 image_size = 28
 num_labels = 10
@@ -41,7 +42,7 @@ def run_training():
     tf_test_one = graph.get_tensor_by_name('tf_test_one:0')
     keep_prob = graph.get_tensor_by_name('keep_prob:0')
 
-    test_dataset = test_dataset.reshape(
+    test_dataset = getTestDataset(pickle_file).reshape(
         (-1, 1, image_size, image_size, num_channels)).astype(np.float32)
 
     submission = []
