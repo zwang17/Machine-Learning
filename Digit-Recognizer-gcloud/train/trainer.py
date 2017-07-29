@@ -103,7 +103,7 @@ def run_training():
         test_prediction = tf.nn.softmax(model(tf_test_dataset),name='test_prediction')
     itera = []
     v_ac_list = []
-    num_steps = 100001
+    num_steps = 1001
 
     with tf.Session(graph=graph) as session:
       tf.global_variables_initializer().run()
