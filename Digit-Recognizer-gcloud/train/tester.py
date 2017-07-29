@@ -33,8 +33,8 @@ def accuracy(predictions, labels):
 
 def run_training():
     session = tf.Session()
-    saver = tf.train.import_meta_graph(os.path.join(FLAGS.input_dir, 'Saved.meta'))
-    saver.restore(session,os.path.join(FLAGS.input_dir, 'Saved'))
+    saver = tf.train.import_meta_graph(os.path.join(FLAGS.output_dir, 'Saved.meta'))
+    saver.restore(session,os.path.join(FLAGS.output_dir, 'Saved'))
     graph = tf.get_default_graph()
 
     test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
@@ -47,8 +47,8 @@ def run_training():
     submission = []
     for i in range(len(test_dataset)):
         result = session.run(test_prediction_one,feed_dict={tf_test_one:test_dataset[i],keep_prob: 1.0})
-        if i%1000==0:
-            print(float(i)/len(test_dataset))
+        if i % 1000 == 0:
+            print(float(i)/len(test_dataset)*100,'%')
         submission.append(np.argmax(result))
 
     with file_io.FileIO(os.path.join(FLAGS.input_dir, 'submission.pickle'), 'w') as f:

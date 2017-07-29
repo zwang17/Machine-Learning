@@ -46,7 +46,6 @@ def run_training():
     num_hidden = 200
 
     graph = tf.Graph()
-
     with graph.as_default():
         # Input data.
         tf_train_dataset = tf.placeholder(
