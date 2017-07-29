@@ -9,7 +9,7 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
 # flags.DEFINE_string('output_dir','output','Output Directory.')
 pickle_file = os.path.join(FLAGS.input_dir, 'train.pickle');
-with file_io.FileIO(pickle_file, 'rb') as f:
+with file_io.FileIO(pickle_file, 'r') as f:
     save = pickle.load(f)
     train_dataset = save['train_dataset']
     train_labels = save['train_labels']
