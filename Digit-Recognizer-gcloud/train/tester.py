@@ -1,15 +1,18 @@
-import tensorflow as tf
-import matplotlib.image as mpimg
+import os.path
 import numpy as np
-import matplotlib.pyplot as plt
+import tensorflow as tf
 from six.moves import cPickle as pickle
+from tensorflow.python.lib.io import file_io
 
-pickle_file = 'C:/Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Digit Recognizer(Kaggle)\\test.pickle'
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
+flags.DEFINE_string('output_dir','output','Output Directory.')
+pickle_file = os.path.join(FLAGS.input_dir, 'test.pickle');
 
-with open(pickle_file, 'rb') as f:
+with file_io.FileIO(pickle_file, 'r') as f:
   save = pickle.load(f)
   test_dataset = save['test_dataset']
-#  test_labels = save['test_labels']
   del save
   print('Test set', test_dataset.shape)
 
@@ -22,57 +25,38 @@ def reformat(dataset, labels):
     (-1, image_size, image_size, num_channels)).astype(np.float32)
   labels = (np.arange(num_labels) == labels[:,None]).astype(np.float32)
   return dataset, labels
+
 def accuracy(predictions, labels):
   return (100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1))
           / predictions.shape[0])
 
 
+def run_training():
+    session = tf.Session()
+    saver = tf.train.import_meta_graph(os.path.join(FLAGS.input_dir, 'Saved.meta'))
+    saver.restore(session,os.path.join(FLAGS.input_dir, 'Saved'))
+    graph = tf.get_default_graph()
 
-model = 'CNN(60,5x3x3,32,256x256,70000)'
-session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\{}\\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\{}\\Saved'.format(model))
-graph = tf.get_default_graph()
+    test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
+    tf_test_one = graph.get_tensor_by_name('tf_test_one:0')
+    keep_prob = graph.get_tensor_by_name('keep_prob:0')
 
-### Test Accuracy
-# test_dataset, test_labels = reformat(test_dataset,test_labels)
-# print('Test set', test_dataset.shape, test_labels.shape)
-# test_prediction = graph.get_tensor_by_name('test_prediction:0')
-# tf_test_dataset = graph.get_tensor_by_name('tf_test_dataset:0')
-# keep_prob = graph.get_tensor_by_name('keep_prob:0')
-#
-# result = session.run(test_prediction,feed_dict={tf_test_dataset: test_dataset, keep_prob: 1.0})
-# accu = accuracy(result,test_labels)
-# test_dataset = np.reshape(test_dataset,(test_dataset.shape[0],28,28))
-#
-# for i in range(len(test_dataset)):
-#     # picks out misclassified images one by one
-#     if np.argmax(result[i]) == np.argmax(test_labels[i]):
-#         continue
-#     print('predicted: ',np.argmax(result[i]),'actual: ',np.argmax(test_labels[i]))
-#     # plt.imshow(test_dataset[i],cmap='gray')
-#     # plt.show()
-# print("Test accuracy: ", accu,"%")
-#
-### Test One
-test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
-tf_test_one = graph.get_tensor_by_name('tf_test_one:0')
-keep_prob = graph.get_tensor_by_name('keep_prob:0')
+    test_dataset = test_dataset.reshape(
+        (-1, 1, image_size, image_size, num_channels)).astype(np.float32)
 
-test_dataset = test_dataset.reshape(
-    (-1, 1, image_size, image_size, num_channels)).astype(np.float32)
+    submission = []
+    for i in range(len(test_dataset)):
+        result = session.run(test_prediction_one,feed_dict={tf_test_one:test_dataset[i],keep_prob: 1.0})
+        if i%1000==0:
+            print(float(i)/len(test_dataset))
+        submission.append(np.argmax(result))
 
-submission = []
-for i in range(len(test_dataset)):
-    result = session.run(test_prediction_one,feed_dict={tf_test_one:test_dataset[i],keep_prob: 1.0})
-    # plt.imshow(np.reshape(test_dataset[i],(28,28)),cmap='gray')
-    print(i, np.argmax(result))
-    # plt.show()
-    submission.append(np.argmax(result))
+    with file_io.FileIO(os.path.join(FLAGS.input_dir, 'submission.pickle'), 'w') as f:
+        save = {'submission':submission}
+        pickle.dump(save,f,protocol=2)
 
-if input('proceed?') != 'Y':
-    assert False
+def main(_):
+    run_training()
 
-with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission.pickle','wb') as f:
-    save = {'submission':submission}
-    pickle.dump(save,f,pickle.HIGHEST_PROTOCOL)
+if __name__=='__main__':
+    tf.app.run()

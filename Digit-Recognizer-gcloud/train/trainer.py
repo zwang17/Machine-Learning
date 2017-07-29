@@ -44,14 +44,11 @@ def accuracy(predictions, labels):
 def run_training():
     image_size = 28
     num_labels = 10
-    num_channels = 1 # grayscale
+    num_channels = 1
     batch_size = 60
-    patch_size_1 = 5
-    patch_size_2 = 3
-    patch_size_3 = 3
+    patch_size = 5
     depth = 32
-    num_hidden_1 = 256
-    num_hidden_2 = 256
+    num_hidden = 200
 
     graph = tf.Graph()
 
@@ -69,43 +66,31 @@ def run_training():
 
         # Variables.
         layer1_weights = tf.Variable(tf.truncated_normal(
-            [patch_size_1, patch_size_1, num_channels, depth], stddev=0.1))
+            [patch_size, patch_size, num_channels, depth], stddev=0.1))
         layer1_biases = tf.Variable(tf.zeros([depth]))
         layer2_weights = tf.Variable(tf.truncated_normal(
-            [patch_size_2, patch_size_2, depth, depth], stddev=0.1))
+            [patch_size, patch_size, depth, depth], stddev=0.1))
         layer2_biases = tf.Variable(tf.constant(1.0, shape=[depth]))
         layer3_weights = tf.Variable(tf.truncated_normal(
-            [patch_size_3, patch_size_3, depth, 2 * depth], stddev=0.1))
-        layer3_biases = tf.Variable(tf.constant(1.0, shape=[2 * depth]))
+            [image_size // 4 * image_size // 4 * depth, num_hidden], stddev=0.1))
+        layer3_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden]))
         layer4_weights = tf.Variable(tf.truncated_normal(
-            [image_size // 4 * image_size // 4 * 2 * depth , num_hidden_1], stddev=0.1))
-        layer4_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden_1]))
-        layer5_weights = tf.Variable(tf.truncated_normal(
-            [num_hidden_1, num_hidden_2], stddev=0.1))
-        layer5_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden_2]))
-        layer6_weights = tf.Variable(tf.truncated_normal(
-            [num_hidden_2, num_labels], stddev=0.1))
-        layer6_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
+            [num_hidden, num_labels], stddev=0.1))
+        layer4_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
         keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
 
         # Model.
         def model(data):
-            conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
+            conv = tf.nn.conv2d(data, layer1_weights, [1, 2, 2, 1], padding='SAME')
             hidden = tf.nn.relu(conv + layer1_biases)
-            max_pooling = tf.nn.max_pool(hidden,[1,2,2,1],[1,2,2,1],padding='SAME')
-            conv = tf.nn.conv2d(max_pooling, layer2_weights, [1, 1, 1, 1], padding='SAME')
+            conv = tf.nn.conv2d(hidden, layer2_weights, [1, 2, 2, 1], padding='SAME')
             hidden = tf.nn.relu(conv + layer2_biases)
-            max_pooling = tf.nn.max_pool(hidden,[1,2,2,1],[1,2,2,1],padding='SAME')
-            conv = tf.nn.conv2d(max_pooling, layer3_weights, [1, 1, 1, 1], padding='SAME')
-            hidden = tf.nn.relu(conv + layer3_biases)
             shape = hidden.get_shape().as_list()
             reshape = tf.reshape(hidden, [shape[0], shape[1] * shape[2] * shape[3]])
-            hidden = tf.nn.relu(tf.matmul(reshape, layer4_weights) + layer4_biases)
+            hidden = tf.nn.relu(tf.matmul(reshape, layer3_weights) + layer3_biases)
             hidden = tf.nn.dropout(hidden,keep_prob=keep_prob)
-            hidden = tf.nn.relu(tf.matmul(hidden, layer5_weights) + layer5_biases)
-            hidden = tf.nn.dropout(hidden,keep_prob=keep_prob)
-            return tf.matmul(hidden, layer6_weights) + layer6_biases
+            return tf.matmul(hidden, layer4_weights) + layer4_biases
 
 
         # Training computation.
@@ -114,7 +99,7 @@ def run_training():
             tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
 
         # Optimizer.
-        optimizer = tf.train.GradientDescentOptimizer(0.005).minimize(loss)
+        optimizer = tf.train.GradientDescentOptimizer(0.001).minimize(loss)
 
         # Predictions for the training, validation, and test data.
         train_prediction = tf.nn.softmax(logits)
@@ -145,10 +130,10 @@ def run_training():
           itera.append(step)
           v_ac_list.append(a)
         step += 1
-        if (step % 10000 == 0):
-            saver = tf.train.Saver()
-            checkpoint_file = os.path.join(FLAGS.output_dir,'checkpoint')
-            saver.save(session,checkpoint_file,global_step=step)
+        # if (step % 10000 == 0):
+        #     saver = tf.train.Saver()
+        #     checkpoint_file = os.path.join(FLAGS.output_dir,'checkpoint')
+        #     saver.save(session,checkpoint_file,global_step=step)
         if (step == num_steps):
             print('Valid accuracy: %.1f%%' % accuracy(
                 valid_prediction.eval({tf_valid_dataset: valid_dataset, keep_prob: 1.0}), valid_labels))
