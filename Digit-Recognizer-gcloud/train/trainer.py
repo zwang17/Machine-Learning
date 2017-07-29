@@ -16,12 +16,9 @@ with file_io.FileIO(pickle_file, 'r') as f:
     train_labels = save['train_labels']
     valid_dataset = save['valid_dataset']
     valid_labels = save['valid_labels']
-    test_dataset = save['test_dataset']
-    test_labels = save['test_labels']
     del save  # hint to help gc free up memory
     print('Training set', train_dataset.shape, train_labels.shape)
     print('Validation set', valid_dataset.shape, valid_labels.shape)
-    print('Test set', test_dataset.shape, test_labels.shape)
 
 def reformat(dataset, labels):
     dataset = dataset.reshape(
@@ -31,10 +28,8 @@ def reformat(dataset, labels):
 
 train_dataset, train_labels = reformat(train_dataset, train_labels)
 valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
-test_dataset, test_labels = reformat(test_dataset, test_labels)
 print('Training set', train_dataset.shape, train_labels.shape)
 print('Validation set', valid_dataset.shape, valid_labels.shape)
-print('Test set', test_dataset.shape, test_labels.shape)
 
 
 def accuracy(predictions, labels):
@@ -62,7 +57,7 @@ def run_training():
         tf_test_one = tf.placeholder(
             tf.float32, shape = (1, image_size, image_size, num_channels),name='tf_test_one')
         tf_test_dataset = tf.placeholder(
-            tf.float32, shape = (test_dataset.shape[0], image_size, image_size, num_channels), name='tf_test_dataset')
+            tf.float32, shape = (valid_dataset.shape[0], image_size, image_size, num_channels), name='tf_test_dataset')
 
         # Variables.
         layer1_weights = tf.Variable(tf.truncated_normal(
