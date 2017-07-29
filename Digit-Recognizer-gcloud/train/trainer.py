@@ -7,7 +7,8 @@ from tensorflow.python.lib.io import file_io
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
-# flags.DEFINE_string('output_dir','output','Output Directory.')
+flags.DEFINE_string('output_dir','output','Output Directory.')
+
 pickle_file = os.path.join(FLAGS.input_dir, 'train.pickle');
 with file_io.FileIO(pickle_file, 'r') as f:
     save = pickle.load(f)
@@ -122,7 +123,7 @@ def run_training():
         test_prediction = tf.nn.softmax(model(tf_test_dataset),name='test_prediction')
     itera = []
     v_ac_list = []
-    num_steps = 801
+    num_steps = 100001
 
     with tf.Session(graph=graph) as session:
       tf.global_variables_initializer().run()
@@ -144,19 +145,19 @@ def run_training():
           itera.append(step)
           v_ac_list.append(a)
         step += 1
-        # if (step % 10000 == 0):
-            # saver = tf.train.Saver()
-            # checkpoint_file = os.path.join(FLAGS.output_dir,'checkpoint')
-            # saver.save(session,checkpoint_file,global_step=0)
+        if (step % 10000 == 0):
+            saver = tf.train.Saver()
+            checkpoint_file = os.path.join(FLAGS.output_dir,'checkpoint')
+            saver.save(session,checkpoint_file,global_step=step)
         if (step == num_steps):
             print('Valid accuracy: %.1f%%' % accuracy(
                 valid_prediction.eval({tf_valid_dataset: valid_dataset, keep_prob: 1.0}), valid_labels))
-            if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
-                inc = input("Increment by how many steps? \n")
-                num_steps = num_steps + int(inc)
-      # saver = tf.train.Saver()
-      # checkpoint_file = os.path.join(FLAGS.output_dir, 'checkpoint')
-      # saver.save(session, checkpoint_file, global_step=0)
+            # if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
+            #     inc = input("Increment by how many steps? \n")
+            #     num_steps = num_steps + int(inc)
+      saver = tf.train.Saver()
+      checkpoint_file = os.path.join(FLAGS.output_dir, 'checkpoint')
+      saver.save(session, checkpoint_file, global_step=step)
 
 
 def main(_):
