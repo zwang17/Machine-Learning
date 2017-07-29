@@ -35,8 +35,8 @@ def accuracy(predictions, labels):
 
 def run_training():
     session = tf.Session()
-    saver = tf.train.import_meta_graph(os.path.join(FLAGS.output_dir, 'checkpoint-1001.meta'))
-    saver.restore(session,os.path.join(FLAGS.output_dir, 'checkpoint-1001'))
+    saver = tf.train.import_meta_graph(os.path.join(FLAGS.output_dir, 'checkpoint-100001.meta'))
+    saver.restore(session,os.path.join(FLAGS.output_dir, 'checkpoint-100001'))
     graph = tf.get_default_graph()
 
     test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
