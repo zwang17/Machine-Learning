@@ -1,4 +1,3 @@
-from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 from six.moves import cPickle as pickle
@@ -7,9 +6,9 @@ import os.path
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string('input_dir','input','Input Directory.')
-flags.DEFINE_string('output_dir','output','Output Directory.')
-
+# flags.DEFINE_string('output_dir','output','Output Directory.')
 pickle_file = os.path.join(FLAGS.input_dir,'train.pickle')
+
 with open(pickle_file, 'rb') as f:
     save = pickle.load(f)
     train_dataset = save['train_dataset']
@@ -145,19 +144,19 @@ def run_training():
           itera.append(step)
           v_ac_list.append(a)
         step += 1
-        if (step % 10000 == 0):
-            saver = tf.train.Saver()
-            checkpoint_file = os.path.join(FLAGS.output_dir,'checkpoint')
-            saver.save(session,checkpoint_file,global_step=0)
+        # if (step % 10000 == 0):
+            # saver = tf.train.Saver()
+            # checkpoint_file = os.path.join(FLAGS.output_dir,'checkpoint')
+            # saver.save(session,checkpoint_file,global_step=0)
         if (step == num_steps):
             print('Valid accuracy: %.1f%%' % accuracy(
                 valid_prediction.eval({tf_valid_dataset: valid_dataset, keep_prob: 1.0}), valid_labels))
             if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
-      saver = tf.train.Saver()
-      checkpoint_file = os.path.join(FLAGS.output_dir, 'checkpoint')
-      saver.save(session, checkpoint_file, global_step=0)
+      # saver = tf.train.Saver()
+      # checkpoint_file = os.path.join(FLAGS.output_dir, 'checkpoint')
+      # saver.save(session, checkpoint_file, global_step=0)
 
 
 def main(_):
