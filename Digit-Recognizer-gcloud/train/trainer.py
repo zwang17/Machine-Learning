@@ -2,13 +2,14 @@ import os.path
 import numpy as np
 import tensorflow as tf
 from six.moves import cPickle as pickle
+from tensorflow.python.lib.io import file_io
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
-flags.DEFINE_string('input_dir','input','Input Directory.')
+flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
 # flags.DEFINE_string('output_dir','output','Output Directory.')
-pickle_file = os.path.join(FLAGS.input_dir,'train.pickle')
-with open(pickle_file, 'rb') as f:
+pickle_file = os.path.join(FLAGS.input_dir, 'train.pickle');
+with file_io.FileIO(pickle_file, 'rb') as f:
     save = pickle.load(f)
     train_dataset = save['train_dataset']
     train_labels = save['train_labels']
