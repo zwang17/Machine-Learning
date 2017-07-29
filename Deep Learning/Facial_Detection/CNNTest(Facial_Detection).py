@@ -24,8 +24,8 @@ def accuracy(predictions, labels):
 
 model = 'CNN(50,5x3x3x3,36,512x512,60000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\{}\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\{}\\Saved'.format(model))
+saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\{}\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\{}\\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('test_prediction:0')

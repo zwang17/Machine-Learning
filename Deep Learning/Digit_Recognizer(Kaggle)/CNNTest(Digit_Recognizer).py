@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:/Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\Digit Recognizer(Kaggle)\\test.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Digit Recognizer(Kaggle)\\test.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -30,8 +30,8 @@ def accuracy(predictions, labels):
 
 model = 'CNN(60,5x3x3,32,256x256,70000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\{}\\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\{}\\Saved'.format(model))
+saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\{}\\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\{}\\Saved'.format(model))
 graph = tf.get_default_graph()
 
 ### Test Accuracy

@@ -5,7 +5,7 @@ from six.moves import cPickle as pickle
 from six.moves import range
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:/Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\Digit Recognizer(Kaggle)\\train.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Digit Recognizer(Kaggle)\\train.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -146,7 +146,7 @@ with tf.Session(graph=graph) as session:
     step += 1
     if (step % 10000 == 0):
         saver.save(session,
-                   'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\CNN({},{}x{}x{},{},{}x{},{})\\Saved'.format(
+                   'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\CNN({},{}x{}x{},{},{}x{},{})\\Saved'.format(
                        batch_size, patch_size_1, patch_size_2, patch_size_3, depth, num_hidden_1, num_hidden_2, step))
     if (step == num_steps):
         print('Valid accuracy: %.1f%%' % accuracy(
@@ -157,6 +157,6 @@ with tf.Session(graph=graph) as session:
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
   saver.save(session,
-             'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\CNN({},{}x{}x{},{},{}x{},{})\\Saved'.format(
+             'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Digit Recognizer(Kaggle)\\CNN({},{}x{}x{},{},{}x{},{})\\Saved'.format(
                  batch_size, patch_size_1, patch_size_2, patch_size_3, depth, num_hidden_1, num_hidden_2, num_steps-1))
 

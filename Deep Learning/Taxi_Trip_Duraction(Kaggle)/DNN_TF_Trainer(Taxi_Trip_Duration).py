@@ -119,7 +119,7 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-    saver.save(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\DNN1({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))
+    saver.save(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\DNN1({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))
 
 
 #################################################
@@ -215,4 +215,4 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-    saver.save(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\DNN2({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))
+    saver.save(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\DNN2({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))

@@ -15,7 +15,7 @@ def read_data(filename):
         data = tf.compat.as_str(f.read(name))
     return data
 
-filename = 'C:\\Users\\alien\\Desktop\\Machine Learning Project\\Machine-Learning\\Deep Learning\\Character_Predictor\\text8.zip'
+filename = 'C:\\Users\\zheye1218\\Google Drive\\Machine Learning Project\\Machine-Learning\\Deep Learning\\Character_Predictor\\text8.zip'
 text = read_data(filename)
 print('Data size %d' % len(text))
 

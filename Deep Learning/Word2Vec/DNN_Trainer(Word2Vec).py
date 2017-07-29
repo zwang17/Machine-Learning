@@ -12,7 +12,7 @@ from six.moves.urllib.request import urlretrieve
 from sklearn.manifold import TSNE
 from six.moves import cPickle as pickle
 
-with open('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\Word2Vec\\text8.pickle','rb') as f:
+with open('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Word2Vec\\text8.pickle','rb') as f:
     save = pickle.load(f)
     data, count, dictionary, reverse_dictionary = save['data'], save['count'], save['dictionary'], save['reverse_dictionary']
     del save
@@ -152,7 +152,7 @@ with tf.Session(graph=graph) as session:
                 print(log)
     final_embeddings = normalized_embeddings.eval()
     saver.save(session,
-               'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Word2Vec\\DNN({},{})\\Saved'.format(step,embedding_size))
+               'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Word2Vec\\DNN({},{})\\Saved'.format(step,embedding_size))
 
 
     # num_points = 400

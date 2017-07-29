@@ -135,6 +135,6 @@ with tf.Session(graph=graph) as session:
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
   saver.save(session,
-             'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\notMNIST\\CNN({},{},{},{},{})\\Saved'.format(
+             'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\notMNIST\\CNN({},{},{},{},{})\\Saved'.format(
                  batch_size, patch_size, depth, num_hidden, num_steps-1))
 

@@ -8,7 +8,7 @@ output_size = 1
 model1 = ''
 model2 = ''
 ##########################################################
-pickle_file = 'C:/Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\test_1.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\test_1.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -28,8 +28,8 @@ def reformat(dataset):
     return dataset
 
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved.meta'.format(model1))
-saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved'.format(model1))
+saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved.meta'.format(model1))
+saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved'.format(model1))
 graph = tf.get_default_graph()
 
 test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
@@ -51,7 +51,7 @@ with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Taxi Trip Duration(K
 
 #########################################################
 
-pickle_file = 'C:/Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\test_2.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\test_2.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -67,8 +67,8 @@ for i in range(len(test_dataset)):
 test_dataset = np.delete(test_dataset,0,1)
 
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved.meta'.format(model2))
-saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved'.format(model2))
+saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved.meta'.format(model2))
+saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\{}\\Saved'.format(model2))
 graph = tf.get_default_graph()
 
 test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')

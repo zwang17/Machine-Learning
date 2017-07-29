@@ -33,8 +33,8 @@ print('Test set', test_dataset.shape, test_labels.shape)
 model = 'CNN(100,6,40,150,50000)'
 
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\notMNIST\\{}\\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\notMNIST\\{}\\Saved'.format(model))
+saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\notMNIST\\{}\\Saved.meta'.format(model))
+saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\notMNIST\\{}\\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('valid_prediction:0')

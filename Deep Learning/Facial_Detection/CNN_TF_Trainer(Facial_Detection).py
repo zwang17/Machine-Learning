@@ -5,7 +5,7 @@ from six.moves import cPickle as pickle
 from six.moves import range
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
+pickle_file = 'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
 
 with open(pickle_file, 'rb') as f:
     save = pickle.load(f)
@@ -173,7 +173,7 @@ with tf.Session(graph=graph) as session:
             itera.append(step)
         if (step % 10000 == 0 and step > 0):
             saver.save(session,
-                   'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
+                   'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
                        batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1,
                        num_hidden_2, step))
         step += 1
@@ -194,13 +194,13 @@ with tf.Session(graph=graph) as session:
             plt.show()
             if input("Optimization about to terminate. Do you want to save the current model? [Y/N] \n") == 'Y':
                 saver.save(session,
-                       'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
+                       'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
                            batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2, step))
             if input("Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
     saver.save(session,
-             'C:\\Users\\alien\\Desktop\\Deep_Learning_Data\\model\\facial detection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
+             'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\CNN({},{}x{}x{}x{},{},{}x{},{})\\Saved'.format(
                  batch_size, patch_size_1, patch_size_2, patch_size_3, patch_size_4, depth, num_hidden_1, num_hidden_2,
                  step))
 
