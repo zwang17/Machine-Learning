@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
+pickle_file = 'C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)

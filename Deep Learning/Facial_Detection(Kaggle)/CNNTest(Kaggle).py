@@ -34,7 +34,7 @@ keep_prob = graph.get_tensor_by_name('keep_prob:0')
 
 dataset = test_dataset
 
-# file = 'C:\\Users\\alien\Desktop\Deep_Learning_Data\\Data\zheyew2.pickle'
+# file = 'C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\zheyew2.pickle'
 # with open(file,'rb') as k:
 #     save = pickle.load(k)
 #     dataset = np.reshape(save['picture'],(1,96,96))

@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)

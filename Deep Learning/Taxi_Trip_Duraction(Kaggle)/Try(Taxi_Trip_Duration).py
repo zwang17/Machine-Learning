@@ -5,7 +5,7 @@ import googlemaps
 from datetime import datetime
 import re
 
-with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','rb') as f:
+with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','rb') as f:
     save = pickle.load(f)
     train_dataset = save['train_dataset']
     train_labels = save['train_labels']
@@ -29,6 +29,6 @@ print(train_dataset[:50])
 # if input('Proceed?') != 'Y':
 #     assert False
 #
-# with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f:
+# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f:
 #     save = {'train_dataset':train_dataset,'train_labels':train_labels,'valid_dataset':valid_dataset,'valid_labels':valid_labels}
 #     pickle.dump(save,f,pickle.HIGHEST_PROTOCOL)

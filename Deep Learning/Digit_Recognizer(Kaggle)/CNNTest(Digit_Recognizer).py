@@ -73,6 +73,6 @@ for i in range(len(test_dataset)):
 if input('proceed?') != 'Y':
     assert False
 
-with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission.pickle','wb') as f:
+with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission.pickle','wb') as f:
     save = {'submission':submission}
     pickle.dump(save,f,pickle.HIGHEST_PROTOCOL)

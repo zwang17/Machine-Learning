@@ -45,7 +45,7 @@ for i in range(len(test_dataset)):
         print(float(i)/len(test_dataset)*100,'%')
     submission[i].append(result[0][0])
 
-with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_1.pickle','wb') as f:
+with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_1.pickle','wb') as f:
     save = {'submission':submission}
     pickle.dump(save,f,pickle.HIGHEST_PROTOCOL)
 
@@ -88,7 +88,7 @@ print(submission)
 if input('proceed?') != 'Y':
     assert False
 
-with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_2.pickle','wb') as f:
+with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_2.pickle','wb') as f:
     save = {'submission':submission}
     pickle.dump(save,f,pickle.HIGHEST_PROTOCOL)
 

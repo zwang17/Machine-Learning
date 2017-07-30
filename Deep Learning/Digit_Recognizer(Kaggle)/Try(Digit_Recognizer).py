@@ -4,7 +4,7 @@ import pandas as pd
 from six.moves import cPickle as pickle
 import matplotlib.pyplot as plt
 
-with open('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission.pickle','rb') as f:
+with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission.pickle','rb') as f:
     save = pickle.load(f)
     submission = save['submission']
     del save
@@ -26,6 +26,6 @@ if input('Proceed?') != 'Y':
     assert False
 
 df = pd.DataFrame(submission)
-df.to_csv('C:\\Users\\alien\Desktop\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission6.csv',index=False,header=False)
+df.to_csv('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission6.csv',index=False,header=False)
 
 

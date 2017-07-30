@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import math
 
 
-pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_1.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_1.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -124,7 +124,7 @@ with tf.Session(graph=graph) as session:
 
 #################################################
 
-pickle_file = 'C:/Users\\alien\Desktop\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_2.pickle'
+pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_2.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
