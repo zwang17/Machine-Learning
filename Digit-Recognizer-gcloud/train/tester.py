@@ -8,7 +8,8 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
 flags.DEFINE_string('output_dir','output','Output Directory.')
-pickle_file = os.path.join(FLAGS.input_dir, 'test.pickle');
+flags.DEFINE_integer('train_steps', 10000, 'Train Steps.')
+pickle_file = os.path.join(FLAGS.input_dir, 'test.pickle')
 
 def getTestDataset(file):
     with file_io.FileIO(file, 'r') as f:
@@ -35,8 +36,8 @@ def accuracy(predictions, labels):
 
 def run_training():
     session = tf.Session()
-    saver = tf.train.import_meta_graph(os.path.join(FLAGS.output_dir, 'checkpoint-100001.meta'))
-    saver.restore(session,os.path.join(FLAGS.output_dir, 'checkpoint-100001'))
+    saver = tf.train.import_meta_graph(os.path.join(FLAGS.output_dir, 'checkpoint-{}.meta'.format(FLAGS.train_steps)))
+    saver.restore(session,os.path.join(FLAGS.output_dir, 'checkpoint-{}'.format(FLAGS.train_steps)))
     graph = tf.get_default_graph()
 
     test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
@@ -53,7 +54,7 @@ def run_training():
             print(float(i)/len(test_dataset)*100,'%')
         submission.append(np.argmax(result))
 
-    with file_io.FileIO(os.path.join(FLAGS.input_dir, 'submission.pickle'), 'w') as f:
+    with file_io.FileIO(os.path.join(FLAGS.output_dir, 'submission.pickle'), 'w') as f:
         save = {'submission':submission}
         pickle.dump(save,f,protocol=2)
 

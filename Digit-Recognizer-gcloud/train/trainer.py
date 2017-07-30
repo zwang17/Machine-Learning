@@ -8,6 +8,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string('input_dir', 'input', 'Input Directory.')
 flags.DEFINE_string('output_dir','output','Output Directory.')
+flags.DEFINE_integer('train_steps', 10000, 'Train Steps.')
 
 pickle_file = os.path.join(FLAGS.input_dir, 'train.pickle');
 with file_io.FileIO(pickle_file, 'r') as f:
@@ -102,7 +103,7 @@ def run_training():
         test_prediction = tf.nn.softmax(model(tf_test_dataset),name='test_prediction')
     itera = []
     v_ac_list = []
-    num_steps = 100001
+    num_steps = FLAGS.train_steps
 
     with tf.Session(graph=graph) as session:
       tf.global_variables_initializer().run()
