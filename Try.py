@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as mlp
 
-with open('C:\\Users\zheye1218\Desktop\\temp\\zhy_data\\train.pickle','rb') as f:
+with open('C:\\Users\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\MNIST\\MNIST.pickle','rb') as f:
     save = pickle.load(f)
 train_dataset = save['train_dataset']
 train_labels = save['train_labels']
