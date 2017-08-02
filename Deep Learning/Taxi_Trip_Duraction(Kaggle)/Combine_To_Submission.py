@@ -2,29 +2,39 @@ from six.moves import cPickle as pickle
 import numpy as np
 import pandas as pd
 
-with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_1.pickle','rb') as f:
-    save = pickle.load(f)
-    submission_1 = save['submission']
-    del save
-submission_1 = np.asarray(submission_1,dtype=str)
-head = np.array([['id','trip_duration']])
-submission_1 = np.concatenate((head,submission_1))
-with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_2.pickle','rb') as f:
-    save = pickle.load(f)
-    submission_2 = save['submission']
-    del save
+def GetSubmission(input_pickle_file,first_seg=False):
+    with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\{}'.format(input_pickle_file),'rb') as f:
+        u = pickle._Unpickler(f)
+        u.encoding = 'latin1'
+        save = u.load()
+        submission = save['submission']
+        submission = np.asarray(submission)
+        del save
+    print(input_pickle_file,':',submission.shape)
+    submission = np.asarray(submission,dtype=str)
+    for i in range(1,len(submission),1):
+        submission[i][1] = str(float(submission[i][1])*60)
+        if i % 5000 == 0:
+            print(float(i)/len(submission)*100.0,"%")
+    if first_seg==True:
+        head = np.array([['id','trip_duration']])
+        submission = np.concatenate((head,submission))
+    return submission
 
-submission_2 = np.asarray(submission_2,dtype=str)
+def Combine(*file_tuple):
+    num_files = len(file_tuple)
+    submission = GetSubmission(file_tuple[0],True)
+    if num_files>1:
+        for i in range(1,num_files,1):
+            submission = np.concatenate(submission,GetSubmission(file_tuple[i]))
+    return submission
 
-submission = np.concatenate((submission_1,submission_2))
+####################################################
+file_1 = 'submission_from_test_1.pickle.pickle'
+file_2 = 'submission_from_test_2.pickle.pickle'
+submission = Combine((file_1,file_2))
 
-for i in range(1,len(submission),1):
-    submission[i][1] = str(float(submission[i][1])*60)
-    if i % 500 == 0:
-        print(float(i)/len(submission)*100.0,"%")
-
-print(submission)
-
+print(submission.shape)
 if input('Proceed?') != 'Y':
     assert False
 
