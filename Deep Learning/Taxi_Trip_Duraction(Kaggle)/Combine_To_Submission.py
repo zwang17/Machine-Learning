@@ -32,7 +32,10 @@ def Combine(*file_tuple):
 ####################################################
 file_1 = 'submission_from_test_1.pickle.pickle'
 file_2 = 'submission_from_test_2.pickle.pickle'
-submission = Combine(file_1,file_2)
+file_3 = 'submission_from_test_3.pickle.pickle'
+file_4 = 'submission_from_test_4.pickle.pickle'
+
+submission = Combine(file_1,file_2,file_3,file_4)
 
 print(submission.shape)
 if input('Proceed?') != 'Y':

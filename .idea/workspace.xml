@@ -2,35 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7d67359-20d0-4390-80b2-6a6064f3cbd3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Machine-Learning.iml" afterPath="$PROJECT_DIR$/.idea/Machine-Learning.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Character_Predictor/LSTM_TF_Trainer.py" afterPath="$PROJECT_DIR$/Deep Learning/Character_Predictor/LSTM_TF_Trainer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNNTest(Digit_Recognizer).py" afterPath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNNTest(Digit_Recognizer).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNN_TF_Trainer(Digit_Recognizer).py" afterPath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNN_TF_Trainer(Digit_Recognizer).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Random_Forest(Digit_Recognizer).py" afterPath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Random_Forest(Digit_Recognizer).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Try(Digit_Recognizer).py" afterPath="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Try(Digit_Recognizer).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Facial_Detection(Kaggle)/CNNTest(Kaggle).py" afterPath="$PROJECT_DIR$/Deep Learning/Facial_Detection(Kaggle)/CNNTest(Kaggle).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Facial_Detection(Kaggle)/CNN_TF_Trainer(Kaggle).py" afterPath="$PROJECT_DIR$/Deep Learning/Facial_Detection(Kaggle)/CNN_TF_Trainer(Kaggle).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Facial_Detection(Kaggle)/Try(Facial_Detection(Kaggle)).py" afterPath="$PROJECT_DIR$/Deep Learning/Facial_Detection(Kaggle)/Try(Facial_Detection(Kaggle)).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Facial_Detection/CNNTest(Facial_Detection).py" afterPath="$PROJECT_DIR$/Deep Learning/Facial_Detection/CNNTest(Facial_Detection).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Facial_Detection/CNN_TF_Trainer(Facial_Detection).py" afterPath="$PROJECT_DIR$/Deep Learning/Facial_Detection/CNN_TF_Trainer(Facial_Detection).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/MNIST/CNNTest(MNIST).py" afterPath="$PROJECT_DIR$/Deep Learning/MNIST/CNNTest(MNIST).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/MNIST/CNN_TF_Trainer(MNIST).py" afterPath="$PROJECT_DIR$/Deep Learning/MNIST/CNN_TF_Trainer(MNIST).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/MNIST/Try(MNIST).py" afterPath="$PROJECT_DIR$/Deep Learning/MNIST/Try(MNIST).py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Combine_To_Submission.py" afterPath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Combine_To_Submission.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/DNNTest(Taxi_Trip_Duration).py" afterPath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/DNNTest(Taxi_Trip_Duration).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/DNN_TF_Trainer(Taxi_Trip_Duration).py" afterPath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/DNN_TF_Trainer(Taxi_Trip_Duration).py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py" afterPath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Try(Taxi_Trip_Duration).py" afterPath="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Try(Taxi_Trip_Duration).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Word2Vec/Analogy_Machine.py" afterPath="$PROJECT_DIR$/Deep Learning/Word2Vec/Analogy_Machine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Word2Vec/DNN_Trainer(Word2Vec).py" afterPath="$PROJECT_DIR$/Deep Learning/Word2Vec/DNN_Trainer(Word2Vec).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/Word2Vec/Try(Word2Vec).py" afterPath="$PROJECT_DIR$/Deep Learning/Word2Vec/Try(Word2Vec).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/notMNIST/CNN_TF_Trainer(notMNIST).py" afterPath="$PROJECT_DIR$/Deep Learning/notMNIST/CNN_TF_Trainer(notMNIST).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/notMNIST/DNN&amp;CNNTest.py" afterPath="$PROJECT_DIR$/Deep Learning/notMNIST/DNN&amp;CNNTest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/notMNIST/DNN_TF_Trainer(notMNIST).py" afterPath="$PROJECT_DIR$/Deep Learning/notMNIST/DNN_TF_Trainer(notMNIST).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Deep Learning/notMNIST/LogRe_Classifier_TF_Trainer(notMNIST).py" afterPath="$PROJECT_DIR$/Deep Learning/notMNIST/LogRe_Classifier_TF_Trainer(notMNIST).py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Try.py" afterPath="$PROJECT_DIR$/Try.py" />
     </list>
     <ignored path="Machine-Learning.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,13 +23,35 @@
     <favorites_list name="Machine-Learning" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Random_Forest(Digit_Recognizer).py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Random_Forest(Digit_Recognizer).py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="Data_handling.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+            <state relative-caret-position="414">
+              <caret line="148" column="57" lean-forward="true" selection-start-line="148" selection-start-column="57" selection-end-line="148" selection-end-column="57" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Try(Taxi_Trip_Duration).py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Try(Taxi_Trip_Duration).py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Combine_To_Submission.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Combine_To_Submission.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="897">
+              <caret line="41" column="16" lean-forward="false" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,7 +67,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>(Kaggle)</find>
       <find>sigmoid</find>
       <find>sig</find>
       <find>similarity</find>
@@ -100,6 +96,7 @@
       <find>D:\G</find>
       <find>Google Drive\De</find>
       <find>\\Google Drive\\</find>
+      <find>.shape[0]</find>
     </findStrings>
     <replaceStrings>
       <replace>softmax</replace>
@@ -132,8 +129,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Preparation.py" />
-        <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Logistic_Regression_Classifier_Trainer.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/TensorFlow_Trainer.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Regularization.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Neural_Net_TF_Trainer.py" />
@@ -179,17 +174,20 @@
         <option value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNN_TF_Trainer(Digit_Recognizer).py" />
         <option value="$PROJECT_DIR$/Deep Learning/MNIST/CNN_TF_Trainer(MNIST).py" />
         <option value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Random_Forest(Digit_Recognizer).py" />
-        <option value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNNTest(Digit_Recognizer).py" />
         <option value="$PROJECT_DIR$/Try.py" />
         <option value="$PROJECT_DIR$/Deep Learning/Character_Predictor/LSTM_TF_Trainer.py" />
+        <option value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Combine_To_Submission.py" />
+        <option value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Try(Taxi_Trip_Duration).py" />
+        <option value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="952" />
-    <option name="width" value="976" />
-    <option name="height" value="1038" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1932" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -242,7 +240,7 @@
               <item name="Machine-Learning" type="b2602c69:ProjectViewProjectNode" />
               <item name="Machine-Learning" type="462c0819:PsiDirectoryNode" />
               <item name="Deep Learning" type="462c0819:PsiDirectoryNode" />
-              <item name="Digit_Recognizer(Kaggle)" type="462c0819:PsiDirectoryNode" />
+              <item name="Taxi_Trip_Duraction(Kaggle)" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -279,24 +277,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Random_Forest(Digit_Recognizer)">
-    <configuration name="CNN_TF_Trainer(Digit_Recognizer)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Machine-Learning" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/CNN_TF_Trainer(Digit_Recognizer).py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.Data_handling">
     <configuration name="CNN_TF_Trainer(MNIST)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -310,6 +291,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Machine-Learning" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/MNIST/CNN_TF_Trainer(MNIST).py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="Data_handling" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Machine-Learning" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -348,19 +346,19 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="Try(Digit_Recognizer)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Try(Taxi_Trip_Duration)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Machine-Learning" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Digit_Recognizer(Kaggle)/Try(Digit_Recognizer).py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Try(Taxi_Trip_Duration).py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -484,19 +482,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.Try(Digit_Recognizer)" />
-      <item index="1" class="java.lang.String" itemvalue="Python.CNN_TF_Trainer(Digit_Recognizer)" />
-      <item index="2" class="java.lang.String" itemvalue="Python.CNN_TF_Trainer(MNIST)" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Try" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Random_Forest(Digit_Recognizer)" />
+      <item index="0" class="java.lang.String" itemvalue="Python.CNN_TF_Trainer(MNIST)" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Try" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Random_Forest(Digit_Recognizer)" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Data_handling" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Try(Taxi_Trip_Duration)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Random_Forest(Digit_Recognizer)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Try" />
-        <item index="2" class="java.lang.String" itemvalue="Python.CNN_TF_Trainer(MNIST)" />
-        <item index="3" class="java.lang.String" itemvalue="Python.CNN_TF_Trainer(Digit_Recognizer)" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Try(Digit_Recognizer)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Data_handling" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Try(Taxi_Trip_Duration)" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Random_Forest(Digit_Recognizer)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Try" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CNN_TF_Trainer(MNIST)" />
       </list>
     </recent_temporary>
   </component>
@@ -531,7 +529,6 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14583333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2247446" sideWeight="0.68541664" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29249448" sideWeight="0.31458333" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -545,6 +542,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -573,8 +571,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Regularization.py" />
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/LgR(Sk)Test.py" />
     <entry file="file://$PROJECT_DIR$/Deep Learning/Handwritting_Recognition/Try(Handwritting_Recognition).py" />
     <entry file="file://$PROJECT_DIR$/Deep Learning/Facial_Detection/CNN_TF_Trainer(Facial_Detection).py">
       <provider selected="true" editor-type-id="text-editor">
@@ -752,9 +748,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#37#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -762,7 +755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-174">
           <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-759">
           <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,7 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
           <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,9 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -796,7 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -804,7 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -812,15 +797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1403">
           <caret line="62" column="23" lean-forward="true" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="41" column="25" lean-forward="true" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,7 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
           <caret line="148" column="35" lean-forward="false" selection-start-line="148" selection-start-column="20" selection-end-line="148" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -836,7 +811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -844,7 +818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="71" column="12" lean-forward="false" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -852,9 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="40" column="58" lean-forward="true" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -862,6 +832,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Combine_To_Submission.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="897">
+          <caret line="41" column="16" lean-forward="false" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Try(Taxi_Trip_Duration).py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Deep Learning/Taxi_Trip_Duraction(Kaggle)/Data_handling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="148" column="57" lean-forward="true" selection-start-line="148" selection-start-column="57" selection-end-line="148" selection-end-column="57" />
           <folding />
         </state>
       </provider>
