@@ -5,7 +5,7 @@ from six.moves import cPickle as pickle
 from six.moves import range
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -135,6 +135,6 @@ with tf.Session(graph=graph) as session:
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
   saver.save(session,
-             'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\notMNIST\\CNN({},{},{},{},{})\\Saved'.format(
+             'D:\\Google Drive\\Deep_Learning_Data\\Model\\notMNIST\\CNN({},{},{},{},{})\\Saved'.format(
                  batch_size, patch_size, depth, num_hidden, num_steps-1))
 

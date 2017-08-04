@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\facial detection\\faces.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -24,8 +24,8 @@ def accuracy(predictions, labels):
 
 model = 'CNN(50,5x3x3x3,36,512x512,60000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\{}\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection\\{}\\Saved'.format(model))
+saver = tf.train.import_meta_graph('D:\\Google Drive\\Deep_Learning_Data\\Model\\facial detection\\{}\Saved.meta'.format(model))
+saver.restore(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\facial detection\\{}\\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('test_prediction:0')

@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:/Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\MNIST\\MNIST.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\MNIST\\MNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -31,8 +31,8 @@ print('Test set', test_dataset.shape, test_labels.shape)
 
 model = 'CNN(60,6,32,200,30000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\MNIST\\{}\\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\MNIST\\{}\\Saved'.format(model))
+saver = tf.train.import_meta_graph('D:\\Google Drive\\Deep_Learning_Data\\Model\\MNIST\\{}\\Saved.meta'.format(model))
+saver.restore(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\MNIST\\{}\\Saved'.format(model))
 graph = tf.get_default_graph()
 
 ### Test Accuracy

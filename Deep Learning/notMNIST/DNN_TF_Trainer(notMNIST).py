@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\notMNIST\\notMNIST.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -124,5 +124,5 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-    saver.save(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\notMNIST\\DNN({}x{}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,n_nodes_hl3,batch_size,num_steps-1))
+    saver.save(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\notMNIST\\DNN({}x{}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,n_nodes_hl3,batch_size,num_steps-1))
 

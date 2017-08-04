@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import math
 
 
-pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_1.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_1.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -119,12 +119,12 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-    saver.save(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\DNN1({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))
+    saver.save(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\Taxi Trip Duration(Kaggle)\\DNN1({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))
 
 
 #################################################
 
-pickle_file = 'C:/Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_2.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\Taxi Trip Duration(Kaggle)\\train_2.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -215,4 +215,4 @@ with tf.Session(graph=graph) as session:
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
-    saver.save(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Taxi Trip Duration(Kaggle)\\DNN2({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))
+    saver.save(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\Taxi Trip Duration(Kaggle)\\DNN2({}x{},{},{})\\Saved'.format(n_nodes_hl1,n_nodes_hl2,batch_size,num_steps-1))

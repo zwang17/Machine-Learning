@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from six.moves import cPickle as pickle
 
-pickle_file = 'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\facial detection(Kaggle)\\training.pickle'
+pickle_file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\\facial detection(Kaggle)\\training.pickle'
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
@@ -24,8 +24,8 @@ def accuracy(predictions, labels):
 
 model = 'CNN(80,5x3x3x3,36,512x512,50000)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection(Kaggle)\\{}\\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\facial detection(Kaggle)\\{}\Saved'.format(model))
+saver = tf.train.import_meta_graph('D:\\Google Drive\\Deep_Learning_Data\\Model\\facial detection(Kaggle)\\{}\\Saved.meta'.format(model))
+saver.restore(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\facial detection(Kaggle)\\{}\Saved'.format(model))
 
 graph = tf.get_default_graph()
 test_prediction = graph.get_tensor_by_name('test_prediction:0')
@@ -34,7 +34,7 @@ keep_prob = graph.get_tensor_by_name('keep_prob:0')
 
 dataset = test_dataset
 
-# file = 'C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\\Data\zheyew2.pickle'
+# file = 'D:\\Google Drive\\Deep_Learning_Data\\Data\zheyew2.pickle'
 # with open(file,'rb') as k:
 #     save = pickle.load(k)
 #     dataset = np.reshape(save['picture'],(1,96,96))

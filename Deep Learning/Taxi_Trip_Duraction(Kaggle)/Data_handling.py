@@ -4,32 +4,51 @@ import re
 from math import radians, cos, sin, asin, sqrt
 from six.moves import cPickle as pickle
 
-train_data = pd.read_csv('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test.csv')
+train_data = pd.read_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\temprary_data_analysis\\test_processed.csv')
 train_data = train_data.reset_index(drop=True)
 
-## Data Augmentation
+### Data Augmentation
 # print('Augmenting data...')
 # print(train_data.shape)
-# for i in range(len(train_data)):
-#     if i % 5000 == 0:
-#         print(i/len(train_data)*100,"%")
-#     pickup_data_time = re.findall('\d+', train_data.at[i, 'pickup_datetime'])
-#     dropoff_data_time = re.findall('\d+', train_data.at[i, 'dropoff_datetime'])
 #
-#     if pickup_data_time[2]!=dropoff_data_time[2] and dropoff_data_time[3]>=pickup_data_time[3]:
-#         train_data = train_data.drop(i)
-#         continue
+# def getDistance(lon1,lat1,lon2,lat2):
+#     # in kilometers
+#     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+#     dlon = lon2 - lon1
+#     dlat = lat2 - lat1
+#     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+#     c = 2 * asin(sqrt(a))
+#     r = 6371
+#     return c * r
+# def getSpeed(index):
+#     distance = getDistance(train_data.at[index,'pickup_longitude'],train_data.at[index,'pickup_latitude'],
+#                                                          train_data.at[index,'dropoff_longitude'],train_data.at[index,'dropoff_latitude'])
+#     time = train_data.at[index,'trip_duration']/3600
+#     return distance/time
+#
+# train_data = train_data.assign(trip_distance=0.0)
+# for i in range(train_data.shape[0]):
+#     train_data.set_value(i,'trip_distance',getDistance(train_data.at[i,'pickup_longitude'],train_data.at[i,'pickup_latitude'],
+#                                                          train_data.at[i,'dropoff_longitude'],train_data.at[i,'dropoff_latitude']))
+#
+# target = None
+# if target != None and input('Save temp data?') == 'Y':
+#     file_name = input('Enter file name: ')
+#     with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\temprary_data_analysis\\{}'.format(file_name),'wb') as f:
+#         save = {'target':target}
+#         pickle.dump(save,f,pickle.HIGHEST_PROTOCOL)
+#
+#
 # print(train_data.shape)
 #
 # if input('PROCEED?') != 'Y':
 #     assert False
-# train_data.to_csv('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_processed.csv',index=False,header=True)
+# train_data.to_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\temprary_data_analysis\\test_processed.csv',index=False,header=True)
 # assert False
 ###
 
-del train_data['vendor_id'], train_data['store_and_fwd_flag']
 # print('Retreiving weather data...')
-# weather_data = pd.read_csv('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\weather_data_nyc_centralpark_2016.csv')
+# weather_data = pd.read_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\weather_data_nyc_centralpark_2016.csv')
 # weather_dict = {}
 # for i in range(weather_data.shape[0]):
 #     month = int(re.findall('\d+', weather_data.at[i, 'date'])[1])
@@ -59,8 +78,13 @@ def weekDay(year, month, day):
 
 for i in range(train_data.shape[0]):
     pickup_data_time = re.findall('\d+', train_data.at[i, 'pickup_datetime'])
-    train_data.set_value(i, 'normalized_pickup_time', (float(pickup_data_time[3]) * 60 + float(pickup_data_time[4])) / 1440.0)
+    train_data.set_value(i, 'normalized_pickup_time', ((float(pickup_data_time[3]) * 60 + float(pickup_data_time[4])) / 1440.0)-0.5)
     train_data.set_value(i, 'week_day', weekDay(int(pickup_data_time[0]),int(pickup_data_time[1]),int(pickup_data_time[2]))+1)
+
+# print('Modifying trip duration...')
+# train_data = train_data.assign(time_duration = 0.0) ##
+# for i in range(train_data.shape[0]): ##
+#     train_data.set_value(i,'time_duration',float(train_data.at[i,'trip_duration'])/60.0) ##
 
 # print('Adding weather data...')
 # train_data = train_data.assign(precipitation=0.00,snow_fall=0.00,snow_depth=0.00,average_temperature=0.00,maximum_temperature=0.00,minimum_temperature=0.00)
@@ -74,50 +98,27 @@ for i in range(train_data.shape[0]):
 #     train_data.set_value(i, 'maximum_temperature', weather_dict[month][day][4])
 #     train_data.set_value(i, 'minimum_temperature', weather_dict[month][day][5])
 
-print('Calculating trip distance...')
-train_data = train_data.assign(trip_distance = 0.0)
-def getDistance(lon1,lat1,lon2,lat2):
-    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
-    dlon = lon2 - lon1
-    dlat = lat2 - lat1
-    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-    c = 2 * asin(sqrt(a))
-    r = 6371
-    return c * r
-for i in range(train_data.shape[0]):
-    train_data.set_value(i,'trip_distance',getDistance(train_data.at[i,'pickup_longitude'],train_data.at[i,'pickup_latitude'],
-                                                         train_data.at[i,'dropoff_longitude'],train_data.at[i,'dropoff_latitude']))
+print("Selecting features...")
+# train_data = train_data[['passenger_count','normalized_pickup_time','trip_distance','week_day','time_duration']] ##
+train_data = train_data[['id','passenger_count','normalized_pickup_time','trip_distance','week_day']] #
 
-del train_data['pickup_longitude'],train_data['pickup_latitude'],train_data['dropoff_longitude'],train_data['dropoff_latitude']
 
 print("Separating weekday and weekend...")
 train_dataset_1 = train_data[(train_data['week_day'] != 6) & (train_data['week_day'] != 7)]
 train_dataset_2 = train_data[(train_data['week_day'] == 6) | (train_data['week_day'] == 7)]
-# train_labels_1 = train_dataset_1[['trip_duration']] ##
-# train_labels_2 = train_dataset_2[['trip_duration']] ##
-#
+
+del train_dataset_1['week_day']
+del train_dataset_2['week_day']
+
+# train_labels_1 = train_dataset_1[['time_duration']] ##
+# train_labels_2 = train_dataset_2[['time_duration']] ##
+# del train_dataset_1['time_duration'] ##
+# del train_dataset_2['time_duration'] ##
+
 # train_dataset_1 = train_dataset_1.reset_index(drop=True) ##
 # train_dataset_2 = train_dataset_2.reset_index(drop=True) ##
 # train_labels_1 = train_labels_1.reset_index(drop=True) ##
 # train_labels_2 = train_labels_2.reset_index(drop=True) ##
-
-print('Calculating time duration...')
-test_dataset_1 = train_dataset_1[['id','passenger_count','normalized_pickup_time','trip_distance']] #
-test_dataset_2 = train_dataset_2[['id','passenger_count','normalized_pickup_time','trip_distance']] #
-# train_dataset_1 = train_dataset_1[['passenger_count','normalized_pickup_time','trip_distance']] ##
-# train_dataset_2 = train_dataset_2[['passenger_count','normalized_pickup_time','trip_distance']] ##
-#
-# train_labels_1 = train_labels_1.assign(time_duration = 0.0) ##
-# train_labels_2 = train_labels_2.assign(time_duration = 0.0) ##
-#
-# for i in range(train_labels_1.shape[0]): ##
-#     train_labels_1.set_value(i,'time_duration',float(train_labels_1.at[i,'trip_duration'])/60.0) ##
-# for i in range(train_labels_2.shape[0]): ##
-#     train_labels_2.set_value(i,'time_duration',float(train_labels_2.at[i,'trip_duration'])/60.0) ##
-#
-# del train_labels_1['trip_duration'] ##
-# del train_labels_2['trip_duration'] ##
-
 
 print('Finalizing data structure...')
 # train_dataset_1 = train_dataset_1.loc[:,:].as_matrix() ##
@@ -126,8 +127,8 @@ print('Finalizing data structure...')
 # train_labels_1 = train_labels_1.loc[:,:].as_matrix() ##
 # train_labels_2 = train_labels_2.loc[:,:].as_matrix() ##
 
-test_dataset_1 = test_dataset_1.loc[:,:].as_matrix() #
-test_dataset_2 = test_dataset_2.loc[:,:].as_matrix() #
+test_dataset_1 = train_dataset_1.loc[:,:].as_matrix() #
+test_dataset_2 = train_dataset_2.loc[:,:].as_matrix() #
 
 print(test_dataset_1.shape) #
 print(test_dataset_2.shape) #
@@ -141,24 +142,24 @@ print(test_dataset_2.shape) #
 if input('proceed?') != 'Y':
     assert False
 
-# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','wb') as f: ##
+# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','wb') as f: ##
 #     save = {'train_dataset':train_dataset_1,'train_labels':train_labels_1} ##
 #     pickle.dump(save,f,protocol=2) ##
 #
-# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f: ##
+# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f: ##
 #     save = {'train_dataset':train_dataset_2,'train_labels':train_labels_2} ##
 #     pickle.dump(save, f, protocol=2) ##
 
-with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_1.pickle','wb') as f: #
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_1.pickle','wb') as f: #
     save = {'test_dataset':test_dataset_1} #
     pickle.dump(save, f, protocol=2) #
 
-with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_2.pickle','wb') as f: #
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_2.pickle','wb') as f: #
     save = {'test_dataset':test_dataset_2} #
     pickle.dump(save, f, protocol=2) #
 
-###################
-# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','rb') as f:
+####################################
+# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','rb') as f:
 #     save = pickle.load(f)
 #     train_dataset = save['train_dataset']
 #     train_labels = save['train_labels']
@@ -176,17 +177,14 @@ with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip 
 # if input('proceed?') != 'Y':
 #     assert False
 #
-# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','wb') as f:
+# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','wb') as f:
 #     save = {'train_dataset':train_dataset,'train_labels':train_labels,'valid_dataset':valid_dataset,'valid_labels':valid_labels}
 #     pickle.dump(save,f,protocol=2)
 #
-# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','rb') as f:
+# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','rb') as f:
 #     save = pickle.load(f)
 #     train_dataset = save['train_dataset']
 #     train_labels = save['train_labels']
-#
-# print(train_dataset.shape)
-# print(train_labels.shape)
 #
 # valid_dataset = train_dataset[:40000]
 # valid_labels = train_labels[:40000]
@@ -197,6 +195,9 @@ with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip 
 # print(valid_dataset.shape)
 # print(valid_labels.shape)
 #
-# with open('C:\\Users\\zheye1218\\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f:
+# if input('proceed?') != 'Y':
+#     assert False
+#
+# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f:
 #     save = {'train_dataset':train_dataset,'train_labels':train_labels,'valid_dataset':valid_dataset,'valid_labels':valid_labels}
 #     pickle.dump(save,f,protocol=2)

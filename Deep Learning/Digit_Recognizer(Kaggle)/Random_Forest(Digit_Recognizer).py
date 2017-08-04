@@ -12,7 +12,7 @@ def accuracy(prediction,actual):
             count += 1
     return count/len(prediction)
 
-with open('D:\Google Drive\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\train.pickle','rb') as f:
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\train.pickle','rb') as f:
     save = pickle.load(f)
 
 train_dataset = reformat(save['train_dataset'])

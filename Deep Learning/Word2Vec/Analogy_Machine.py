@@ -2,7 +2,7 @@ from six.moves import cPickle as pickle
 import numpy as np
 import tensorflow as tf
 
-with open('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Word2Vec\\text8.pickle','rb') as f:
+with open('D:\\Google Drive\\Deep_Learning_Data\\Data\\Word2Vec\\text8.pickle','rb') as f:
     save = pickle.load(f)
     dictionary = save['dictionary']
     reverse_dictionary = save['reverse_dictionary']
@@ -10,8 +10,8 @@ with open('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\Data\\Word2Ve
 
 model = 'DNN(2000000,512)'
 session = tf.Session()
-saver = tf.train.import_meta_graph('C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Word2Vec\\{}\Saved.meta'.format(model))
-saver.restore(session,'C:\\Users\\zheye1218\\Google Drive\\Deep_Learning_Data\\model\\Word2Vec\\{}\Saved'.format(model))
+saver = tf.train.import_meta_graph('D:\\Google Drive\\Deep_Learning_Data\\Model\\Word2Vec\\{}\Saved.meta'.format(model))
+saver.restore(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\Word2Vec\\{}\Saved'.format(model))
 
 
 graph = tf.get_default_graph()
