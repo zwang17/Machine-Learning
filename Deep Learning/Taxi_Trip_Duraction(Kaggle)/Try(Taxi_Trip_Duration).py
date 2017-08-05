@@ -19,7 +19,3 @@ import re
 #         break
 # print(count)
 
-with open('D:\Google Drive\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_1.pickle','rb') as f:
-    save = pickle.load(f)
-    train_dataset = save['train_dataset']
-print(train_dataset[:10])
