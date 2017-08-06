@@ -4,7 +4,7 @@ from six.moves import cPickle as pickle
 from sklearn.neighbors import DistanceMetric
 import pandas as pd
 
-weight = [1,3,1,1,1,1,1]
+weight = [1,1,1,1,1,1,1]
 def mydist(x,y):
     x,y = np.asanyarray(x),np.asanyarray(y)
     return np.dot((x-y)**2,weight)
@@ -22,10 +22,75 @@ with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\
     train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
         'valid_dataset'], save['valid_labels']
 
+print(train_dataset.shape)
+print(valid_dataset.shape)
+
+def getLoss():
+    knn = neighbors.KNeighborsRegressor(weights='uniform', n_neighbors=10, metric=lambda x, y: mydist(x, y))
+    knn.fit(train_dataset, train_labels)
+    predict = knn.predict(valid_dataset)
+    return error(predict,valid_labels)
+
+def getDirection(a,b,d):
+    if a>b: return d*(-1)
+    else: return d
+
+new_loss = current_loss = getLoss()
+num_round = 5
+increment = 0.1
+step = increment
+weight_placeholder = 0
+direction = 0
+num_parameters = 3
+print('Searching initialized!')
+for i in range(num_round):
+    for k in range(num_parameters):
+        stop = False
+        print('Searching direction...')
+        while new_loss == current_loss:
+            weight[k] = weight[k] + step
+            right_loss = getLoss()
+            weight[k] = weight[k] - 2 * step
+            left_loss =getLoss()
+            weight[k] = weight[k] + step
+            if min(current_loss,left_loss,right_loss) == right_loss:
+                direction = 1
+                new_loss = right_loss
+                weight[k] = weight[k] + step
+            if min(current_loss,left_loss,right_loss) == left_loss:
+                direction = -1
+                new_loss = left_loss
+                weight[k] = weight[k] - step
+            if min(current_loss,left_loss,right_loss) == current_loss:
+                stop = True
+                print('already minimum')
+                break
+            if left_loss == right_loss == current_loss:
+                step = step + increment
+            print('round:', i, ',parameter index:', k, ',current loss:', current_loss, ',current step:',step,',current weight:',
+                  weight,',direction:',direction)
+        print('Searching minimum loss...')
+        while stop != True:
+            weight_placeholder = weight[k]
+            weight[k] = weight[k] + direction * increment
+            current_loss = new_loss
+            new_loss = getLoss()
+            if new_loss>current_loss:
+                stop = True
+                weight[k] = weight_placeholder
+                new_loss = current_loss
+            else:
+                print('round:', i, ',parameter index:', k, ',current loss:', current_loss, ',current step:', step,
+                      ',current weight:',weight)
+
 knn = neighbors.KNeighborsRegressor(weights='uniform',n_neighbors=5,metric=lambda x,y: mydist(x,y))
 knn.fit(train_dataset,train_labels)
 predict = knn.predict(valid_dataset)
-print(error(predict,valid_labels))
+loss = error(predict,valid_labels)
+print('minimum loss:',loss)
+print('best weight:',weight)
+
+
 
 assert False
 
