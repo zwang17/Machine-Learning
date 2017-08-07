@@ -4,101 +4,114 @@ from six.moves import cPickle as pickle
 import pandas as pd
 
 
-weight = [2.6,0.5,0.1,1.0,1.0,1.0,1.0]
-# weight = [1.0,0.6,0.1,1.0,1.0,1.0,1.0]
-#
-# def mydist(x,y):
-#     x,y = np.asarray(x),np.asarray(y)
-#     return np.dot((x-y)**2,weight)
-#
-# def error(predictions, labels):
-#     sum = 0.0
-#     for x in range(len(predictions)):
-#         p = np.log(predictions[x][0] + 1)
-#         r = np.log(labels[x][0] + 1)
-#         sum = sum + (p - r) ** 2
-#     return (sum / len(predictions)) ** 0.5
-#
-# with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_1_1.pickle', 'rb') as f:
-#     save = pickle.load(f)
-#     train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
-#         'valid_dataset'], save['valid_labels']
-#
-# train_dataset = train_dataset[:40000]
-# train_labels = train_labels[:40000]
-# valid_dataset = valid_dataset[:3000]
-# valid_labels = valid_labels[:3000]
-# print(train_dataset.shape)
-# print(valid_dataset.shape)
-#
-# def getLoss():
-#     knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
-#     knn.fit(train_dataset, train_labels)
-#     predict = knn.predict(valid_dataset)
-#     return error(predict,valid_labels)
-#
-# def getDirection(a,b,d):
-#     if a>b: return d*(-1)
-#     else: return d
-#
-# new_loss = current_loss = getLoss()
-# num_round = 5
-# increment = 0.1
-# step = increment
-# weight_placeholder = 0
-# direction = 0
-# num_parameters = 3
-# print('Searching initialized!')
-# for i in range(num_round):
-#     for k in range(num_parameters):
-#         stop = False
-#         print('Searching direction...')
-#         while new_loss == current_loss:
-#             weight[k] = weight[k] + step
-#             right_loss = getLoss()
-#             weight[k] = weight[k] - 2 * step
-#             left_loss =getLoss()
-#             weight[k] = weight[k] + step
-#             if right_loss<current_loss and right_loss<left_loss:
-#                 print('* direction found')
-#                 direction = 1
-#                 new_loss = right_loss
-#                 weight[k] = weight[k] + step
-#             elif left_loss<current_loss and left_loss<right_loss:
-#                 print('* direction found')
-#                 direction = -1
-#                 new_loss = left_loss
-#                 weight[k] = weight[k] - step
-#             elif current_loss<right_loss and current_loss<left_loss:
-#                 stop = True
-#                 print('* already minimum')
-#                 break
-#             else:
-#                 print('* step incremented')
-#                 step = step + increment
-#             print('round:', i, ', parameter index:', k, ', current loss:', current_loss, ', current step: %.1f'% step,', current weight:',
-#                   ['%.1f' % elem for elem in weight],',direction:',direction)
-#         if stop != True:
-#             print('Searching minimum loss...')
-#         while stop != True:
-#             weight_placeholder = weight[k]
-#             weight[k] = weight[k] + direction * increment
-#             current_loss = new_loss
-#             new_loss = getLoss()
-#             if new_loss>current_loss:
-#                 print('* minimum reached')
-#                 stop = True
-#                 weight[k] = weight_placeholder
-#                 new_loss = current_loss
-#             else:
-#                 print('round:', i, ', parameter index:', k, ', current loss:', current_loss,', current weight:',['%.1f' % elem for elem in weight])
-#
-# knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
-# knn.fit(train_dataset,train_labels)
-# predict = knn.predict(valid_dataset)
-# loss = error(predict,valid_labels)
-# print('minimum loss:',loss)
-# print('best weight:',weight)
+
+weight = [1.0]*7
+weight = [-0.2,1.1,1.25,0.7,1.25,0.35,1.2]
+mini_batch_size = 10
+
+def mydist(x,y):
+    x,y = np.asarray(x),np.asarray(y)
+    return np.dot((x-y)**2,weight)
+
+def error(predictions, labels):
+    sum = 0.0
+    for x in range(len(predictions)):
+        p = np.log(predictions[x][0] + 1)
+        r = np.log(labels[x][0] + 1)
+        sum = sum + (p - r) ** 2
+    return (sum / len(predictions)) ** 0.5
+
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_1_1.pickle', 'rb') as f:
+    save = pickle.load(f)
+    train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
+        'valid_dataset'], save['valid_labels']
+
+train_dataset = np.concatenate((train_dataset,valid_dataset))
+train_labels = np.concatenate((train_labels,valid_labels))
+print(train_dataset.shape)
+print(train_labels.shape)
+
+test_choice = np.random.choice(valid_dataset.shape[0], mini_batch_size, replace=False)
+test_data, test_label = train_dataset[test_choice,:], train_labels[test_choice,:]
+train_choice = np.delete(range(train_dataset.shape[0]),test_choice)
+train_data, train_label = train_dataset[train_choice,:], train_labels[train_choice,:]
+print(train_data.shape)
+print(test_data.shape)
+
+def batch_refresh():
+    global test_data,test_label,train_data,train_label
+    new_choice = np.random.choice(train_dataset.shape[0],mini_batch_size,replace=False)
+    test_data, test_labels = train_dataset[new_choice, :], train_labels[new_choice, :]
+    train_choice = np.delete(range(train_dataset.shape[0]), new_choice)
+    train_data, train_label = train_dataset[train_choice, :], train_labels[train_choice, :]
+
+def getLoss():
+    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
+    knn.fit(train_dataset, train_labels)
+    predict = knn.predict(test_data)
+    return error(predict,test_label)
+
+num_round = 40
+increment = 0.05
+weight_placeholder = 0
+direction = 0
+num_parameters = len(weight)
+print('Searching initialized!')
+print('Initial weight:',['%.2f' % elem for elem in weight])
+for i in range(num_round):
+    for k in range(num_parameters):
+        stop = False
+        batch_refresh()
+        print('Searching direction...')
+        new_loss = current_loss = getLoss()
+        step = increment
+        while new_loss == current_loss:
+            weight[k] = weight[k] + step
+            right_loss = getLoss()
+            weight[k] = weight[k] - 2 * step
+            left_loss =getLoss()
+            weight[k] = weight[k] + step
+            if right_loss<current_loss and right_loss<left_loss:
+                print('* direction found')
+                direction = 1
+                new_loss = right_loss
+                weight[k] = weight[k] + step
+            elif left_loss<current_loss and left_loss<right_loss:
+                print('* direction found')
+                direction = -1
+                new_loss = left_loss
+                weight[k] = weight[k] - step
+            elif current_loss<right_loss and current_loss<left_loss:
+                stop = True
+                print('* already minimum')
+                break
+            else:
+                print('* step incremented')
+                step = step + increment
+            print('round:', i, ', parameter index:', k, ', current loss:', current_loss, ', current step: %.2f'% step,', current weight:',
+                  ['%.2f' % elem for elem in weight],',direction:',direction)
+        if stop != True:
+            # print('Searching minimum loss...')
+            print('Taking a step...')
+        if stop != True:
+            weight_placeholder = weight[k]
+            weight[k] = weight[k] + direction * increment
+            current_loss = new_loss
+            new_loss = getLoss()
+            if new_loss>current_loss:
+                print('* minimum reached')
+                stop = True
+                weight[k] = weight_placeholder
+            else:
+                print('round:', i, ', parameter index:', k, ', current loss:', current_loss,', current weight:',['%.2f' % elem for elem in weight])
+
+
+knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
+knn.fit(train_dataset,train_labels)
+predict = knn.predict(valid_dataset)
+loss = error(predict,valid_labels)
+print('minimum loss:',loss)
+print('best weight:',weight)
 
 ######################################################################
 if input('Proceed to start submission?') != 'Y':

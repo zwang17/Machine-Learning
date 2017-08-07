@@ -10,7 +10,7 @@ class DataCluster():
 
     def ComputeCenter(self):
         center = self.dataList[0]
-        for a in range(0,len(center),1):
+        for a in range(len(center)):
             k = 0
             for b in self.dataList:
                 k = k + b[a]/self.sampleSize

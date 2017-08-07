@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import Cluster
 import sys
-sys.path.append('D:\Machine Learning\Machine-Learning\Linear_Regression')
+sys.path.append('D:\Machine-Learning\Linear_Regression')
 import Linear_Regression_Algorithm as LR
 
 class RBF_Network():
