@@ -3,8 +3,8 @@ import numpy as np
 from six.moves import cPickle as pickle
 import pandas as pd
 
-#
-# weight = [1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+
+weight = [2.6,0.5,0.1,1.0,1.0,1.0,1.0]
 # weight = [1.0,0.6,0.1,1.0,1.0,1.0,1.0]
 #
 # def mydist(x,y):
@@ -24,10 +24,10 @@ import pandas as pd
 #     train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
 #         'valid_dataset'], save['valid_labels']
 #
-# train_dataset = train_dataset[:20000]
-# train_labels = train_labels[:20000]
-# valid_dataset = valid_dataset[:2000]
-# valid_labels = valid_labels[:2000]
+# train_dataset = train_dataset[:40000]
+# train_labels = train_labels[:40000]
+# valid_dataset = valid_dataset[:3000]
+# valid_labels = valid_labels[:3000]
 # print(train_dataset.shape)
 # print(valid_dataset.shape)
 #
@@ -100,11 +100,9 @@ import pandas as pd
 # print('minimum loss:',loss)
 # print('best weight:',weight)
 
-
+######################################################################
 if input('Proceed to start submission?') != 'Y':
     assert False
-
-weight = [1.0,0.6,0.1,1.0,1.0,1.0,1.0]
 
 def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
