@@ -2,12 +2,13 @@ from sklearn import neighbors
 import numpy as np
 from six.moves import cPickle as pickle
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
-
-weight = [1.0]*7
 weight = [-0.2,1.1,1.25,0.7,1.25,0.35,1.2]
-mini_batch_size = 10
+weight = [-0.30,1.15,0.95,0.65,0.35,1.05,1.10]
+weight = [100]*6
+mini_batch_size = 30
 
 def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
@@ -21,43 +22,51 @@ def error(predictions, labels):
         sum = sum + (p - r) ** 2
     return (sum / len(predictions)) ** 0.5
 
-with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_1_1.pickle', 'rb') as f:
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_2_2.pickle', 'rb') as f:
     save = pickle.load(f)
     train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
         'valid_dataset'], save['valid_labels']
+### Minor data handling
+train_dataset = train_dataset[:,1:]
+valid_dataset = valid_dataset[:,1:]
+###
 
-train_dataset = np.concatenate((train_dataset,valid_dataset))
-train_labels = np.concatenate((train_labels,valid_labels))
 print(train_dataset.shape)
 print(train_labels.shape)
 
-test_choice = np.random.choice(valid_dataset.shape[0], mini_batch_size, replace=False)
-test_data, test_label = train_dataset[test_choice,:], train_labels[test_choice,:]
-train_choice = np.delete(range(train_dataset.shape[0]),test_choice)
-train_data, train_label = train_dataset[train_choice,:], train_labels[train_choice,:]
+X = np.concatenate((train_dataset,valid_dataset))
+Y = np.concatenate((train_labels,valid_labels))
+
+test_choice = np.random.choice(X.shape[0], mini_batch_size, replace=False)
+test_data, test_label = X[test_choice,:], Y[test_choice,:]
+train_choice = np.delete(range(X.shape[0]),test_choice)
+train_data, train_label = X[train_choice,:], Y[train_choice,:]
 print(train_data.shape)
 print(test_data.shape)
 
 def batch_refresh():
     global test_data,test_label,train_data,train_label
-    new_choice = np.random.choice(train_dataset.shape[0],mini_batch_size,replace=False)
-    test_data, test_labels = train_dataset[new_choice, :], train_labels[new_choice, :]
-    train_choice = np.delete(range(train_dataset.shape[0]), new_choice)
-    train_data, train_label = train_dataset[train_choice, :], train_labels[train_choice, :]
+    new_choice = np.random.choice(X.shape[0],mini_batch_size,replace=False)
+    test_data, test_labels = X[new_choice, :], Y[new_choice, :]
+    train_choice = np.delete(range(X.shape[0]), new_choice)
+    train_data, train_label = X[train_choice, :], Y[train_choice, :]
 
 def getLoss():
-    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
-    knn.fit(train_dataset, train_labels)
+    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
+    knn.fit(X, Y)
     predict = knn.predict(test_data)
     return error(predict,test_label)
 
 num_round = 40
-increment = 0.05
+increment = 1
 weight_placeholder = 0
 direction = 0
 num_parameters = len(weight)
+round_list = []
+loss_list = []
+weight_list = []
 print('Searching initialized!')
-print('Initial weight:',['%.2f' % elem for elem in weight])
+print('Initial weight:',['%.0f' % elem for elem in weight])
 for i in range(num_round):
     for k in range(num_parameters):
         stop = False
@@ -88,8 +97,8 @@ for i in range(num_round):
             else:
                 print('* step incremented')
                 step = step + increment
-            print('round:', i, ', parameter index:', k, ', current loss:', current_loss, ', current step: %.2f'% step,', current weight:',
-                  ['%.2f' % elem for elem in weight],',direction:',direction)
+            print('round:', i, ', parameter index:', k, ', current loss:', current_loss, ', current step: %.0f'% step,', current weight:',
+                  ['%.0f' % elem for elem in weight],',direction:',direction)
         if stop != True:
             # print('Searching minimum loss...')
             print('Taking a step...')
@@ -103,20 +112,27 @@ for i in range(num_round):
                 stop = True
                 weight[k] = weight_placeholder
             else:
-                print('round:', i, ', parameter index:', k, ', current loss:', current_loss,', current weight:',['%.2f' % elem for elem in weight])
-
-
-knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
-knn.fit(train_dataset,train_labels)
-predict = knn.predict(valid_dataset)
-loss = error(predict,valid_labels)
-print('minimum loss:',loss)
-print('best weight:',weight)
+                print('round:', i, ', parameter index:', k, ', current loss:', current_loss,', current weight:',['%.0f' % elem for elem in weight])
+    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
+    knn.fit(train_dataset,train_labels)
+    predict = knn.predict(valid_dataset)
+    loss = error(predict,valid_labels)
+    round_list.append(i)
+    loss_list.append(loss)
+    weight_list.append(weight)
+    print('Test Loss:',loss)
+plt.plot(round_list,loss_list)
+print('final weight:',weight)
+plt.show()
 
 ######################################################################
 if input('Proceed to start submission?') != 'Y':
     assert False
 
+if input('Use another weight?') == 'Y':
+    index = int(input('Enter the index of the weight to be used:'))
+    weight = weight_list[index]
+    
 def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
     return np.dot((x-y)**2,weight)
