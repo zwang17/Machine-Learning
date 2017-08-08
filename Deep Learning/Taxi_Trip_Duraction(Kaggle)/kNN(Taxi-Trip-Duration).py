@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 weight = [-0.2,1.1,1.25,0.7,1.25,0.35,1.2]
 weight = [-0.30,1.15,0.95,0.65,0.35,1.05,1.10]
-weight = [100]*6
-mini_batch_size = 30
+weight = [50]*6
+mini_batch_size = 50
 
 def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
@@ -97,12 +97,11 @@ for i in range(num_round):
             else:
                 print('* step incremented')
                 step = step + increment
-            print('round:', i, ', parameter index:', k, ', current loss:', current_loss, ', current step: %.0f'% step,', current weight:',
+            print('round:', i, ', parameter index:', k, ', current loss:', new_loss, ', current step: %.0f'% step,', current weight:',
                   ['%.0f' % elem for elem in weight],',direction:',direction)
         if stop != True:
             # print('Searching minimum loss...')
             print('Taking a step...')
-        if stop != True:
             weight_placeholder = weight[k]
             weight[k] = weight[k] + direction * increment
             current_loss = new_loss
@@ -112,7 +111,7 @@ for i in range(num_round):
                 stop = True
                 weight[k] = weight_placeholder
             else:
-                print('round:', i, ', parameter index:', k, ', current loss:', current_loss,', current weight:',['%.0f' % elem for elem in weight])
+                print('round:', i, ', parameter index:', k, ', current loss:', new_loss,', current weight:',['%.0f' % elem for elem in weight])
     knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
     knn.fit(train_dataset,train_labels)
     predict = knn.predict(valid_dataset)
