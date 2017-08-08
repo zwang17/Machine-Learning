@@ -4,12 +4,6 @@ from six.moves import cPickle as pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-weight = [-0.2,1.1,1.25,0.7,1.25,0.35,1.2]
-weight = [-0.30,1.15,0.95,0.65,0.35,1.05,1.10]
-weight = [50]*6
-mini_batch_size = 50
-
 def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
     return np.dot((x-y)**2,weight)
@@ -22,28 +16,6 @@ def error(predictions, labels):
         sum = sum + (p - r) ** 2
     return (sum / len(predictions)) ** 0.5
 
-with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_2_2.pickle', 'rb') as f:
-    save = pickle.load(f)
-    train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
-        'valid_dataset'], save['valid_labels']
-### Minor data handling
-train_dataset = train_dataset[:,1:]
-valid_dataset = valid_dataset[:,1:]
-###
-
-print(train_dataset.shape)
-print(train_labels.shape)
-
-X = np.concatenate((train_dataset,valid_dataset))
-Y = np.concatenate((train_labels,valid_labels))
-
-test_choice = np.random.choice(X.shape[0], mini_batch_size, replace=False)
-test_data, test_label = X[test_choice,:], Y[test_choice,:]
-train_choice = np.delete(range(X.shape[0]),test_choice)
-train_data, train_label = X[train_choice,:], Y[train_choice,:]
-print(train_data.shape)
-print(test_data.shape)
-
 def batch_refresh():
     global test_data,test_label,train_data,train_label
     new_choice = np.random.choice(X.shape[0],mini_batch_size,replace=False)
@@ -53,10 +25,28 @@ def batch_refresh():
 
 def getLoss():
     knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
-    knn.fit(X, Y)
+    knn.fit(train_data, train_label)
     predict = knn.predict(test_data)
     return error(predict,test_label)
 
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_2_2.pickle', 'rb') as f:
+    save = pickle.load(f)
+    train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
+        'valid_dataset'], save['valid_labels']
+
+X = np.concatenate((train_dataset,valid_dataset))
+Y = np.concatenate((train_labels,valid_labels))
+
+mini_batch_size = 50
+test_choice = np.random.choice(X.shape[0], mini_batch_size, replace=False)
+test_data, test_label = X[test_choice,:], Y[test_choice,:]
+train_choice = np.delete(range(X.shape[0]),test_choice)
+train_data, train_label = X[train_choice,:], Y[train_choice,:]
+print(X.shape)
+print(train_data.shape)
+print(test_data.shape)
+
+weight = [50,50,50,50,50,50,50]
 num_round = 40
 increment = 1
 weight_placeholder = 0
