@@ -85,8 +85,8 @@ for i in range(len(test_dataset)):
     submission[i].append(result[0][0])
 
 print(submission)
-if input('proceed?') != 'Y':
-    assert False
+while input('proceed?') != 'Y':
+    print('Invalid input')
 
 with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission_2.pickle','wb') as f:
     save = {'submission':submission}

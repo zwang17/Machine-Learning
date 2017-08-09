@@ -70,8 +70,8 @@ for i in range(len(test_dataset)):
     # plt.show()
     submission.append(np.argmax(result))
 
-if input('proceed?') != 'Y':
-    assert False
+while input('proceed?') != 'Y':
+    print('Invalid input')
 
 with open('D:\\Google Drive\\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission.pickle','wb') as f:
     save = {'submission':submission}

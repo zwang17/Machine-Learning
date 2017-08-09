@@ -22,8 +22,8 @@ submission = np.insert(submission,0,[['ImageId','Label']],axis=0)
 
 print(submission)
 
-if input('Proceed?') != 'Y':
-    assert False
+while input('Proceed?') != 'Y':
+    print('Invalid input')
 
 df = pd.DataFrame(submission)
 df.to_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Digit Recognizer(Kaggle)\\submission6.csv',index=False,header=False)

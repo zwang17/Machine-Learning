@@ -38,14 +38,14 @@ file_4 = 'submission_from_test_4.pickle.pickle'
 submission = Combine(file_1,file_2,file_3,file_4)
 
 print(submission.shape)
-if input('Proceed?') != 'Y':
-    assert False
+while input('Proceed?') != 'Y':
+    print('Invalid input')
 
 df = pd.DataFrame(submission)
 df.to_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission.csv',index=False,header=False)
 
-# if input('Proceed?') != 'Y':
-#     assert False
+# while input('Proceed?') != 'Y':
+#     print('Invalid input')
 #
 # with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_2.pickle','wb') as f:
 #     save = {'train_dataset':train_dataset,'train_labels':train_labels,'valid_dataset':valid_dataset,'valid_labels':valid_labels,

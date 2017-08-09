@@ -115,7 +115,7 @@ with tf.Session(graph=graph) as session:
             print("Validation error: %.5f" % v_e)
             plt.plot(itera, v_er_list)
             plt.show()
-            if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
+            while input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 
@@ -211,7 +211,7 @@ with tf.Session(graph=graph) as session:
             print("Validation error: %.5f" % v_e)
             plt.plot(itera, v_er_list)
             plt.show()
-            if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
+            while input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 

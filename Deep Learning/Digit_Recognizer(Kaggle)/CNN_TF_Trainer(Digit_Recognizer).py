@@ -153,7 +153,7 @@ with tf.Session(graph=graph) as session:
             valid_prediction.eval({tf_valid_dataset: valid_dataset, keep_prob: 1.0}), valid_labels))
         plt.plot(itera, v_ac_list)
         plt.show()
-        if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
+        while input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
   saver.save(session,

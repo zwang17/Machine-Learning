@@ -120,7 +120,7 @@ with tf.Session(graph=graph) as session:
             print("Test accuracy: %.1f%%" % t_a)
             plt.plot(itera, v_ac_list)
             plt.show()
-            if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
+            while input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
                 inc = input("Increment by how many steps? \n")
                 num_steps = num_steps + int(inc)
 

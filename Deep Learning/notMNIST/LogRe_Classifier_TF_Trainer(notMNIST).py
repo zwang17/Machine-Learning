@@ -165,7 +165,7 @@ with tf.Session(graph=graph) as session:
       print("Validation accuracy: %.1f%%" % accuracy(
         valid_prediction.eval(), valid_labels))
     if (step == num_steps - 2):
-        if input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
+        while input("Optimization about to terminate. Do you want to proceed further? [Y/N] \n") == 'Y':
             inc = input("Increment by how many steps? \n")
             num_steps = num_steps + int(inc)
     step += 1

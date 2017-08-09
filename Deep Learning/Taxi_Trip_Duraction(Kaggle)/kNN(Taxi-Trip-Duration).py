@@ -40,28 +40,30 @@ def weight_normalize():
     sum = 0
     for i in weight: sum+=i
     for i in range(len(weight)): weight[i] = weight[i]/sum * 100
-with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_1_1.pickle', 'rb') as f:
+
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_1_1.pickle', 'rb') as f:
     save = pickle.load(f)
     train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
         'valid_dataset'], save['valid_labels']
 
 X = np.concatenate((train_dataset,valid_dataset))
 Y = np.concatenate((train_labels,valid_labels))
-
-mini_batch_size = 100
+print(X.shape)
+print(Y.shape)
+mini_batch_size = 80
 test_choice = np.random.choice(X.shape[0], mini_batch_size, replace=False)
 test_data, test_label = X[test_choice,:], Y[test_choice,:]
 train_choice = np.delete(range(X.shape[0]),test_choice)
 train_data, train_label = X[train_choice,:], Y[train_choice,:]
-print(X.shape)
+print('Partitioned')
 print(train_data.shape)
 print(test_data.shape)
 
 
-weight = [12.546592, 13.30468489, 6.90091096, 17.37350934, 15.53633171, 17.0340008, 17.30397031]
-num_round = 11
-step = 0.05
-learning_rate = 15
+weight = [1.000]*13
+num_round = 101
+step = 0.02
+learning_rate = 1
 num_parameters = len(weight)
 round_list = []
 loss_list = []
@@ -84,14 +86,18 @@ for i in range(num_round):
         left_loss = getLoss(type='mse')
         weight[k] = weight[k] + step
         gradient[k] = (right_loss - left_loss)/(2*step)
+        print(gradient[k])
         if gradient[k] == 0.0:
             print('*flat')
     weight = weight - learning_rate * gradient
+    for a in range(len(weight)):
+        if weight[a] < 0:
+            weight[a] = 0
     weight_normalize()
     # loss = getLoss(type='mse')
     # print('round:', i, ', current loss:', loss, ', current weight:',['%.4f' % elem for elem in weight])
     print('round:', i, ', current weight:', ['%.4f' % elem for elem in weight])
-    if i % 5 == 0:
+    if i % 10 == 0:
         knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
         knn.fit(train_dataset,train_labels)
         predict = knn.predict(valid_dataset)
@@ -105,19 +111,26 @@ print('final weight:',weight)
 plt.show()
 
 ######################################################################
-if input('Proceed to start submission?') != 'Y':
-    assert False
+while input('Proceed to start submission?') != 'Y':
+    print('Invalid input')
 
-if input('Use another weight?') == 'Y':
-    index = int(input('Enter the index of the weight to be used:'))
-    weight = weight_list[index]
-    
+valid = True
+while valid:
+    back = input('Use another weight?')
+    if back == 'Y':
+        valid = False
+        index = int(input('Enter the index of the weight to be used:'))
+        weight = weight_list[index]
+    if back == 'N':
+        valid == False
+    else: print('Invalid input')
+
 def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
     return np.dot((x-y)**2,weight)
 
 def fetch_train(ven,day):
-    with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_{}_{}.pickle'.format(ven,day),'rb') as f:
+    with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(ven,day),'rb') as f:
         save = pickle.load(f)
         train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'],save['train_labels'],save['valid_dataset'],save['valid_labels']
     train_dataset = np.concatenate((train_dataset,valid_dataset))
@@ -125,7 +138,7 @@ def fetch_train(ven,day):
     return train_dataset,train_labels
 
 def fetch_test(ven,day):
-    with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_data\\test_{}_{}.pickle'.format(ven,day),'rb') as f:
+    with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_data_final\\test_{}_{}.pickle'.format(ven,day),'rb') as f:
         save = pickle.load(f)
     return save['test_dataset']
 
@@ -136,7 +149,7 @@ def getPrediction(ven,day):
     for i in range(len(test_dataset)):
         prediction.append([])
         prediction[i].append(test_dataset[i][0])
-    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=6, metric=lambda x, y: mydist(x, y))
+    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
     knn.fit(train_dataset,train_labels)
     predict = knn.predict(test_dataset[:,1:])
     prediction = np.concatenate((prediction,predict),axis=1)
@@ -149,13 +162,9 @@ for v in [1,2]:
         submission = np.concatenate((submission,getPrediction(v,i)))
         print('vendor',v,' day',i,' completed!')
 
-for i in range(1,submission.shape[0],1):
-    if i % 5000 == 0:
-        print(i/submission.shape[0]*100,'%')
-    submission[i][1] = float(submission[i][1]) * 60
 print(submission.shape)
 
-if input('Proceed to form submission?') != 'Y':
-    assert False
+while input('Proceed to form submission?') != 'Y':
+    print('Invalid input')
 df = pd.DataFrame(submission)
 df.to_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission.csv',index=False,header=False)
