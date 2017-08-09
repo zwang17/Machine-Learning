@@ -8,6 +8,11 @@ def mydist(x,y):
     x,y = np.asarray(x),np.asarray(y)
     return np.dot((x-y)**2,weight)
 
+def mse(predictions, labels):
+    sum = 0.0
+    for i in range(len(predictions)):
+        sum = sum + (predictions[i][0]-labels[i][0])**2
+    return (sum / len(predictions)) ** 0.5
 def error(predictions, labels):
     sum = 0.0
     for x in range(len(predictions)):
@@ -19,17 +24,23 @@ def error(predictions, labels):
 def batch_refresh():
     global test_data,test_label,train_data,train_label
     new_choice = np.random.choice(X.shape[0],mini_batch_size,replace=False)
-    test_data, test_labels = X[new_choice, :], Y[new_choice, :]
+    test_data, test_label = X[new_choice, :], Y[new_choice, :]
     train_choice = np.delete(range(X.shape[0]), new_choice)
     train_data, train_label = X[train_choice, :], Y[train_choice, :]
 
-def getLoss():
+def getLoss(type='error'):
     knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
     knn.fit(train_data, train_label)
     predict = knn.predict(test_data)
+    if type == 'mse':
+        return mse(predict,test_label)
     return error(predict,test_label)
 
-with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_2_2.pickle', 'rb') as f:
+def weight_normalize():
+    sum = 0
+    for i in weight: sum+=i
+    for i in range(len(weight)): weight[i] = weight[i]/sum * 100
+with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data\\train_1_1.pickle', 'rb') as f:
     save = pickle.load(f)
     train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
         'valid_dataset'], save['valid_labels']
@@ -37,7 +48,7 @@ with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\
 X = np.concatenate((train_dataset,valid_dataset))
 Y = np.concatenate((train_labels,valid_labels))
 
-mini_batch_size = 50
+mini_batch_size = 100
 test_choice = np.random.choice(X.shape[0], mini_batch_size, replace=False)
 test_data, test_label = X[test_choice,:], Y[test_choice,:]
 train_choice = np.delete(range(X.shape[0]),test_choice)
@@ -46,70 +57,49 @@ print(X.shape)
 print(train_data.shape)
 print(test_data.shape)
 
-weight = [50,50,50,50,50,50,50]
-num_round = 40
-increment = 1
-weight_placeholder = 0
-direction = 0
+
+weight = [12.546592, 13.30468489, 6.90091096, 17.37350934, 15.53633171, 17.0340008, 17.30397031]
+num_round = 11
+step = 0.05
+learning_rate = 15
 num_parameters = len(weight)
 round_list = []
 loss_list = []
 weight_list = []
+weight = np.asarray(weight)
+gradient = np.asarray([0.0]*weight.shape[0])
 print('Searching initialized!')
-print('Initial weight:',['%.0f' % elem for elem in weight])
+weight_normalize()
+print('Initial weight:',['%.4f' % elem for elem in weight])
 for i in range(num_round):
+    batch_refresh()
+    # print('Initial loss: {}'.format(getLoss(type='mse')))
     for k in range(num_parameters):
-        stop = False
-        batch_refresh()
-        print('Searching direction...')
-        new_loss = current_loss = getLoss()
-        step = increment
-        while new_loss == current_loss:
-            weight[k] = weight[k] + step
-            right_loss = getLoss()
-            weight[k] = weight[k] - 2 * step
-            left_loss =getLoss()
-            weight[k] = weight[k] + step
-            if right_loss<current_loss and right_loss<left_loss:
-                print('* direction found')
-                direction = 1
-                new_loss = right_loss
-                weight[k] = weight[k] + step
-            elif left_loss<current_loss and left_loss<right_loss:
-                print('* direction found')
-                direction = -1
-                new_loss = left_loss
-                weight[k] = weight[k] - step
-            elif current_loss<right_loss and current_loss<left_loss:
-                stop = True
-                print('* already minimum')
-                break
-            else:
-                print('* step incremented')
-                step = step + increment
-            print('round:', i, ', parameter index:', k, ', current loss:', new_loss, ', current step: %.0f'% step,', current weight:',
-                  ['%.0f' % elem for elem in weight],',direction:',direction)
-        if stop != True:
-            # print('Searching minimum loss...')
-            print('Taking a step...')
-            weight_placeholder = weight[k]
-            weight[k] = weight[k] + direction * increment
-            current_loss = new_loss
-            new_loss = getLoss()
-            if new_loss>current_loss:
-                print('* minimum reached')
-                stop = True
-                weight[k] = weight_placeholder
-            else:
-                print('round:', i, ', parameter index:', k, ', current loss:', new_loss,', current weight:',['%.0f' % elem for elem in weight])
-    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=10, metric=lambda x, y: mydist(x, y))
-    knn.fit(train_dataset,train_labels)
-    predict = knn.predict(valid_dataset)
-    loss = error(predict,valid_labels)
-    round_list.append(i)
-    loss_list.append(loss)
-    weight_list.append(weight)
-    print('Test Loss:',loss)
+        print("Looking for gradient on parameter {}".format(k))
+        direction = 0
+        amount = 0
+        weight[k] = weight[k] + step
+        right_loss = getLoss(type='mse')
+        weight[k] = weight[k] - 2 * step
+        left_loss = getLoss(type='mse')
+        weight[k] = weight[k] + step
+        gradient[k] = (right_loss - left_loss)/(2*step)
+        if gradient[k] == 0.0:
+            print('*flat')
+    weight = weight - learning_rate * gradient
+    weight_normalize()
+    # loss = getLoss(type='mse')
+    # print('round:', i, ', current loss:', loss, ', current weight:',['%.4f' % elem for elem in weight])
+    print('round:', i, ', current weight:', ['%.4f' % elem for elem in weight])
+    if i % 5 == 0:
+        knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
+        knn.fit(train_dataset,train_labels)
+        predict = knn.predict(valid_dataset)
+        loss = error(predict,valid_labels)
+        round_list.append(i)
+        loss_list.append(loss)
+        weight_list.append(weight)
+        print('Test Loss at round {}: {}'.format(i,loss))
 plt.plot(round_list,loss_list)
 print('final weight:',weight)
 plt.show()
