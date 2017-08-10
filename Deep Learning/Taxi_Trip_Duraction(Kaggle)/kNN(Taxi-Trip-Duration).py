@@ -5,7 +5,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def mydist(x,y):
-    x,y = np.asarray(x),np.asarray(y)
     return np.dot((x-y)**2,weight)
 
 def mse(predictions, labels):
@@ -79,8 +78,6 @@ for i in range(num_round):
     # print('Initial loss: {}'.format(getLoss(type='mse')))
     for k in range(num_parameters):
         print("Looking for gradient on parameter {}".format(k))
-        direction = 0
-        amount = 0
         weight[k] = weight[k] + step
         right_loss = getLoss(type='mse')
         weight[k] = weight[k] - 2 * step
