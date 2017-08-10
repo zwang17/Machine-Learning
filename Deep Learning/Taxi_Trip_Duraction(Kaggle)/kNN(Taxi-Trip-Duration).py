@@ -13,6 +13,7 @@ def mse(predictions, labels):
     for i in range(len(predictions)):
         sum = sum + (predictions[i][0]-labels[i][0])**2
     return (sum / len(predictions)) ** 0.5
+
 def error(predictions, labels):
     sum = 0.0
     for x in range(len(predictions)):
@@ -59,11 +60,11 @@ print('Partitioned')
 print(train_data.shape)
 print(test_data.shape)
 
-
 weight = [1.000]*13
-num_round = 101
+weight = [6.5426, 7.8463, 9.8443, 8.7176, 7.8711, 5.8264, 7.6808, 7.8433, 6.9862, 7.2145, 7.1223, 9.2469, 7.2577]
+num_round = 51
 step = 0.02
-learning_rate = 1
+learning_rate = 3
 num_parameters = len(weight)
 round_list = []
 loss_list = []
@@ -85,7 +86,7 @@ for i in range(num_round):
         weight[k] = weight[k] - 2 * step
         left_loss = getLoss(type='mse')
         weight[k] = weight[k] + step
-        gradient[k] = (right_loss - left_loss)/(2*step)
+        gradient[k] = right_loss - left_loss
         print(gradient[k])
         if gradient[k] == 0.0:
             print('*flat')
@@ -122,7 +123,7 @@ while valid:
         index = int(input('Enter the index of the weight to be used:'))
         weight = weight_list[index]
     if back == 'N':
-        valid == False
+        valid = False
     else: print('Invalid input')
 
 def mydist(x,y):
