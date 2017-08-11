@@ -4,6 +4,7 @@ from six.moves import cPickle as pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def mydist(x,y):
     return np.dot((x-y)**2,weight)
 
