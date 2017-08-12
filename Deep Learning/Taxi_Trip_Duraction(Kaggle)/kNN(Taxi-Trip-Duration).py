@@ -5,16 +5,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def mydist(x,y):
-    return np.dot((x-y)**2,weight)
-
 def mse(predictions, labels):
     sum = 0.0
     for i in range(len(predictions)):
         sum = sum + (predictions[i][0]-labels[i][0])**2
     return (sum / len(predictions)) ** 0.5
 
-def error(predictions, labels):
+def rmsle(predictions, labels):
     sum = 0.0
     for x in range(len(predictions)):
         p = np.log(predictions[x][0] + 1)
@@ -22,111 +19,103 @@ def error(predictions, labels):
         sum = sum + (p - r) ** 2
     return (sum / len(predictions)) ** 0.5
 
-def batch_refresh():
-    global test_data,test_label,train_data,train_label
-    new_choice = np.random.choice(X.shape[0],mini_batch_size,replace=False)
+def batch_refresh(X,Y,size):
+    new_choice = np.random.choice(X.shape[0],size,replace=False)
     test_data, test_label = X[new_choice, :], Y[new_choice, :]
     train_choice = np.delete(range(X.shape[0]), new_choice)
     train_data, train_label = X[train_choice, :], Y[train_choice, :]
+    return train_data,train_label,test_data,test_label
 
-def getLoss(type='error'):
-    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
-    knn.fit(train_data, train_label)
-    predict = knn.predict(test_data)
+def constrcutWeightMatrix(weight):
+    weightMatrix = []
+    for i in range(len(weight)):
+        weightMatrix.append([0]*len(weight))
+    for i in range(len(weight)):
+        weightMatrix[i][i] = weight[i]
+    return weightMatrix
+
+def getLoss(train_data,train_label,test_data,test_label,weight,type='rmsle'):
+    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric='euclidean',n_jobs=-1)
+    knn.fit(np.dot(train_data,constrcutWeightMatrix(weight)), train_label)
+    predict = knn.predict(np.dot(test_data,constrcutWeightMatrix(weight)))
     if type == 'mse':
         return mse(predict,test_label)
-    return error(predict,test_label)
+    return rmsle(predict,test_label)
 
-def weight_normalize():
+def weight_normalize(w):
     sum = 0
-    for i in weight: sum+=i
-    for i in range(len(weight)): weight[i] = weight[i]/sum * 100
+    for i in w: sum+=i
+    for i in range(len(w)): w[i] = w[i]/sum * 100
+    return w
 
-with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_1_1.pickle', 'rb') as f:
-    save = pickle.load(f)
-    train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
-        'valid_dataset'], save['valid_labels']
+weight_dic = {}
+def train(vendor,day):
+    print('training for vendor {} day {}'.format(vendor,day))
+    with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(vendor,day), 'rb') as f:
+        save = pickle.load(f)
+        train_dataset, train_labels, valid_dataset, valid_labels = save['train_dataset'], save['train_labels'], save[
+            'valid_dataset'], save['valid_labels']
 
-X = np.concatenate((train_dataset,valid_dataset))
-Y = np.concatenate((train_labels,valid_labels))
-print(X.shape)
-print(Y.shape)
-mini_batch_size = 80
-test_choice = np.random.choice(X.shape[0], mini_batch_size, replace=False)
-test_data, test_label = X[test_choice,:], Y[test_choice,:]
-train_choice = np.delete(range(X.shape[0]),test_choice)
-train_data, train_label = X[train_choice,:], Y[train_choice,:]
-print('Partitioned')
-print(train_data.shape)
-print(test_data.shape)
+    X = np.concatenate((train_dataset,valid_dataset))
+    Y = np.concatenate((train_labels,valid_labels))
+    print(X.shape)
+    print(Y.shape)
+    mini_batch_size = 80
+    print('Minibatch size: {}'.format(mini_batch_size))
+    weight = [1.0]*len(X[0])
+    num_round = 51
+    step = 0.5
+    learning_rate = 8
+    num_parameters = len(weight)
+    round_list = []
+    mse_loss_list = []
+    rmsle_loss_list = []
+    weight = np.asarray(weight)
+    gradient = np.asarray([0.0]*weight.shape[0])
+    print('Searching initialized!')
+    weight = weight_normalize(weight)
+    print('Initial weight:',['%.4f' % elem for elem in weight])
+    for i in range(num_round):
+        train_data,train_label,test_data,test_label = batch_refresh(X,Y,mini_batch_size)
+        # print('Initial loss: {}'.format(getLoss(type='mse')))
+        for k in range(num_parameters):
+            print("Looking for gradient on parameter {}".format(k))
+            weight[k] = weight[k] + step
+            right_loss = getLoss(train_data,train_label,test_data,test_label,weight,type='rmsle')
+            weight[k] = weight[k] - 2 * step
+            left_loss = getLoss(train_data,train_label,test_data,test_label,weight,type='rmsle')
+            weight[k] = weight[k] + step
+            gradient[k] = (right_loss - left_loss)/step
+            print('{:f}'.format(gradient[k]))
+            if gradient[k] == 0.0:
+                print('*flat')
+        weight = weight - learning_rate * gradient
+        for a in range(len(weight)):
+            if weight[a] < 0:
+                weight[a] = 0
+        weight = weight_normalize(weight)
+        print('round:', i, ', current weight:',['%.4f' % elem for elem in weight])
+        if i % 20 == 0:
+            knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric='euclidean',n_jobs=-1)
+            knn.fit(np.dot(train_dataset,constrcutWeightMatrix(weight)),train_labels)
+            predict = knn.predict(np.dot(valid_dataset,constrcutWeightMatrix(weight)))
+            mse_loss = mse(predict,valid_labels)
+            rmsle_loss = rmsle(predict,valid_labels)
+            round_list.append(i)
+            mse_loss_list.append(mse_loss)
+            rmsle_loss_list.append(rmsle_loss)
+            print('Test mse Loss at round {}: {}'.format(i,mse_loss))
+            print('Test rmsle Loss at round {}: {}'.format(i,rmsle_loss))
+    print('final weight:',weight)
+    weight_dic['weight_{}_{}'.format(vendor,day)] = weight
 
-weight = [1.000]*13
-weight = [6.5426, 7.8463, 9.8443, 8.7176, 7.8711, 5.8264, 7.6808, 7.8433, 6.9862, 7.2145, 7.1223, 9.2469, 7.2577]
-num_round = 51
-step = 0.02
-learning_rate = 3
-num_parameters = len(weight)
-round_list = []
-loss_list = []
-weight_list = []
-weight = np.asarray(weight)
-gradient = np.asarray([0.0]*weight.shape[0])
-print('Searching initialized!')
-weight_normalize()
-print('Initial weight:',['%.4f' % elem for elem in weight])
-for i in range(num_round):
-    batch_refresh()
-    # print('Initial loss: {}'.format(getLoss(type='mse')))
-    for k in range(num_parameters):
-        print("Looking for gradient on parameter {}".format(k))
-        weight[k] = weight[k] + step
-        right_loss = getLoss(type='mse')
-        weight[k] = weight[k] - 2 * step
-        left_loss = getLoss(type='mse')
-        weight[k] = weight[k] + step
-        gradient[k] = right_loss - left_loss
-        print(gradient[k])
-        if gradient[k] == 0.0:
-            print('*flat')
-    weight = weight - learning_rate * gradient
-    for a in range(len(weight)):
-        if weight[a] < 0:
-            weight[a] = 0
-    weight_normalize()
-    # loss = getLoss(type='mse')
-    # print('round:', i, ', current loss:', loss, ', current weight:',['%.4f' % elem for elem in weight])
-    print('round:', i, ', current weight:', ['%.4f' % elem for elem in weight])
-    if i % 10 == 0:
-        knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
-        knn.fit(train_dataset,train_labels)
-        predict = knn.predict(valid_dataset)
-        loss = error(predict,valid_labels)
-        round_list.append(i)
-        loss_list.append(loss)
-        weight_list.append(weight)
-        print('Test Loss at round {}: {}'.format(i,loss))
-plt.plot(round_list,loss_list)
-print('final weight:',weight)
-plt.show()
+for v in [1,2]:
+    for i in range(7):
+        train(v,i)
 
-######################################################################
+#####################################################################
 while input('Proceed to start submission?') != 'Y':
     print('Invalid input')
-
-valid = True
-while valid:
-    back = input('Use another weight?')
-    if back == 'Y':
-        valid = False
-        index = int(input('Enter the index of the weight to be used:'))
-        weight = weight_list[index]
-    if back == 'N':
-        valid = False
-    else: print('Invalid input')
-
-def mydist(x,y):
-    x,y = np.asarray(x),np.asarray(y)
-    return np.dot((x-y)**2,weight)
 
 def fetch_train(ven,day):
     with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(ven,day),'rb') as f:
@@ -148,9 +137,10 @@ def getPrediction(ven,day):
     for i in range(len(test_dataset)):
         prediction.append([])
         prediction[i].append(test_dataset[i][0])
-    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric=lambda x, y: mydist(x, y))
-    knn.fit(train_dataset,train_labels)
-    predict = knn.predict(test_dataset[:,1:])
+    knn = neighbors.KNeighborsRegressor(weights='distance', n_neighbors=20, metric='euclidean',n_jobs=-1)
+    w = weight_dic['weight_{}_{}'.format(ven,day)]
+    knn.fit(np.dot(train_dataset,constrcutWeightMatrix(w)),train_labels)
+    predict = knn.predict(np.dot(test_dataset[:,1:],constrcutWeightMatrix(w)))
     prediction = np.concatenate((prediction,predict),axis=1)
     return prediction
 
@@ -159,11 +149,6 @@ for v in [1,2]:
     for i in range(7):
         print('Predicting file test_{}_{}.pickle...'.format(v,i))
         submission = np.concatenate((submission,getPrediction(v,i)))
-        print('vendor',v,' day',i,' completed!')
-
-print(submission.shape)
-
-while input('Proceed to form submission?') != 'Y':
-    print('Invalid input')
+        print(submission.shape)
 df = pd.DataFrame(submission)
 df.to_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\submission.csv',index=False,header=False)

@@ -4,8 +4,8 @@ import re
 from math import radians, cos, sin, asin, sqrt
 from six.moves import cPickle as pickle
 
-train_data = pd.read_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_processed_final.csv')
-train_data = train_data.reset_index(drop=True)
+# train_data = pd.read_csv('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\test_processed_final.csv')
+# train_data = train_data.reset_index(drop=True)
 
 ##### Data Processing
 # print('Augmenting data...')
@@ -180,18 +180,17 @@ train_data = train_data.reset_index(drop=True)
 ####################################################################
 ##### Pickling
 # train_switch = False
-#
 # print("Selecting features...")
-# # train_data = train_data[['normalized_passenger_count','normalized_pickup_time','normalized_trip_distance_Euclidean',
-# #                          'normalized_trip_distance_Manhattan','normalized_pickup_longitude','normalized_pickup_latitude',
-# #                          'normalized_dropoff_longitude','normalized_dropoff_latitude','normalized_average_temperature',
-# #                          'normalized_maximum_temperature','normalized_minimum_temperature','normalized_precipitation',
-# #                          'normalized_snow_fall','vendor_id','week_day','trip_duration']] ##
-# train_data = train_data[['id','normalized_passenger_count','normalized_pickup_time','normalized_trip_distance_Euclidean',
-#                          'normalized_trip_distance_Manhattan','normalized_pickup_longitude','normalized_pickup_latitude',
-#                          'normalized_dropoff_longitude','normalized_dropoff_latitude','normalized_average_temperature',
-#                          'normalized_maximum_temperature','normalized_minimum_temperature','normalized_precipitation',
-#                          'normalized_snow_fall','vendor_id','week_day']] #
+# if train_switch == True:
+#     train_data = train_data[['normalized_passenger_count','normalized_pickup_time','normalized_trip_distance_Euclidean',
+#                              'normalized_trip_distance_Manhattan','normalized_pickup_longitude','normalized_pickup_latitude',
+#                              'normalized_dropoff_longitude','normalized_dropoff_latitude',
+#                              'normalized_snow_fall','vendor_id','week_day','trip_duration']] ##
+# else:
+#     train_data = train_data[['id','normalized_passenger_count','normalized_pickup_time','normalized_trip_distance_Euclidean',
+#                              'normalized_trip_distance_Manhattan','normalized_pickup_longitude','normalized_pickup_latitude',
+#                              'normalized_dropoff_longitude','normalized_dropoff_latitude',
+#                              'normalized_snow_fall','vendor_id','week_day']] #
 #
 #
 # print("Separating weekdays and vendors...")
@@ -264,27 +263,28 @@ train_data = train_data.reset_index(drop=True)
 # assert False
 ####################################
 ##### Data Partitioning
-for v in [1,2]:
-    for i in range(7):
-        with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(v,i),'rb') as f:
-            save = pickle.load(f)
-            train_dataset = save['train_dataset']
-            train_labels = save['train_labels']
-            length = train_dataset.shape[0]
-        print(length)
-        valid_size = int(input('Validation size: '))
-        valid_dataset = train_dataset[:valid_size]
-        valid_labels = train_labels[:valid_size]
-        train_dataset = train_dataset[valid_size:]
-        train_labels = train_labels[valid_size:]
-        print(train_dataset.shape)
-        print(train_labels.shape)
-        print(valid_dataset.shape)
-        print(valid_labels.shape)
-
-        while input('proceed?') != 'Y':
-            print('Invalid input')
-
-        with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(v,i),'wb') as f:
-            save = {'train_dataset':train_dataset,'train_labels':train_labels,'valid_dataset':valid_dataset,'valid_labels':valid_labels}
-            pickle.dump(save,f,protocol=2)
+# for v in [1,2]:
+#     for i in range(7):
+#         with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(v,i),'rb') as f:
+#             save = pickle.load(f)
+#             train_dataset = save['train_dataset']
+#             train_labels = save['train_labels']
+#             length = train_dataset.shape[0]
+#         print(length)
+#         # valid_size = int(input('Validation size: '))
+#         valid_size = 8000
+#         valid_dataset = train_dataset[:valid_size]
+#         valid_labels = train_labels[:valid_size]
+#         train_dataset = train_dataset[valid_size:]
+#         train_labels = train_labels[valid_size:]
+#         print(train_dataset.shape)
+#         print(train_labels.shape)
+#         print(valid_dataset.shape)
+#         print(valid_labels.shape)
+#
+#         while input('proceed?') != 'Y':
+#             print('Invalid input')
+#
+#         with open('D:\\Google Drive\\Deep_Learning_Data\Data\Taxi Trip Duration(Kaggle)\\train_data_final\\train_{}_{}.pickle'.format(v,i),'wb') as f:
+#             save = {'train_dataset':train_dataset,'train_labels':train_labels,'valid_dataset':valid_dataset,'valid_labels':valid_labels}
+#             pickle.dump(save,f,protocol=2)
