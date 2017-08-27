@@ -35,7 +35,7 @@ saver = tf.train.import_meta_graph('D:\\Google Drive\\Deep_Learning_Data\\Model\
 saver.restore(session,'D:\\Google Drive\\Deep_Learning_Data\\Model\\MNIST\\{}\\Saved'.format(model))
 graph = tf.get_default_graph()
 
-### Test Accuracy
+## Test Accuracy
 test_prediction = graph.get_tensor_by_name('test_prediction:0')
 tf_test_dataset = graph.get_tensor_by_name('tf_test_dataset:0')
 
@@ -51,7 +51,7 @@ for i in range(len(test_dataset)):
     plt.show()
 print("Test accuracy: ", accu,"%")
 
-### Test One
+## Test One
 # def imagePreprocess(location):
 #     testPic = mpimg.imread(location)
 #     testPic = np.reshape(testPic[:,:,:1],(28,28))
@@ -59,7 +59,7 @@ print("Test accuracy: ", accu,"%")
 #     plt.imshow(testPic,cmap="gray")
 #     testPic = np.reshape(testPic,(1, 28, 28, 1))
 #     return testPic
-# test_input = imagePreprocess("Hand Written Letter Samples\\83.png")
+# test_input = imagePreprocess("Hand Written Letter Samples\\New Test.png")
 #
 # test_prediction_one = graph.get_tensor_by_name('test_prediction_one:0')
 # tf_test_one = graph.get_tensor_by_name('tf_test_one:0')
